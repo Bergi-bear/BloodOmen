@@ -1,0 +1,9 @@
+[Misc]
+CallForHelp=300.0
+CreepCallForHelp=300.0
+HeroFactorXP=100
+IntManaBonus=25.0
+IntRegenBonus=0.05
+MaxHeroLevel=25
+StrRegenBonus=0.001
+

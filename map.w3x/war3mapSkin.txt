@@ -1,0 +1,6 @@
+[Categories]
+UndeadClass=TRIGSTR_269
+
+[FrameDef]
+INVENTORY=TRIGSTR_234
+

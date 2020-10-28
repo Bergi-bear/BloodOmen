@@ -1,0 +1,177 @@
+Frame "SIMPLESTATUSBAR" "MyFakeBar" {
+	Width 0.2, //Default Width
+	Height 0.02, //Default Height
+	BarTexture "Replaceabletextures\Teamcolor\Teamcolor00.blp", //Default BarTexture
+
+	Layer "BACKGROUND" { //A simpleFrames thing, where this is placed layer wise
+		SetAllPoints,
+		Texture "MyFakeBarBackground"{ //the BACKGROUND Texture named "MyBarExBackground" its also a frame and a child
+			SetAllPoints,
+			File "Replaceabletextures\Teamcolor\Teamcolor27.blp", //Default Texture for "MyBarExBackground"
+		}
+	}
+
+	Frame "SIMPLEFRAME" "MyFakeBarFrame" { //Child of "MyBarEx"
+		DecorateFileNames, //Lookup FileNames in a StringList
+		SetAllPoints, //copy "MyBarEx"
+		Layer "ARTWORK" {
+			String "MyFakeBarTitle"{
+				SetAllPoints,
+				Text "MyFakeBarTitle",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "MyFakeBarLeftText"{
+				SetPoint TOPLEFT, "MyFakeBar", TOPLEFT, 0.01, -0.002,
+				SetPoint BOTTOMLEFT, "MyFakeBar", BOTTOMLEFT, 0.01, 0.002,
+				SetPoint TOPRIGHT, "MyFakeBar", TOP, 0, -0.002,
+				SetPoint BOTTOMRIGHT, "MyFakeBar", BOTTOM, 0, 0.002,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text " ",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "MyFakeBarRightText"{
+				SetPoint TOPLEFT, "MyFakeBar", TOP, 0, -0.002,
+				SetPoint BOTTOMLEFT, "MyFakeBar", BOTTOM, 0, 0.002,
+				SetPoint TOPRIGHT, "MyFakeBar", TOPRIGHT, -0.01, -0.002,
+				SetPoint BOTTOMRIGHT, "MyFakeBar", BOTTOMRIGHT, -0.01, 0.002,
+				FontJustificationH JUSTIFYRIGHT,
+				FontJustificationV JUSTIFYCENTER,
+				Text " ",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			Texture "MyFakeBarBorder" {
+				File "MyBarBorder.blp", //Default Texture for "MyBarExBorder"
+			}
+		}
+	}
+}
+
+Frame "SIMPLESTATUSBAR" "StatusMenu" {
+	Width 0.4, //Default Width
+	Height 0.4, //Default Height
+	BarTexture "Replaceabletextures\Teamcolor\Teamcolor00.blp", //Default BarTexture
+
+	Layer "BACKGROUND" { //A simpleFrames thing, where this is placed layer wise
+		SetAllPoints,
+		Texture "StatusMenuBackground"{ //the BACKGROUND Texture named "MyBarExBackground" its also a frame and a child
+			SetAllPoints,
+			File "UI\Widgets\EscMenu\Human\human-options-menu-background.blp", //Default Texture for "MyBarExBackground"
+		}
+	}
+
+	Frame "SIMPLEFRAME" "StatusMenuFrame" { //Child of "MyBarEx"
+		DecorateFileNames, //Lookup FileNames in a StringList
+		SetAllPoints, //copy "MyBarEx"
+		Layer "ARTWORK" {
+			String "StatusMenuTitle"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.05, -0.005,
+				//SetPoint BOTTOMLEFT, "StatusMenu", BOTTOMLEFT, 0.01, 0.002,
+				//SetPoint TOPRIGHT, "StatusMenu", TOP, 0, -0.002,
+				//SetPoint BOTTOMRIGHT, "StatusMenu", BOTTOM, 0, 0.002,
+				SetAllPoints,
+				Text "Main info",
+				FontColor 1.0 50.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.02, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuStrenghText"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.02, -0.028,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text "Strengh",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuStrenghValue"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.15, -0.028,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text "0",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuAgilityText"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.02, -0.048,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text "Agility",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuAgilityValue"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.15, -0.048,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text "0",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuIntText"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.02, -0.068,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text "Intelligence",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuIntValue"{
+				SetPoint TOPLEFT, "StatusMenu", TOPLEFT, 0.15, -0.068,
+				FontJustificationH JUSTIFYLEFT,
+				FontJustificationV JUSTIFYCENTER,
+				Text "0",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			String "StatusMenuRightText"{
+				SetPoint TOPLEFT, "StatusMenu", TOP, 0, -0.002,
+				SetPoint BOTTOMLEFT, "StatusMenu", BOTTOM, 0, 0.002,
+				SetPoint TOPRIGHT, "StatusMenu", TOPRIGHT, -0.01, -0.002,
+				SetPoint BOTTOMRIGHT, "StatusMenu", BOTTOMRIGHT, -0.01, 0.002,
+				FontJustificationH JUSTIFYRIGHT,
+				FontJustificationV JUSTIFYCENTER,
+			  Text "Agility",
+				FontColor 1.0 1.0 1.0 1.0,
+				FontShadowColor 0.0 0.0 0.0 0.9,
+				FontShadowOffset 0.001 -0.001,
+				Font "MasterFont", 0.01, //MasterFont is only valid with "DecorateFileNames,"
+			}
+
+			Texture "StatusMenuBorder" {
+				File "MyBarBorder.blp", //Default Texture for "MyBarExBorder"
+			}
+		}
+	}
+}

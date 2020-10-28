@@ -1,0 +1,1164 @@
+﻿STRING 1
+{
+Blood Omen: Legacy of Kain
+}
+
+STRING 2
+{
+1
+}
+
+STRING 3
+{
+Описание отсутствует
+}
+
+STRING 4
+{
+KotoBog & Bergi
+}
+
+STRING 5
+{
+Игрок 1
+}
+
+STRING 6
+{
+Клан 1
+}
+
+STRING 7
+// Units: hpea (Трактирщик), Name (Name)
+{
+Трактирщик
+}
+
+STRING 10
+// Units: Hpal (Kain), EditorSuffix (Name - Editor Suffix)
+{
+(мертвый)
+}
+
+STRING 12
+{
+Неизвестные
+}
+
+STRING 16
+// Units: Hpal (Kain), Propernames (Proper Names)
+{
+Kain
+}
+
+STRING 44
+// Units: h001 (Бовмэн), Name (Name)
+{
+Бовмэн
+}
+
+STRING 45
+{
+Клан 2
+}
+
+STRING 50
+// Doodads: D008 (Тележка), Name (Name)
+{
+Тележка
+}
+
+STRING 51
+// Doodads: D009 (Бутылка), Name (Name)
+{
+Бутылка
+}
+
+STRING 52
+// Doodads: D00A (Свечка), Name (Name)
+{
+Свечка
+}
+
+STRING 53
+// Doodads: D00B (Ящики), Name (Name)
+{
+Ящики
+}
+
+STRING 54
+// Doodads: D00C (Лампа), Name (Name)
+{
+Лампа
+}
+
+STRING 55
+// Doodads: D00D (Статуя), Name (Name)
+{
+Статуя
+}
+
+STRING 56
+// Doodads: D00E (Стена), Name (Name)
+{
+Стена
+}
+
+STRING 57
+// Doodads: D00F (Big Pillar 1), Name (Name)
+{
+Big Pillar 1
+}
+
+STRING 58
+// Doodads: D00G (Big Pillar 2), Name (Name)
+{
+Big Pillar 2
+}
+
+STRING 59
+// Doodads: D00H (Big Pillar 5xx), Name (Name)
+{
+Big Pillar 5xx
+}
+
+STRING 60
+// Doodads: D00I (Big Pillar End 2), Name (Name)
+{
+Big Pillar End 2
+}
+
+STRING 61
+// Doodads: D00J (Big Pillar End 3), Name (Name)
+{
+Big Pillar End 3
+}
+
+STRING 62
+// Doodads: D00K (Block Wall 1), Name (Name)
+{
+Block Wall 1
+}
+
+STRING 63
+// Doodads: D00L (Floor 1), Name (Name)
+{
+Floor 1
+}
+
+STRING 64
+// Doodads: D00M (Floor 2), Name (Name)
+{
+Floor 2
+}
+
+STRING 67
+// Items: manh (Blood Vial), Tip (Tooltip - Basic)
+{
+Кровь вампира
+}
+
+STRING 68
+// Items: I000 (Rune Pyramid), Tip (Tooltip - Basic)
+{
+Кровь вампира
+}
+
+STRING 70
+// Abilities: A000 (Меч Каина), Name (Name)
+{
+Меч Каина
+}
+
+STRING 71
+// Doodads: D00N (Big Pillar End R16), Name (Name)
+{
+Big Pillar End R16
+}
+
+STRING 72
+// Doodads: D00O (Big Pillar End R16b), Name (Name)
+{
+Big Pillar End R16b
+}
+
+STRING 73
+// Doodads: D00P (Big Pillar Block 19), Name (Name)
+{
+Big Pillar Block 19
+}
+
+STRING 74
+// Doodads: D00Q (Big Pillar Small Bloack 7), Name (Name)
+{
+Big Pillar Small Bloack 7
+}
+
+STRING 75
+// Doodads: D00R (Support Beam D16), Name (Name)
+{
+Support Beam D16
+}
+
+STRING 76
+// Doodads: D00S (Support Beam DB1), Name (Name)
+{
+Support Beam DB1
+}
+
+STRING 77
+// Doodads: D00T (Support Beam M11), Name (Name)
+{
+Support Beam M11
+}
+
+STRING 79
+// Doodads: D00U (Floor 3), Name (Name)
+{
+Floor 3
+}
+
+STRING 80
+// Doodads: D00V (Floor 5), Name (Name)
+{
+Floor 5
+}
+
+STRING 81
+// Doodads: D00W (Floor 7), Name (Name)
+{
+Floor 7
+}
+
+STRING 82
+// Doodads: D00X (Block Wall 3), Name (Name)
+{
+Block Wall 3
+}
+
+STRING 83
+// Doodads: D00Y (Big Pillar Small Bloack 2), Name (Name)
+{
+Big Pillar Small Bloack 2
+}
+
+STRING 84
+// Doodads: D00Z (Window 1), Name (Name)
+{
+Window 1
+}
+
+STRING 85
+// Doodads: D010 (Wall window 1), Name (Name)
+{
+Wall window 1
+}
+
+STRING 86
+// Doodads: D011 (Cвет), Name (Name)
+{
+Cвет
+}
+
+STRING 87
+// Doodads: D012 (Big Pillar 6х), Name (Name)
+{
+Big Pillar 6х
+}
+
+STRING 88
+// Doodads: D013 (Big Pillar End R17), Name (Name)
+{
+Big Pillar End R17
+}
+
+STRING 89
+// Doodads: D014 (Big Wall 1), Name (Name)
+{
+Big Wall 1
+}
+
+STRING 90
+// Doodads: D015 (Block 20), Name (Name)
+{
+Block 20
+}
+
+STRING 91
+// Doodads: D016 (Block Wall 2), Name (Name)
+{
+Block Wall 2
+}
+
+STRING 92
+// Doodads: D017 (Статуя Красн), Name (Name)
+{
+Статуя Красн
+}
+
+STRING 93
+// Doodads: D018 (Статуя Синий), Name (Name)
+{
+Статуя Синий
+}
+
+STRING 94
+// Doodads: D019 (Статуя Зеленый), Name (Name)
+{
+Статуя Зеленый
+}
+
+STRING 95
+// Doodads: D01A (Статуя Желтый), Name (Name)
+{
+Статуя Желтый
+}
+
+STRING 96
+// Doodads: D01B (Статуя Черная), Name (Name)
+{
+Статуя Черная
+}
+
+STRING 97
+// Doodads: D01C (Статуя Желтый), Name (Name)
+{
+Статуя Желтый
+}
+
+STRING 98
+// Doodads: D01D (Руны Зел), Name (Name)
+{
+Руны Зел
+}
+
+STRING 99
+// Abilities: AOsh (Cмертельный бросок), Name (Name)
+{
+Cмертельный бросок
+}
+
+STRING 100
+// Abilities: A001 (Cмертельный бросок), Name (Name)
+{
+Cмертельный бросок
+}
+
+STRING 101
+// Doodads: D01E (Ковер), Name (Name)
+{
+Ковер
+}
+
+STRING 102
+// Doodads: D01F (Pillar small 3x), Name (Name)
+{
+Pillar small 3x
+}
+
+STRING 103
+// Doodads: D01G (Bookshelf), Name (Name)
+{
+Bookshelf
+}
+
+STRING 104
+// Doodads: D01H (Glow), Name (Name)
+{
+Glow
+}
+
+STRING 105
+// Units: O000 (Охотник), Name (Name)
+{
+Охотник
+}
+
+STRING 106
+// Units: O000 (Охотник), Propernames (Proper Names)
+{
+Дайсе
+}
+
+STRING 107
+// Doodads: D001 (Doorway), Name (Name)
+{
+Doorway
+}
+
+STRING 108
+// Doodads: D002 (Bookshelf Long No Path), Name (Name)
+{
+Bookshelf Long No Path
+}
+
+STRING 109
+// Doodads: D003 (Balk), Name (Name)
+{
+Balk
+}
+
+STRING 111
+// Units: H000 ( ), Name (Name)
+{
+ 
+}
+
+STRING 112
+// Units: n000 (KotoBog), Name (Name)
+{
+KotoBog
+}
+
+STRING 113
+// Doodads: Ligh (Light), Name (Name)
+{
+Light
+}
+
+STRING 114
+// Doodads: D004 (Fog), Name (Name)
+{
+Fog
+}
+
+STRING 115
+// Doodads: D005 (Close), Name (Name)
+{
+Close
+}
+
+STRING 116
+// Doodads: D006 (Web), Name (Name)
+{
+Web
+}
+
+STRING 117
+// Items: manh (Blood Vial), Name (Name)
+{
+Blood Vial
+}
+
+STRING 118
+// Items: lmbr (The Heart of Darkness), Name (Name)
+{
+The Heart of Darkness
+}
+
+STRING 119
+// Items: I000 (Rune Pyramid), Name (Name)
+{
+Rune Pyramid
+}
+
+STRING 120
+// Items: ratf (Iron Sword), Name (Name)
+{
+Iron Sword
+}
+
+STRING 121
+// Abilities: A002 (Hunger), Name (Name)
+{
+Hunger
+}
+
+STRING 123
+{
+Meow
+}
+
+STRING 155
+// Units: h002 (Tomb raider), Name (Name)
+{
+Tomb raider
+}
+
+STRING 158
+// Doodads: D01K (Black Wall), Name (Name)
+{
+Black Wall
+}
+
+STRING 159
+// Doodads: D01L (Fence Ruined), Name (Name)
+{
+Fence Ruined
+}
+
+STRING 163
+// Destructibles: B001 (Дерево No Pass), Name (Name)
+{
+Дерево No Pass
+}
+
+STRING 164
+// Abilities: dssd (Bat form), Name (Name)
+{
+Bat form
+}
+
+STRING 165
+// Abilities: dssd (Bat form), Tip (Tooltip - Normal)
+{
+Bat form
+}
+
+STRING 174
+// Units: n002 (Big smart rat), Name (Name)
+{
+Big smart rat
+}
+
+STRING 181
+{
+Assassin
+}
+
+STRING 182
+{
+End it - now!
+}
+
+STRING 183
+{
+Brigand
+}
+
+STRING 184
+{
+That’s him!
+}
+
+STRING 187
+{
+Barkeep
+}
+
+STRING 188
+{
+The tavern’s closing - best be on your way, stranger.
+}
+
+STRING 189
+{
+Kain
+}
+
+STRING 190
+{
+What, no mug of ale for a weary traveler from distant Coorhagen?  I can reward you well, for I am of noble blood.
+}
+
+STRING 191
+{
+Barkeep
+}
+
+STRING 192
+{
+I stay open for no man in these dark times.  Things come with the night that no sane man would welcome.
+
+}
+
+STRING 193
+{
+Kain
+}
+
+STRING 194
+{
+And so I left - cold of heart and soul.  Forced to the road, and the long, bitter night.
+}
+
+STRING 195
+{
+Barkeep
+}
+
+STRING 196
+{
+These ancient symbols of power contain raw magical energy, which increases my own capacity to summon energy for the spawning of spells.
+}
+
+STRING 197
+{
+Kain
+}
+
+STRING 198
+{
+Reputed to have been ripped from the chest of the greatest vampire to have ever existed, Janos Audron, the Heart of Darkness restores vampiric unlife.  Life is precious, Janos discovered - as it was torn throbbing and bleeding from his own body.
+}
+
+STRING 199
+{
+Kain
+}
+
+STRING 200
+{
+This ancient vial bears with it a dark gift indeed - for with it, my life force is increased.
+}
+
+STRING 201
+{
+Kain
+}
+
+STRING 202
+{
+The world had changed to my eyes.  I had not expected such cruelty from the light.  For in the embrace of the sun, I could find no comfort, only malice.  This would change in time for the worse, along with other things.
+}
+
+STRING 203
+{
+Cat
+}
+
+STRING 204
+{
+Meow
+}
+
+STRING 205
+{
+Cat
+}
+
+STRING 206
+{
+:expectantly looking at you:
+}
+
+STRING 207
+{
+Cat
+}
+
+STRING 208
+{
+Don't you need to go?
+}
+
+STRING 209
+{
+Cat
+}
+
+STRING 210
+{
+Everyone want to stay alive, but maybe death is not the end?
+}
+
+STRING 211
+{
+KotoBog
+}
+
+STRING 212
+{
+Kot means "cat" in russian, didn't you know?
+}
+
+STRING 213
+{
+KotoBog
+}
+
+STRING 214
+{
+So yes, you are in my world. I created this village, this forest and even you.
+}
+
+STRING 215
+{
+KotoBog
+}
+
+STRING 216
+{
+Listen, better click and subscribe on my youtube channel, than on me.
+}
+
+STRING 217
+{
+KotoBog
+}
+
+STRING 218
+{
+Fine, now go away. I want to enjoy your suffering.
+}
+
+STRING 219
+{
+KotoBog
+}
+
+STRING 220
+{
+Kain NEEDS to die. That's almost the only way.
+}
+
+STRING 221
+{
+KotoBog
+}
+
+STRING 222
+{
+Shush. What did I meant under 'almost'? Who knows.
+}
+
+STRING 223
+{
+KotoBog
+}
+
+STRING 224
+{
+I SAID GO AWAY, FRIEND.
+}
+
+STRING 225
+{
+Cat
+}
+
+STRING 226
+{
+Kain is dead
+}
+
+STRING 227
+// Items: spsh (Barrel), Name (Name)
+{
+Barrel
+}
+
+STRING 228
+// Items: spsh (Barrel), Tip (Tooltip - Basic)
+{
+Not for selling!
+}
+
+STRING 229
+// Items: spsh (Barrel), Ubertip (Tooltip - Extended)
+{
+Simple barrel. Can be used for storing wine or blocking something.
+}
+
+STRING 230
+// Items: spsh (Barrel), Description (Description)
+{
+Simple barrel. Can be used for storing wine or blocking something.
+}
+
+STRING 231
+// Units: opeo (Bergi), Name (Name)
+{
+Bergi
+}
+
+STRING 232
+{
+Bergi
+}
+
+STRING 233
+{
+Ooops....Hm....Hi?
+}
+
+STRING 234
+{
+ 
+}
+
+STRING 235
+// Abilities: A002 (Hunger), Researchhotkey (Hotkey - Learn)
+{
+Q
+}
+
+STRING 236
+// Abilities: A002 (Hunger), Hotkey (Hotkey - Normal)
+{
+Q
+}
+
+STRING 239
+// Destructibles: YTfb (Препятствие both), Name (Name)
+{
+Препятствие both
+}
+
+STRING 241
+// Units: hmpr (Crow), Name (Name)
+{
+Crow
+}
+
+STRING 242
+{
+Journey
+}
+
+STRING 243
+{
+Barkeep did not let me stay. I need to keep walking down the road.
+}
+
+STRING 244
+// Units: Hpal (Kain), Name (Name)
+{
+Kain
+}
+
+STRING 245
+// Units: H003 (Cinematic), Name (Name)
+{
+Cinematic
+}
+
+STRING 246
+{
+Kain
+}
+
+STRING 247
+{
+The grave gives shelter to a weary vampire. Within the shadows of this tomb, I may rest.
+}
+
+STRING 250
+{
+I awoke to the pain of a new existence, in a dank womb of darkness and decay.
+}
+
+STRING 251
+{
+Revenge
+}
+
+STRING 252
+{
+I want vengeance. I need to find and kill all my murderers. I want to see their suffers before painful death.
+}
+
+STRING 253
+{
+Mausoleum
+}
+
+STRING 254
+{
+This dark place was my home for all this time. It is time to find the way out of here.
+}
+
+STRING 255
+{
+
+}
+
+STRING 256
+// Destructibles: YTpb (Препятствие земля), Name (Name)
+{
+Препятствие земля
+}
+
+STRING 257
+// Doodads: D01N (DoorwayRed), Name (Name)
+{
+DoorwayRed
+}
+
+STRING 258
+// Destructibles: B004 (Darkness), Name (Name)
+{
+Darkness
+}
+
+STRING 259
+// Doodads: D01O (Statue White Ruined), Name (Name)
+{
+Statue White Ruined
+}
+
+STRING 260
+// Doodads: D01P (Floor Small 1), Name (Name)
+{
+Floor Small 1
+}
+
+STRING 261
+// Doodads: D01Q (Floor Small 2), Name (Name)
+{
+Floor Small 2
+}
+
+STRING 262
+// Doodads: D01R (Floor Small 3), Name (Name)
+{
+Floor Small 3
+}
+
+STRING 263
+// Doodads: D01S (Floor Small 4), Name (Name)
+{
+Floor Small 4
+}
+
+STRING 264
+// Units: h004 (Grass), Name (Name)
+{
+Grass
+}
+
+STRING 265
+// Units: h005 (Lava), Name (Name)
+{
+Lava
+}
+
+STRING 266
+// Doodads: D01T (Pillar small 3x Hor), Name (Name)
+{
+Pillar small 3x Hor
+}
+
+STRING 267
+// Abilities: dssd (Bat form), Researchhotkey (Hotkey - Learn)
+{
+E
+}
+
+STRING 268
+// Abilities: dssd (Bat form), Hotkey (Hotkey - Normal)
+{
+E
+}
+
+STRING 269
+{
+Victim
+}
+
+STRING 270
+// Units: hrif (Grave), Name (Name)
+{
+Grave
+}
+
+STRING 271
+// Doodads: D01I (Fog Black), Name (Name)
+{
+Fog Black
+}
+
+STRING 272
+// Doodads: D01U (Portal), Name (Name)
+{
+Portal
+}
+
+STRING 273
+// Doodads: D01V (Fog Green), Name (Name)
+{
+Fog Green
+}
+
+STRING 274
+// Units: hfoo (Bandit), Name (Name)
+{
+Bandit
+}
+
+STRING 275
+// Units: uske (Skeleton), Name (Name)
+{
+Skeleton
+}
+
+STRING 276
+// Units: u000 (Key master), Name (Name)
+{
+Key master
+}
+
+STRING 277
+// Units: u000 (Key master), EditorSuffix (Name - Editor Suffix)
+{
+(red)
+}
+
+STRING 278
+// Units: u001 (Key master), Name (Name)
+{
+Key master
+}
+
+STRING 279
+// Units: u001 (Key master), EditorSuffix (Name - Editor Suffix)
+{
+(blue)
+}
+
+STRING 280
+// Units: u002 (Key master), Name (Name)
+{
+Key master
+}
+
+STRING 281
+// Units: u002 (Key master), EditorSuffix (Name - Editor Suffix)
+{
+(green)
+}
+
+STRING 282
+// Units: u003 (Skeleton warrior), Name (Name)
+{
+Skeleton warrior
+}
+
+STRING 283
+// Units: u004 (Skeleton mage), Name (Name)
+{
+Skeleton mage
+}
+
+STRING 284
+// Units: u005 (Dead lord), Name (Name)
+{
+Dead lord
+}
+
+STRING 285
+// Doodads: D01W (DoorwayBlue), Name (Name)
+{
+DoorwayBlue
+}
+
+STRING 286
+// Doodads: D01X (DoorwayGreen), Name (Name)
+{
+DoorwayGreen
+}
+
+STRING 287
+// Doodads: D01Y (Archway Stone 1), Name (Name)
+{
+Archway Stone 1
+}
+
+STRING 288
+// Doodads: D01Z (Fog Red), Name (Name)
+{
+Fog Red
+}
+
+STRING 289
+// Units: u006 (Ghost), Name (Name)
+{
+Ghost
+}
+
+STRING 290
+// Doodads: D020 (Column 1), Name (Name)
+{
+Column 1
+}
+
+STRING 291
+// Doodads: D021 (Wall 1), Name (Name)
+{
+Wall 1
+}
+
+STRING 292
+// Doodads: D022 (Wall 2), Name (Name)
+{
+Wall 2
+}
+
+STRING 293
+// Doodads: D023 (Wall 3), Name (Name)
+{
+Wall 3
+}
+
+STRING 294
+// Doodads: D024 (Wall 4), Name (Name)
+{
+Wall 4
+}
+
+STRING 295
+// Doodads: D025 (Column 1), Name (Name)
+{
+Column 1
+}
+
+STRING 296
+// Doodads: D026 (Column 2), Name (Name)
+{
+Column 2
+}
+
+STRING 297
+// Doodads: D027 (Column 3), Name (Name)
+{
+Column 3
+}
+
+STRING 298
+// Abilities: A003 (Бонус к броне +99), Name (Name)
+{
+Бонус к броне +99
+}
+
+STRING 299
+// Abilities: A004 (Бафф щита), Name (Name)
+{
+Бафф щита
+}
+
+STRING 300
+// Items: I001 (Blood key), Name (Name)
+{
+Blood key
+}
+
+STRING 301
+// Units: H000 ( ), Propernames (Proper Names)
+{
+Kain
+}
+
+STRING 302
+// Units: H003 (Cinematic), Propernames (Proper Names)
+{
+Kain
+}
+
+STRING 303
+// Units: u007 (Ancient skeleton), Name (Name)
+{
+Ancient skeleton
+}
+
+STRING 304
+// Doodads: D028 (Fog Blue), Name (Name)
+{
+Fog Blue
+}
+
+STRING 305
+// Items: I002 (Ice key), Name (Name)
+{
+Ice key
+}
+
