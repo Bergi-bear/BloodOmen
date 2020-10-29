@@ -156,7 +156,6 @@ function InitWASD(hero)
             if data.IsMoving then
                 local x,y=GetUnitXY(hero)
                 local nx,ny=MoveXY(x,y,speed,angle)
-                SelectUnitForPlayerSingle(mainHero,Player(0))
                 SetUnitFacing(hero, angle)
                 SetUnitPositionSmooth(hero,nx,ny)
                 if animWalk==0 then
@@ -196,7 +195,9 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseW and not data.isAttacking  and  UnitAlive(data.UnitHero) then
             data.ReleaseW = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
+
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 animStand=3
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -225,6 +226,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseS and not data.isAttacking and UnitAlive(data.UnitHero) then
             data.ReleaseS = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
@@ -254,6 +256,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseD and not data.isAttacking  and UnitAlive(data.UnitHero) then
             data.ReleaseD = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,0,5, 15)
@@ -284,6 +287,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseA and not data.isAttacking  and  UnitAlive(data.UnitHero) then
             data.ReleaseA = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,180,5, 15)

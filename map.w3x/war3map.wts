@@ -574,7 +574,7 @@ And so I left - cold of heart and soul.  Forced to the road, and the long, bitte
 
 STRING 195
 {
-Barkeep
+Kain
 }
 
 STRING 196
@@ -1208,5 +1208,39 @@ STRING 314
 // Abilities: A006 (Освободить разум), Ubertip (Tooltip - Normal - Extended)
 {
 Освобождает разум этого существа и поглощает его плоть
+}
+
+STRING 315
+{
+Kain
+}
+
+STRING 316
+{
+When rainfall comes, vampires are wise to find shelter from its acidic touch.
+}
+
+STRING 317
+// Abilities: A007 (Копьё), Name (Name)
+{
+Копьё
+}
+
+STRING 318
+// Abilities: A007 (Копьё), Hotkey (Hotkey - Normal)
+{
+R
+}
+
+STRING 319
+// Abilities: A007 (Копьё), Tip (Tooltip - Normal)
+{
+Копьё
+}
+
+STRING 320
+// Abilities: A007 (Копьё), Ubertip (Tooltip - Normal - Extended)
+{
+Убросает копьё в указанном направлении, Копьё отталкивает врага на 300 единиц и оглушает на 2 сек, если прижимает врага к стене. Наносит 100 урона.
 }
 

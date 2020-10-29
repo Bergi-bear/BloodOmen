@@ -8,6 +8,7 @@ do
         InitPUI()
     end)
 end
+secToHideItem=0
 function InitPUI()
 
     local frame,text=CreateInfoItemBOX()
@@ -21,15 +22,15 @@ function InitPUI()
         BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
                 --|cffffcc001-й уровень:|r
         local p=1/64
-        local sec=6
+        secToHideItem=secToHideItem+6
         TimerStart(CreateTimer(), p, true, function()
-            sec=sec-p
-            if sec<=0 then
+            secToHideItem=secToHideItem-p
+            if secToHideItem<=0 then
                 DestroyTimer(GetExpiredTimer())
                 BlzFrameSetVisible(frame,false)
             end
-            if sec<=2.5 then
-                BlzFrameSetAlpha(frame,R2I(sec*100))
+            if secToHideItem<=2.5 then
+                BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
             end
         end)
 

@@ -55,6 +55,11 @@ gg_rct_Grave2 = nil
 gg_rct_Grave3 = nil
 gg_rct_Cry4 = nil
 gg_rct_BlueKeyDoor = nil
+gg_rct_Trap2 = nil
+gg_rct_Trap1 = nil
+gg_rct_Trap3 = nil
+gg_rct_Button_yard = nil
+gg_rct_Rat_In = nil
 gg_cam_Cinematic1 = nil
 gg_cam_Camera_003 = nil
 gg_cam_Cinematic2 = nil
@@ -99,6 +104,7 @@ gg_snd_KainRevenge = nil
 gg_snd_NecromancerYesAttack3 = nil
 gg_snd_KelThuzadDeath1 = nil
 gg_snd_UndeadDissipate2 = nil
+gg_snd_BattleNetDoorsStereo201 = nil
 gg_trg_Tips_1 = nil
 gg_trg_Tips_2 = nil
 gg_trg_Tips_3 = nil
@@ -128,6 +134,14 @@ gg_trg_RedKeyDoor = nil
 gg_trg_BlueKey = nil
 gg_trg_BlueKeyDoor = nil
 gg_trg_Portal1_Inn = nil
+gg_trg_Trap1 = nil
+gg_trg_Trap1_Damage = nil
+gg_trg_Trap2 = nil
+gg_trg_Trap2_Damage = nil
+gg_trg_Trap3 = nil
+gg_trg_Trap3_Damage = nil
+gg_trg_Button_Yard = nil
+gg_trg_RemoveDark = nil
 gg_trg_Button_1_Copy = nil
 gg_trg_Rabbits = nil
 gg_trg_RabbitsEnd = nil
@@ -198,7 +212,7 @@ gg_dest_YTfb_4504 = nil
 gg_dest_YTfb_4505 = nil
 gg_dest_YTfb_4506 = nil
 gg_dest_B004_6078 = nil
-gg_dest_DTlv_6072 = nil
+gg_dest_B004_10353 = nil
 gg_dest_YTfb_6073 = nil
 gg_dest_YTfb_6074 = nil
 gg_dest_YTfb_6075 = nil
@@ -211,7 +225,8 @@ gg_dest_YTfb_8523 = nil
 gg_dest_YTfb_10005 = nil
 gg_dest_YTfb_10009 = nil
 gg_dest_YTfb_10010 = nil
-gg_trg_PU = nil
+gg_dest_DTfx_10185 = nil
+gg_dest_DTlv_6072 = nil
 function InitGlobals()
     udg_IntLightCheck = 0
     udg_Cat = 0
@@ -392,57 +407,63 @@ function InitSounds()
     SetSoundParamsFromLabel(gg_snd_UndeadDissipate2, "UndeadDissipate")
     SetSoundDuration(gg_snd_UndeadDissipate2, 3612)
     SetSoundVolume(gg_snd_UndeadDissipate2, 127)
+    gg_snd_BattleNetDoorsStereo201 = CreateSound("Sound/Interface/BattleNetDoorsStereo2.flac", false, false, false, 0, 0, "SpellsEAX")
+    SetSoundParamsFromLabel(gg_snd_BattleNetDoorsStereo201, "GlueScreenBNetSlam")
+    SetSoundDuration(gg_snd_BattleNetDoorsStereo201, 2645)
+    SetSoundVolume(gg_snd_BattleNetDoorsStereo201, 127)
 end
 
 function CreateAllDestructables()
     local d
     local t
     local life
+    gg_dest_B003_3904 = BlzCreateDestructableZWithSkin(FourCC("B003"), 590.5, 8531.5, 656.9, 224.099, 0.500, 0, FourCC("B003"))
     gg_dest_B003_3905 = BlzCreateDestructableZWithSkin(FourCC("B003"), 778.2, 8281.3, 663.3, 181.177, 0.500, 0, FourCC("B003"))
     gg_dest_B003_3906 = BlzCreateDestructableZWithSkin(FourCC("B003"), 785.6, 8038.8, 663.3, 180.287, 0.500, 0, FourCC("B003"))
-    gg_dest_B003_3904 = BlzCreateDestructableZWithSkin(FourCC("B003"), 590.5, 8531.5, 656.9, 224.099, 0.500, 0, FourCC("B003"))
     gg_dest_B004_6078 = BlzCreateDestructableZWithSkin(FourCC("B004"), 2510.8, 1817.2, 928.0, 268.725, 5.000, 0, FourCC("B004"))
+    gg_dest_B004_10353 = BlzCreateDestructableZWithSkin(FourCC("B004"), 8954.7, -1465.2, 552.2, 270.000, 3.500, 0, FourCC("B004"))
     gg_dest_CTtc_0212 = BlzCreateDestructableWithSkin(FourCC("CTtc"), 416.0, -2464.0, 270.000, 1.687, 2, FourCC("CTtc"))
     gg_dest_DTfx_0479 = BlzCreateDestructableZWithSkin(FourCC("DTfx"), 448.0, 6528.0, 567.3, 270.000, 1.000, 0, FourCC("DTfx"))
     gg_dest_DTfx_4421 = BlzCreateDestructableWithSkin(FourCC("DTfx"), 3392.0, 3520.0, 270.000, 1.000, 0, FourCC("DTfx"))
-    gg_dest_DTlv_4275 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 2976.0, 6304.0, 0.613, 1.500, 0, FourCC("DTlv"))
+    gg_dest_DTfx_10185 = BlzCreateDestructableWithSkin(FourCC("DTfx"), 8576.0, -1152.0, 270.000, 1.000, 0, FourCC("DTfx"))
     gg_dest_DTlv_6072 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 4448.0, 2656.0, 269.772, 1.500, 0, FourCC("DTlv"))
+    gg_dest_DTlv_4275 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 2976.0, 6304.0, 0.613, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_0696 = BlzCreateDestructableWithSkin(FourCC("DTlv"), -2336.0, 2976.0, 43.000, 1.500, 0, FourCC("DTlv"))
-    gg_dest_YTfb_10009 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3360.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_0595 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6304.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0596 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6368.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0597 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6432.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0598 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6496.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_0509 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6432.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0595 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6304.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0972 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7776.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0973 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7840.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_0508 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6496.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0509 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6432.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0975 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 8096.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0976 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7904.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0977 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 8032.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_10005 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3424.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_8523 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1120.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_10010 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3296.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_10009 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3360.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_1353 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 2016.0, 7200.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0703 = BlzCreateDestructableWithSkin(FourCC("YTfb"), -928.0, -672.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0704 = BlzCreateDestructableWithSkin(FourCC("YTfb"), -864.0, -672.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0705 = BlzCreateDestructableWithSkin(FourCC("YTfb"), -992.0, -672.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0508 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6496.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0507 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6560.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0506 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6624.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_1739 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6432.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_1740 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6368.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_4504 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2784.0, 4384.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_4505 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2848.0, 4384.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_4506 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2912.0, 4384.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_1740 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6368.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0974 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7968.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_1741 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6304.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6073 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 1824.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6074 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 1888.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6075 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 1952.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6076 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 2016.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_8454 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1184.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_10005 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3424.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_8452 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1312.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_8453 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1248.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_10010 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3296.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_8454 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1184.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_8523 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1120.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_1741 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6304.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfc_1351 = BlzCreateDestructableZWithSkin(FourCC("YTfc"), 2048.0, 7424.0, 765.7, 270.000, 1.000, 0, FourCC("YTfc"))
     gg_dest_YTfc_1352 = BlzCreateDestructableZWithSkin(FourCC("YTfc"), 2048.0, 7296.0, 765.7, 270.000, 1.000, 0, FourCC("YTfc"))
     gg_dest_YY13_0211 = BlzCreateDestructableZWithSkin(FourCC("YY13"), -1696.0, -2656.0, 187.8, 0.000, 1.000, 0, FourCC("YY13"))
@@ -717,7 +738,7 @@ function CreateNeutralPassive()
     local life
     gg_unit_hpea_0000 = BlzCreateUnitWithSkin(p, FourCC("hpea"), -898.6, 313.0, 357.833, FourCC("hpea"))
     gg_unit_Hpal_0002 = BlzCreateUnitWithSkin(p, FourCC("Hpal"), -3759.5, -1923.8, 289.210, FourCC("Hpal"))
-    SetHeroLevel(gg_unit_Hpal_0002, 3, false)
+    SetHeroLevel(gg_unit_Hpal_0002, 4, false)
     SetHeroStr(gg_unit_Hpal_0002, 7, true)
     SetHeroAgi(gg_unit_Hpal_0002, 10, true)
     SetHeroInt(gg_unit_Hpal_0002, 4, true)
@@ -730,6 +751,8 @@ function CreateNeutralPassive()
     SelectHeroSkill(gg_unit_Hpal_0002, FourCC("dssd"))
     IssueImmediateOrder(gg_unit_Hpal_0002, "")
     SelectHeroSkill(gg_unit_Hpal_0002, FourCC("A005"))
+    IssueImmediateOrder(gg_unit_Hpal_0002, "")
+    SelectHeroSkill(gg_unit_Hpal_0002, FourCC("A007"))
     IssueImmediateOrder(gg_unit_Hpal_0002, "")
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), -748.1, 5369.9, 270.560, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("Hamg"), -2791.9, 505.5, 80.377, FourCC("Hamg"))
@@ -784,6 +807,22 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("u007"), -6489.3, 15018.4, 257.210, FourCC("u007"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 2846.3, -74.7, 270.816, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 4438.5, -1035.3, 270.816, FourCC("nvlw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8937.7, -2489.0, 53.791, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8950.4, -2584.7, 5.296, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9046.0, -2530.7, 117.832, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9111.3, -2605.1, 350.694, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9083.5, -2692.5, 13.953, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9022.5, -2715.6, 278.490, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8965.5, -2642.4, 101.901, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8925.9, -2563.9, 88.531, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8955.1, -2493.7, 54.725, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9029.5, -2470.0, 46.583, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9095.7, -2510.8, 247.639, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9063.7, -2612.4, 69.425, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8999.8, -2666.3, 169.920, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8986.3, -2648.1, 71.501, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 8989.2, -2600.8, 4.241, FourCC("nrat"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 9015.1, -2575.8, 78.862, FourCC("nrat"))
 end
 
 function CreatePlayerBuildings()
@@ -817,7 +856,7 @@ function CreateRegions()
     gg_rct_Solve3 = Rect(1952.0, 7104.0, 2080.0, 7488.0)
     gg_rct_Camera_fix = Rect(3744.0, 2816.0, 6368.0, 6880.0)
     gg_rct_Region_011 = Rect(-1760.0, 6272.0, -1632.0, 6880.0)
-    gg_rct_KainStart = Rect(-384.0, 4192.0, -288.0, 4288.0)
+    gg_rct_KainStart = Rect(-256.0, 4512.0, -160.0, 4608.0)
     gg_rct_KotoBogSpawn2 = Rect(-1120.0, 3200.0, -1056.0, 3264.0)
     gg_rct_Region_014 = Rect(-1664.0, 7744.0, -1344.0, 8224.0)
     gg_rct_EnterDark_2 = Rect(-1312.0, 7744.0, -1184.0, 8384.0)
@@ -857,6 +896,11 @@ function CreateRegions()
     gg_rct_Grave3 = Rect(6752.0, 800.0, 6944.0, 992.0)
     gg_rct_Cry4 = Rect(2592.0, -448.0, 3136.0, 0.0)
     gg_rct_BlueKeyDoor = Rect(6400.0, -3648.0, 6720.0, -3040.0)
+    gg_rct_Trap2 = Rect(8704.0, -1600.0, 8768.0, -1312.0)
+    gg_rct_Trap1 = Rect(8608.0, -1600.0, 8672.0, -1312.0)
+    gg_rct_Trap3 = Rect(8672.0, -1312.0, 8768.0, -992.0)
+    gg_rct_Button_yard = Rect(8480.0, -1248.0, 8672.0, -1056.0)
+    gg_rct_Rat_In = Rect(8672.0, -2112.0, 8800.0, -2016.0)
 end
 
 function CreateCameras()
@@ -1405,7 +1449,6 @@ function InitWASD(hero)
             if data.IsMoving then
                 local x,y=GetUnitXY(hero)
                 local nx,ny=MoveXY(x,y,speed,angle)
-                SelectUnitForPlayerSingle(mainHero,Player(0))
                 SetUnitFacing(hero, angle)
                 SetUnitPositionSmooth(hero,nx,ny)
                 if animWalk==0 then
@@ -1445,7 +1488,9 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseW and not data.isAttacking  and  UnitAlive(data.UnitHero) then
             data.ReleaseW = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
+
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 animStand=3
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -1474,6 +1519,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseS and not data.isAttacking and UnitAlive(data.UnitHero) then
             data.ReleaseS = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
@@ -1503,6 +1549,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseD and not data.isAttacking  and UnitAlive(data.UnitHero) then
             data.ReleaseD = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,0,5, 15)
@@ -1533,6 +1580,7 @@ function CreateWASDActions()
         local data = HERO[pid]
         if not data.ReleaseA and not data.isAttacking  and  UnitAlive(data.UnitHero) then
             data.ReleaseA = true
+            SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,180,5, 15)
@@ -1892,6 +1940,64 @@ TriggerAddAction = function(trig, callback)
 	end
 	realTriggerAddAction(trig, pcallback)
 end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 30.04.2020 0:04
+stunEff="Abilities\\Spells\\Human\\Thunderclap\\ThunderclapTarget"
+StunSystem={}
+function StunUnit(hero,dur)
+	if not StunSystem[GetHandleId(hero)] then
+	--	print("оглушен первый раз")
+		StunSystem[GetHandleId(hero)]={
+			Time=0,
+			Eff=nil,
+			Timer=nil
+		}
+	end
+	local data=StunSystem[GetHandleId(hero)]
+	local curdur=0
+	if data.Time==0 then
+		data.Timer=CreateTimer()
+		--print("старт нового таймера")
+		data.Eff=AddSpecialEffectTarget(stunEff,hero,"overhead")
+		BlzPauseUnitEx(hero,true)
+	end
+
+	if data.Time<dur  then
+		--print("Более сильное оглушение, обновляем время")
+		data.Time=dur
+	else
+		--print("Есть более долгое оглушение ничего не делаем")
+		return
+	end
+
+	TimerStart(data.Timer, 0.1, true, function()
+		curdur=curdur+0.1
+		data.Time=data.Time-0.1
+		if curdur>=dur or not UnitAlive(hero) then
+			--print("Вышел из стана")
+			BlzPauseUnitEx(hero,false)
+			DestroyTimer(GetExpiredTimer())
+			data.Time=0
+			DestroyEffect(data.Eff)
+			data.Timer=nil
+		end
+	end)
+end
+
+function StunArea(hero,range,duration,x,y)
+	local e=nil
+	GroupEnumUnitsInRange(perebor,x,y,range,nil)
+	while true do
+		e = FirstOfGroup(perebor)
+		if e == nil then break end
+		if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE) then
+			StunUnit(e,duration)
+		end
+		GroupRemoveUnit(perebor,e)
+	end
+end
 ---@param text string
 ---@param textSize real
 ---@param x real
@@ -2045,6 +2151,113 @@ function InitCastMC()
             HealUnit(tempHero,amount)
         end
 
+    end)
+
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 28.10.2020 19:30
+---
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitSpire()
+    end)
+end
+
+function InitSpire()
+    local SpellTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        local player = Player(i)
+        TriggerRegisterPlayerUnitEvent(SpellTrigger, player, EVENT_PLAYER_UNIT_SPELL_CAST)
+    end
+    TriggerAddAction(SpellTrigger, function()
+        if GetSpellAbilityId() == FourCC('A007') then --Копьё
+            local caster=GetTriggerUnit()
+            local x,y=GetSpellTargetX(),GetSpellTargetY()
+            local xs,ys=GetUnitXY(caster)
+            local angle=AngleBetweenXY(xs,ys,x,y)/bj_DEGTORAD
+            local eff=AddSpecialEffect("Abilities\\Weapons\\Dryadmissile\\Dryadmissile.mdl",xs,ys)
+            local dist=600
+            local speed=15
+            local curDist=0
+            BlzSetSpecialEffectYaw(eff, math.rad(angle))
+            TimerStart(CreateTimer(), 1/64, true, function()
+                curDist=curDist+speed
+                local nx,ny=MoveXY(xs,ys,curDist,angle)
+                BlzSetSpecialEffectPosition(eff,nx,ny,GetTerrainZ(nx,ny)+60)
+
+                local e=nil
+                GroupEnumUnitsInRange(perebor,nx,ny,70,nil)
+                while true do
+                    e = FirstOfGroup(perebor)
+                    if e == nil then break end
+                    if UnitAlive(e) and UnitAlive(caster) and (IsUnitEnemy(e,GetOwningPlayer(caster)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
+                        local nxe,nye=MoveXY(GetUnitX(e),GetUnitY(e),speed,angle)
+                        if not PointContentDestructable (nx,ny,70) then
+                            SetUnitX(e,nxe)
+                            SetUnitY(e,nye)
+                        end
+                        --UnitDamageTarget( caster, e, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS )
+                    end
+                    GroupRemoveUnit(perebor,e)
+                end
+
+
+                if curDist>=dist  then
+                    DestroyEffect(eff)
+                    DestroyTimer(GetExpiredTimer())
+                    UnitDamageArea(caster,10,nx,ny,70)
+                end
+
+                if PointContentDestructable (nx,ny,70) then
+                    DestroyEffect(eff)
+                    DestroyTimer(GetExpiredTimer())
+                    UnitDamageArea(caster,10,nx,ny,70)
+                    StunArea(caster,100,2,nx,ny)
+                end
+
+            end)
+        end
+    end)
+end
+
+
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 29.10.2020 16:32
+---
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitStunPerDie()
+    end)
+end
+function InitStunPerDie()
+    local DamageTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGING) -- До вычета брони
+    end
+    TriggerAddAction(DamageTrigger, function()
+
+        local damage     = GetEventDamage() -- число урона
+        if damage < 1 then return end
+        local eventId         = GetHandleId(GetTriggerEventId())
+        local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
+        local target          = GetTriggerUnit() -- тот кто получил урон
+        local caster          = GetEventDamageSource() -- тот кто нанёс урон
+
+
+        if isEventDamaging then
+            TimerStart(CreateTimer(), 0.11, false, function()
+                if UnitAlive(target) and GetUnitStatePercent(target,UNIT_STATE_LIFE,UNIT_STATE_MAX_LIFE)<=30 and GetOwningPlayer(target)~=Player(0) and GetUnitLevel(target)<=5 then
+                    StunUnit(target,5)
+                    UnitAddType(target,UNIT_TYPE_UNDEAD)
+                    SetUnitOwner(target,PLAYER_NEUTRAL_PASSIVE,true)
+                   -- print("юнита можно съесть?")
+                end
+            end)
+        end
     end)
 
 end
@@ -2334,6 +2547,7 @@ do
         InitPUI()
     end)
 end
+secToHideItem=0
 function InitPUI()
 
     local frame,text=CreateInfoItemBOX()
@@ -2347,15 +2561,15 @@ function InitPUI()
         BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
                 --|cffffcc001-й уровень:|r
         local p=1/64
-        local sec=6
+        secToHideItem=secToHideItem+6
         TimerStart(CreateTimer(), p, true, function()
-            sec=sec-p
-            if sec<=0 then
+            secToHideItem=secToHideItem-p
+            if secToHideItem<=0 then
                 DestroyTimer(GetExpiredTimer())
                 BlzFrameSetVisible(frame,false)
             end
-            if sec<=2.5 then
-                BlzFrameSetAlpha(frame,R2I(sec*100))
+            if secToHideItem<=2.5 then
+                BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
             end
         end)
 
@@ -2378,16 +2592,6 @@ function CreateInfoItemBOX()
     return buttonIconFrame,textCurrent
 end
 --CUSTOM_CODE
-function Trig_PU_Actions()
-    DisplayTextToForce(GetPlayersAll(), ("Подобрал " .. GetItemName(GetManipulatedItem())))
-end
-
-function InitTrig_PU()
-    gg_trg_PU = CreateTrigger()
-    TriggerRegisterAnyUnitEventBJ(gg_trg_PU, EVENT_PLAYER_UNIT_PICKUP_ITEM)
-    TriggerAddAction(gg_trg_PU, Trig_PU_Actions)
-end
-
 function Trig_Tips_1_Conditions()
     if (not (GetManipulatedItem() == gg_item_manh_0008)) then
         return false
@@ -3039,6 +3243,7 @@ function Trig_Button_2_Actions()
     SetTerrainFogExBJ(0, 500.00, 2500.00, 0, 25.00, 25.00, 40.00)
     TriggerSleepAction(2.00)
     PlaySoundBJ(gg_snd_Kain6Rain)
+    TransmissionFromUnitWithNameBJ(GetPlayersAll(), nil, "TRIGSTR_315", nil, "TRIGSTR_316", bj_TIMETYPE_ADD, 0, true)
 end
 
 function InitTrig_Button_2()
@@ -3212,7 +3417,7 @@ function Trig_RedKeyDoor_Conditions()
     return true
 end
 
-function Trig_RedKeyDoor_Func001Func007C()
+function Trig_RedKeyDoor_Func001Func008C()
     if (GetItemTypeId(UnitItemInSlotBJ(udg_mainHero, 1)) == FourCC("I001")) then
         return true
     end
@@ -3235,7 +3440,7 @@ function Trig_RedKeyDoor_Func001Func007C()
 end
 
 function Trig_RedKeyDoor_Func001C()
-    if (not Trig_RedKeyDoor_Func001Func007C()) then
+    if (not Trig_RedKeyDoor_Func001Func008C()) then
         return false
     end
     return true
@@ -3249,6 +3454,7 @@ function Trig_RedKeyDoor_Actions()
         KillDestructable(gg_dest_YTfb_8454)
         KillDestructable(gg_dest_YTfb_8523)
         SetDoodadAnimationRectBJ("death alternate", FourCC("D01N"), gg_rct_RedKeyDoor)
+        PlaySoundBJ(gg_snd_BattleNetDoorsStereo2)
     else
     end
 end
@@ -3279,7 +3485,7 @@ function Trig_BlueKeyDoor_Conditions()
     return true
 end
 
-function Trig_BlueKeyDoor_Func001Func006C()
+function Trig_BlueKeyDoor_Func001Func007C()
     if (GetItemTypeId(UnitItemInSlotBJ(udg_mainHero, 1)) == FourCC("I002")) then
         return true
     end
@@ -3302,7 +3508,7 @@ function Trig_BlueKeyDoor_Func001Func006C()
 end
 
 function Trig_BlueKeyDoor_Func001C()
-    if (not Trig_BlueKeyDoor_Func001Func006C()) then
+    if (not Trig_BlueKeyDoor_Func001Func007C()) then
         return false
     end
     return true
@@ -3315,6 +3521,7 @@ function Trig_BlueKeyDoor_Actions()
         KillDestructable(gg_dest_YTfb_10009)
         KillDestructable(gg_dest_YTfb_10005)
         SetDoodadAnimationRectBJ("death alternate", FourCC("D01W"), gg_rct_BlueKeyDoor)
+        PlaySoundBJ(gg_snd_BattleNetDoorsStereo2)
     else
     end
 end
@@ -3346,6 +3553,137 @@ function InitTrig_Portal1_Inn()
     TriggerRegisterEnterRectSimple(gg_trg_Portal1_Inn, gg_rct_Portal1_In)
     TriggerAddCondition(gg_trg_Portal1_Inn, Condition(Trig_Portal1_Inn_Conditions))
     TriggerAddAction(gg_trg_Portal1_Inn, Trig_Portal1_Inn_Actions)
+end
+
+function Trig_Trap1_Func008A()
+    ExplodeUnitBJ(GetEnumUnit())
+end
+
+function Trig_Trap1_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    SetDoodadAnimationRectBJ("death", FourCC("YOf1"), gg_rct_Trap1)
+    DisableTrigger(gg_trg_Trap1_Damage)
+    TriggerSleepAction(2)
+    SetDoodadAnimationRectBJ("stand", FourCC("YOf1"), gg_rct_Trap1)
+    EnableTrigger(GetTriggeringTrigger())
+    EnableTrigger(gg_trg_Trap1_Damage)
+    ForGroupBJ(GetUnitsInRectAll(gg_rct_Trap1), Trig_Trap1_Func008A)
+end
+
+function InitTrig_Trap1()
+    gg_trg_Trap1 = CreateTrigger()
+    TriggerRegisterTimerEventPeriodic(gg_trg_Trap1, 2)
+    TriggerAddAction(gg_trg_Trap1, Trig_Trap1_Actions)
+end
+
+function Trig_Trap1_Damage_Actions()
+    ExplodeUnitBJ(GetEnteringUnit())
+end
+
+function InitTrig_Trap1_Damage()
+    gg_trg_Trap1_Damage = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Trap1_Damage, gg_rct_Trap1)
+    TriggerAddAction(gg_trg_Trap1_Damage, Trig_Trap1_Damage_Actions)
+end
+
+function Trig_Trap2_Func008A()
+    ExplodeUnitBJ(GetEnumUnit())
+end
+
+function Trig_Trap2_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    SetDoodadAnimationRectBJ("death", FourCC("YOf1"), gg_rct_Trap2)
+    DisableTrigger(gg_trg_Trap2_Damage)
+    TriggerSleepAction(2.50)
+    SetDoodadAnimationRectBJ("stand", FourCC("YOf1"), gg_rct_Trap2)
+    EnableTrigger(GetTriggeringTrigger())
+    EnableTrigger(gg_trg_Trap2_Damage)
+    ForGroupBJ(GetUnitsInRectAll(gg_rct_Trap2), Trig_Trap2_Func008A)
+end
+
+function InitTrig_Trap2()
+    gg_trg_Trap2 = CreateTrigger()
+    TriggerRegisterTimerEventPeriodic(gg_trg_Trap2, 3.00)
+    TriggerAddAction(gg_trg_Trap2, Trig_Trap2_Actions)
+end
+
+function Trig_Trap2_Damage_Actions()
+    ExplodeUnitBJ(GetEnteringUnit())
+end
+
+function InitTrig_Trap2_Damage()
+    gg_trg_Trap2_Damage = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Trap2_Damage, gg_rct_Trap2)
+    TriggerAddAction(gg_trg_Trap2_Damage, Trig_Trap2_Damage_Actions)
+end
+
+function Trig_Trap3_Func008A()
+    ExplodeUnitBJ(GetEnumUnit())
+end
+
+function Trig_Trap3_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    SetDoodadAnimationRectBJ("death", FourCC("YOf1"), gg_rct_Trap3)
+    DisableTrigger(gg_trg_Trap3_Damage)
+    TriggerSleepAction(2.00)
+    SetDoodadAnimationRectBJ("stand", FourCC("YOf1"), gg_rct_Trap3)
+    EnableTrigger(GetTriggeringTrigger())
+    EnableTrigger(gg_trg_Trap3_Damage)
+    ForGroupBJ(GetUnitsInRectAll(gg_rct_Trap2), Trig_Trap3_Func008A)
+end
+
+function InitTrig_Trap3()
+    gg_trg_Trap3 = CreateTrigger()
+    TriggerRegisterTimerEventPeriodic(gg_trg_Trap3, 1.00)
+    TriggerAddAction(gg_trg_Trap3, Trig_Trap3_Actions)
+end
+
+function Trig_Trap3_Damage_Actions()
+    ExplodeUnitBJ(GetEnteringUnit())
+end
+
+function InitTrig_Trap3_Damage()
+    gg_trg_Trap3_Damage = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Trap3_Damage, gg_rct_Trap2)
+    TriggerAddAction(gg_trg_Trap3_Damage, Trig_Trap3_Damage_Actions)
+end
+
+function Trig_Button_Yard_Actions()
+    PlaySoundBJ(gg_snd_tremblement)
+    CameraSetEQNoiseForPlayer(Player(0), 2.00)
+    SetDestructableAnimationBJ(gg_dest_DTfx_10185, "stand alternate")
+    TriggerSleepAction(4.00)
+    CameraClearNoiseForPlayer(Player(0))
+    DestructableRestoreLife(gg_dest_B004_10353, GetDestructableMaxLife(GetLastCreatedDestructable()), true)
+    DisableTrigger(GetTriggeringTrigger())
+end
+
+function InitTrig_Button_Yard()
+    gg_trg_Button_Yard = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Button_Yard, gg_rct_Button_yard)
+    TriggerAddAction(gg_trg_Button_Yard, Trig_Button_Yard_Actions)
+end
+
+function Trig_RemoveDark_Conditions()
+    if (not (GetUnitTypeId(GetEnteringUnit()) == FourCC("nrat"))) then
+        return false
+    end
+    if (not (GetOwningPlayer(GetEnteringUnit()) == Player(0))) then
+        return false
+    end
+    return true
+end
+
+function Trig_RemoveDark_Actions()
+    RemoveDestructable(gg_dest_B004_10353)
+    DisableTrigger(GetTriggeringTrigger())
+end
+
+function InitTrig_RemoveDark()
+    gg_trg_RemoveDark = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_RemoveDark, gg_rct_Rat_In)
+    TriggerAddCondition(gg_trg_RemoveDark, Condition(Trig_RemoveDark_Conditions))
+    TriggerAddAction(gg_trg_RemoveDark, Trig_RemoveDark_Actions)
 end
 
 function Trig_Button_1_Copy_Conditions()
@@ -3818,7 +4156,6 @@ function InitTrig_Init()
 end
 
 function InitCustomTriggers()
-    InitTrig_PU()
     InitTrig_Tips_1()
     InitTrig_Tips_2()
     InitTrig_Tips_3()
@@ -3848,6 +4185,14 @@ function InitCustomTriggers()
     InitTrig_BlueKey()
     InitTrig_BlueKeyDoor()
     InitTrig_Portal1_Inn()
+    InitTrig_Trap1()
+    InitTrig_Trap1_Damage()
+    InitTrig_Trap2()
+    InitTrig_Trap2_Damage()
+    InitTrig_Trap3()
+    InitTrig_Trap3_Damage()
+    InitTrig_Button_Yard()
+    InitTrig_RemoveDark()
     InitTrig_Button_1_Copy()
     InitTrig_Rabbits()
     InitTrig_RabbitsEnd()
