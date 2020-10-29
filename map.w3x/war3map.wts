@@ -1162,3 +1162,51 @@ STRING 305
 Ice key
 }
 
+STRING 306
+// Abilities: A005 (Контроль разума), Name (Name)
+{
+Контроль разума
+}
+
+STRING 307
+// Abilities: A005 (Контроль разума), Hotkey (Hotkey - Normal)
+{
+F
+}
+
+STRING 308
+// Abilities: A005 (Контроль разума), Tip (Tooltip - Normal)
+{
+Контроль разума
+}
+
+STRING 310
+// Abilities: A005 (Контроль разума), Ubertip (Tooltip - Normal - Extended)
+{
+Захватывает контроль над вражеским или нейтральным живым существом. Сам Каин при этом становится неподвижным и защищённым от урона.
+}
+
+STRING 311
+// Abilities: A006 (Освободить разум), Name (Name)
+{
+Освободить разум
+}
+
+STRING 312
+// Abilities: A006 (Освободить разум), Hotkey (Hotkey - Normal)
+{
+F
+}
+
+STRING 313
+// Abilities: A006 (Освободить разум), Tip (Tooltip - Normal)
+{
+Освободить разум
+}
+
+STRING 314
+// Abilities: A006 (Освободить разум), Ubertip (Tooltip - Normal - Extended)
+{
+Освобождает разум этого существа и поглощает его плоть
+}
+

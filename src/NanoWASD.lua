@@ -79,13 +79,19 @@ function InitWASD(hero)
             IndexAnimationWalk=1
             IndexAnimationAttack=5
             IndexAnimationCharge=6
-        else -- для вампира
+        elseif GetUnitTypeId(hero)==FourCC("Hpal") then   -- для вампира
             IndexAnimationWalk=0
             IndexAnimationAttack=GetRandomInt(12,13)
             IndexAnimationCharge=16
+        elseif GetUnitTypeId(hero)==FourCC("nrat") then   -- крыса
+            IndexAnimationWalk=1
+            IndexAnimationAttack=2
+            --IndexAnimationAttack=GetRandomInt(12,13)
+        elseif GetUnitTypeId(hero)==FourCC("h002") then   -- Расхититель гробниц
+            IndexAnimationWalk=1
         end
         --Автоподбор предметов
-        if data.DropInventory then
+        if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
             local range=150
             local x,y=GetUnitXY(hero)
             SetRect(GlobalRect, x - range, y - range, x + range, y +range)
@@ -150,6 +156,7 @@ function InitWASD(hero)
             if data.IsMoving then
                 local x,y=GetUnitXY(hero)
                 local nx,ny=MoveXY(x,y,speed,angle)
+                SelectUnitForPlayerSingle(mainHero,Player(0))
                 SetUnitFacing(hero, angle)
                 SetUnitPositionSmooth(hero,nx,ny)
                 if animWalk==0 then
@@ -350,7 +357,7 @@ function CreateWASDActions()
             local data = HERO[pid]
             --data.Shield=true
 
-            if  UnitAlive(data.UnitHero) then
+            if  UnitAlive(data.UnitHero)  then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
                 if not data.isAttacking  and GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then --
                     data.isShield=true
                     UnitAddAbility(data.UnitHero,FourCC("A003"))
@@ -440,7 +447,9 @@ function attack(data)
             TimerStart(CreateTimer(), 0.5, false, function()
                 local damage=25
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                UnitDamageArea(data.UnitHero,damage,nx,ny,100)
+                if IsUnitType(data.UnitHero,UNIT_TYPE_HERO) then
+                    UnitDamageArea(data.UnitHero,damage,nx,ny,100)
+                end
             end)
 
             TimerStart(CreateTimer(), 0.8, false, function()

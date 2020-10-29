@@ -46,6 +46,7 @@ do
         CreatePortrait()
         --CreateBars()
         InitSelectionRegister()
+        CreateInfoFrames()
         --RepositionMSG()
     end)
 end
@@ -109,8 +110,13 @@ end
 
 function CreateQWERDFG()
     local next=0.039
-    for i=8,11 do --RTY
+    local last=0
+    for i=8,11 do --QWER
         BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, 0.07-next+next*i ,next/2)
+        last=0.07-next+next*i
+    end
+    for i=4,7 do --FGTH
+        BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, last-next*3+next*i ,next/2)
     end
     --BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..0, 0), FRAMEPOINT_CENTER, 0.4 ,next*1,5) --центровка
 end
@@ -222,3 +228,48 @@ function RepositionMSG()
     BlzFrameSetParent(frame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
     BlzFrameSetAbsPoint(frame,FRAMEPOINT_TOPLEFT,0.0,0.7) -- fatal upper > 0.4
 end
+
+function CreateInfoFrames()
+    local scale=0.039/2
+    local x,y=-0.10,0.395
+    CreateEmptyGlue("ReplaceableTextures\\CommandButtons\\BTNThoriumMelee.blp",scale,x+scale*0,y,1)-- Атака
+    CreateEmptyGlue("ReplaceableTextures\\CommandButtons\\BTNHumanArmorUpTwo.blp",scale,x+scale*2.2,y,2)-- Броня
+    CreateEmptyGlue("ReplaceableTextures\\CommandButtons\\BTNAnkh.blp",scale,x+scale*4.4,y,3)-- жизни
+end
+
+function CreateEmptyGlue(texture,scale,posX,posY,flag)
+    local SelfFrame = BlzCreateFrameByType('GLUEBUTTON', 'FaceButton', BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 'ScoreScreenTabButtonTemplate', 0)
+    local buttonIconFrame = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', SelfFrame, '', 0)
+
+    BlzFrameSetParent(SelfFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetParent(buttonIconFrame, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+
+    BlzFrameSetAllPoints(buttonIconFrame, SelfFrame)
+    BlzFrameSetTexture(buttonIconFrame, texture, 0, true)
+    BlzFrameSetSize(SelfFrame, scale, scale)
+    BlzFrameSetAbsPoint(SelfFrame, FRAMEPOINT_CENTER, posX, posY)
+
+    local textCurrent = BlzCreateFrameByType("TEXT", "ButtonChargesText", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), "", 0)
+    BlzFrameSetAbsPoint(textCurrent, FRAMEPOINT_LEFT,  posX+scale/2,posY) --posX+scale
+    BlzFrameSetScale(textCurrent,1)
+
+    BlzFrameSetParent(textCurrent, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+    BlzFrameSetText(textCurrent, "unknown")
+
+    TimerStart(CreateTimer(), 0.05, true, function()
+        if flag==1 then
+            --print("обновление текста")
+            local damage=0
+            if UnitHasItemOfTypeBJ(mainHero,FourCC('ratf')) then
+                damage=damage+15
+            end
+            BlzFrameSetText(textCurrent, " "..R2I(damage+BlzGetUnitBaseDamage(mainHero,0)))
+        elseif flag==2 then
+            BlzFrameSetText(textCurrent, " "..R2I(BlzGetUnitArmor(mainHero)))
+        elseif flag==3 then
+            BlzFrameSetText(textCurrent, " "..GetPlayerState(Player(0),PLAYER_STATE_RESOURCE_LUMBER))
+        end
+    end)
+    return SelfFrame
+end
+
