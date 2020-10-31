@@ -162,5 +162,4 @@ function CreateFirePillar(xs,ys,boss,zone)
         end
         x=xs
     end
-
 end
