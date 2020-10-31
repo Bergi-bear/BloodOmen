@@ -20,7 +20,7 @@ function InitStunPerDie()
         local eventId         = GetHandleId(GetTriggerEventId())
         local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
         local target          = GetTriggerUnit() -- тот кто получил урон
-        local caster          = GetEventDamageSource() -- тот кто нанёс урон
+        --local caster          = GetEventDamageSource() -- тот кто нанёс урон
 
 
         if isEventDamaging then
@@ -29,8 +29,12 @@ function InitStunPerDie()
                     StunUnit(target,5)
                     UnitAddType(target,UNIT_TYPE_UNDEAD)
                     SetUnitOwner(target,Player(PLAYER_NEUTRAL_PASSIVE),true)
+                    SetUnitAnimation(target,"death")
+                    RemoveGuardPosition(target)
                    -- print("юнита можно съесть?")
                 end
+
+                --if GetUnitTypeId()
             end)
         end
     end)

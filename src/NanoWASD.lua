@@ -19,6 +19,7 @@ end
 do
     TimerStart(CreateTimer(), .1, false, function()
         InitMouseMoveTrigger()
+        PlayUnitAnimationFromChat()
         --InitWASD(hero) --переместить в первый выбор героя
     end)
 
@@ -83,12 +84,17 @@ function InitWASD(hero)
             IndexAnimationWalk=0
             IndexAnimationAttack=GetRandomInt(12,13)
             IndexAnimationCharge=16
-        elseif GetUnitTypeId(hero)==FourCC("nrat") then   -- крыса
+        elseif GetUnitTypeId(hero)==FourCC("n003") then   -- крыса квест
             IndexAnimationWalk=1
             IndexAnimationAttack=2
-            --IndexAnimationAttack=GetRandomInt(12,13)
-        elseif GetUnitTypeId(hero)==FourCC("h002") then   -- Расхититель гробниц
+        elseif GetUnitTypeId(hero)==FourCC("nrat") then   -- крыса обычная
             IndexAnimationWalk=1
+            IndexAnimationAttack=2
+        elseif GetUnitTypeId(hero)==FourCC("h002") then   -- Расхититель гробниц
+            IndexAnimationWalk=2
+        elseif GetUnitTypeId(hero)==FourCC("hfoo") then   -- бандит
+            IndexAnimationWalk=5
+            IndexAnimationAttack=GetRandomInt(3,4)
         end
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
@@ -103,7 +109,6 @@ function InitWASD(hero)
                 end
             end)
         end
-
 
         data.IsMoving=false
         if data.ReleaseW and data.ReleaseD == false and data.ReleaseA == false then
@@ -435,7 +440,7 @@ end
 function attack(data)
     if not data.ReleaseLMB and  UnitAlive(data.UnitHero) and not IsUnitPaused(data.UnitHero) and not data.isShield then
         data.ReleaseLMB = true
-        if not data.isAttacking  and not data.isCharging then
+        if not data.isAttacking  and not data.isCharging  and not data.ONTarget then
             --print("пытаемся атаковать, запускаем кд атаки и прерываем движение")
             --print("a "..GetUnitName(mainHero))
             data.isAttacking=true
@@ -599,7 +604,7 @@ function UnitDamageArea(u,damage,x,y,range)
 end
 
 GlobalRect=Rect(0,0,0,0)
-function PointContentDestructable (x,y,range,iskill,damage)
+function PointContentDestructable (x,y,range,iskill,damage,flag)
     local content=false
     if range==nil then range=80 end
     if iskill==nil then iskill=false end
@@ -608,6 +613,10 @@ function PointContentDestructable (x,y,range,iskill,damage)
         local d=GetEnumDestructable()
         if GetDestructableLife(d)>0 then
             content=true
+
+            if  (GetDestructableTypeId(d)==FourCC("B005") or GetDestructableTypeId(d)==FourCC("OTip") ) and  flag==1 then -- блокиратор или платформа
+                content=false
+            end
             if iskill then
                 SetDestructableLife(d,GetDestructableLife(d)-damage)
                 if GetDestructableLife(d)>=1 then
@@ -618,4 +627,14 @@ function PointContentDestructable (x,y,range,iskill,damage)
         end
     end)
     return content
+end
+
+function PlayUnitAnimationFromChat()
+    local this=CreateTrigger()
+    TriggerRegisterPlayerChatEvent(this,Player(0),"",true)
+    TriggerAddAction(this, function()
+        local s=S2I(GetEventPlayerChatString())
+        SetUnitAnimationByIndex(mainHero,s)
+        print(GetUnitName(mainHero).." "..s)
+    end)
 end

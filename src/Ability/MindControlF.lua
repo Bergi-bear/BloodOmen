@@ -24,6 +24,7 @@ function InitCastMC()
                 UnitAddAbility(caster,FourCC("A003"))
                 UnitAddAbility(caster,FourCC("A004"))
                 UnitAddAbility(target,FourCC("A006")) -- освобождение разума
+                UnitAddAbility(target,FourCC("Abun")) -- запрет дефолт атаки
                 mainHero=target
                 udg_mainHero=target
                 tempHero=caster

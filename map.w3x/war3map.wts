@@ -1244,3 +1244,50 @@ STRING 320
 Убросает копьё в указанном направлении, Копьё отталкивает врага на 300 единиц и оглушает на 2 сек, если прижимает врага к стене. Наносит 100 урона.
 }
 
+STRING 321
+// Units: u008 (Skeleton warrior), Name (Name)
+{
+Skeleton warrior
+}
+
+STRING 322
+// Units: u008 (Skeleton warrior), EditorSuffix (Name - Editor Suffix)
+{
+(quest)
+}
+
+STRING 323
+// Units: n003 (Крыса), EditorSuffix (Name - Editor Suffix)
+{
+(quest)
+}
+
+STRING 324
+// Destructibles: B005 (Препятствие both но копье летит!), Name (Name)
+{
+Препятствие both но копье летит!
+}
+
+STRING 325
+// Doodads: D029 (Cupol), Name (Name)
+{
+Cupol
+}
+
+STRING 328
+// Items: I003 (Acid key), Name (Name)
+{
+Acid key
+}
+
+STRING 329
+{
+ 
+}
+
+STRING 330
+// Abilities: A008 (Невосприимчивость к магии), EditorSuffix (Editor Suffix)
+{
+(Для нежити)
+}
+

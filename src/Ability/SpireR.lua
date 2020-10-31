@@ -54,7 +54,7 @@ function InitSpire()
                     UnitDamageArea(caster,10,nx,ny,70)
                 end
 
-                if PointContentDestructable (nx,ny,70) then
+                if PointContentDestructable (nx,ny,70,nil,nil,1) then
                     DestroyEffect(eff)
                     DestroyTimer(GetExpiredTimer())
                     UnitDamageArea(caster,10,nx,ny,70)
