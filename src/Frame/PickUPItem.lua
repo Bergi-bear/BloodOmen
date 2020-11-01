@@ -16,23 +16,25 @@ function InitPUI()
     TriggerRegisterAnyUnitEventBJ(this, EVENT_PLAYER_UNIT_PICKUP_ITEM)
     TriggerAddAction(this, function()
         local item=GetManipulatedItem()
-        BlzFrameSetVisible(frame,true)
-        BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
-        BlzFrameSetAlpha(frame,255)
-        BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
-                --|cffffcc001-й уровень:|r
-        local p=1/64
-        secToHideItem=secToHideItem+6
-        TimerStart(CreateTimer(), p, true, function()
-            secToHideItem=secToHideItem-p
-            if secToHideItem<=0 then
-                DestroyTimer(GetExpiredTimer())
-                BlzFrameSetVisible(frame,false)
-            end
-            if secToHideItem<=2.5 then
-                BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
-            end
-        end)
+        if GetItemTypeId(item)~=FourCC("I004") then --Список исключений предметов
+            BlzFrameSetVisible(frame,true)
+            BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
+            BlzFrameSetAlpha(frame,255)
+            BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
+            --|cffffcc001-й уровень:|r
+            local p=1/64
+            secToHideItem=secToHideItem+6
+            TimerStart(CreateTimer(), p, true, function()
+                secToHideItem=secToHideItem-p
+                if secToHideItem<=0 then
+                    DestroyTimer(GetExpiredTimer())
+                    BlzFrameSetVisible(frame,false)
+                end
+                if secToHideItem<=2.5 then
+                    BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
+                end
+            end)
+        end
 
     end)
 

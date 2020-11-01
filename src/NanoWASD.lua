@@ -95,6 +95,9 @@ function InitWASD(hero)
         elseif GetUnitTypeId(hero)==FourCC("hfoo") then   -- бандит
             IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
+        elseif GetUnitTypeId(hero)==FourCC("Edmm") then   -- Летучие мыши 2,5 dssd
+            IndexAnimationWalk=1
+            IndexAnimationAttack=GetRandomInt(3,4)
         end
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
@@ -164,7 +167,11 @@ function InitWASD(hero)
                 SetUnitFacing(hero, angle)
                 SetUnitPositionSmooth(hero,nx,ny)
                 if animWalk==0 then
-                    SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+                    if  GetUnitTypeId(hero)~=FourCC("Edmm") then
+                        SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+                    else
+                      --  print("летучие мыши рестарт анимации движения")
+                    end
                     --print("w")
                     animStand=3
                 end
@@ -174,7 +181,12 @@ function InitWASD(hero)
                 animStand=animStand+TIMER_PERIOD
                 if animStand>=2 then --длительность анимации WALK
                     --print(animWalk)
-                    ResetUnitAnimation(hero)
+                    if  GetUnitTypeId(hero)~=FourCC("Edmm") then
+                        ResetUnitAnimation(hero)
+                        --print("дефолтный сборс")
+                    else
+                       -- print("сборс анимации мышей")
+                    end
                     animStand=0
                 end
                 --end
@@ -401,7 +413,14 @@ function CreateWASDActions()
             local data = HERO[pid]
             local hero = data.UnitHero
             data.ReleaseRMB = false
+
            -- print("мышка отпущена")
+
+
+
+
+
+
             if data.isShield then
                 UnitRemoveAbility(data.UnitHero,FourCC("A003"))
                 UnitRemoveAbility(data.UnitHero,FourCC("A004"))
@@ -411,7 +430,10 @@ function CreateWASDActions()
             end
 
             if UnitAlive(hero) then
-
+                if data.ReleaseA or data.ReleaseW or data.ReleaseS or data.ReleaseD then
+                    -- print("Скольжение2") --не работает
+                    SetUnitAnimationByIndex(mainHero,IndexAnimationWalk)
+                end
             end
         end
     end)
@@ -517,7 +539,7 @@ end
 
 
 onForces = {}
-function UnitAddForceSimple(hero, angle, speed, distance)
+function UnitAddForceSimple(hero, angle, speed, distance,flag)
     -- псевдо вектор использовать только для юнитов
     local currentdistance = 0
     if onForces[GetHandleId(hero)] == nil then
@@ -531,23 +553,23 @@ function UnitAddForceSimple(hero, angle, speed, distance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
-            if IsUnitType(hero,UNIT_TYPE_HERO) and HERO[0].isCharging then
-                local e=nil
-                GroupEnumUnitsInRange(perebor,newX, newY,200,nil)
-                while true do
-                    e = FirstOfGroup(perebor)
-                    if e == nil then break end
-                    if UnitAlive(e) and (IsUnitEnemy(e,GetOwningPlayer(hero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and IsUnitVisible(e,GetOwningPlayer(hero))  then
-                        UnitAddForceSimple(e,-180+AngleBetweenXY(GetUnitX(e),GetUnitY(e),GetUnitXY(e)),20,200)
-                    end
-                    GroupRemoveUnit(perebor,e)
-                end
+            if flag==5 then
+                local eff=AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveMissile.mdl",newX, newY)
+                BlzSetSpecialEffectColor(eff,255,0,0,0)
+                DestroyEffect(eff)
+                UnitDamageArea(hero,5,newX, newY,100)
+
             end
 
             if currentdistance >= distance then
                 --or (data.OnWater and data.OnTorrent==false)
                 --data.IsDisabled=false
                 --data.OnWater=false
+                if flag==5 then
+                    ShowUnit(hero,true)
+                end
+
+
                 if IsUnitType(hero,UNIT_TYPE_HERO) then
                     if HERO[0].isCharging then
                         --print("рывок окончен")
@@ -608,9 +630,10 @@ function PointContentDestructable (x,y,range,iskill,damage,flag)
     local content=false
     if range==nil then range=80 end
     if iskill==nil then iskill=false end
+    local d=nil
     SetRect(GlobalRect, x - range, y - range, x + range, y +range)
     EnumDestructablesInRect(GlobalRect,nil,function ()
-        local d=GetEnumDestructable()
+        d=GetEnumDestructable()
         if GetDestructableLife(d)>0 then
             content=true
 
@@ -626,7 +649,7 @@ function PointContentDestructable (x,y,range,iskill,damage,flag)
             end
         end
     end)
-    return content
+    return content,d
 end
 
 function PlayUnitAnimationFromChat()

@@ -21,26 +21,31 @@ function InitSpire()
             local x,y=GetSpellTargetX(),GetSpellTargetY()
             local xs,ys=GetUnitXY(caster)
             local angle=AngleBetweenXY(xs,ys,x,y)/bj_DEGTORAD
-            local eff=AddSpecialEffect("Abilities\\Weapons\\Dryadmissile\\Dryadmissile.mdl",xs,ys)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl",xs,ys)
             local dist=600
             local speed=15
             local curDist=0
             BlzSetSpecialEffectYaw(eff, math.rad(angle))
+
             TimerStart(CreateTimer(), 1/64, true, function()
                 curDist=curDist+speed
                 local nx,ny=MoveXY(xs,ys,curDist,angle)
                 BlzSetSpecialEffectPosition(eff,nx,ny,GetTerrainZ(nx,ny)+60)
-
+                BlzSetSpecialEffectColor(eff,255,0,0)
                 local e=nil
                 GroupEnumUnitsInRange(perebor,nx,ny,70,nil)
                 while true do
                     e = FirstOfGroup(perebor)
                     if e == nil then break end
                     if UnitAlive(e) and UnitAlive(caster) and (IsUnitEnemy(e,GetOwningPlayer(caster)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
+                        if GetUnitTypeId(e)==FourCC("osp1") then
+                            KillUnit(e)
+                        end
                         local nxe,nye=MoveXY(GetUnitX(e),GetUnitY(e),speed,angle)
                         if not PointContentDestructable (nx,ny,70) then
-                            SetUnitX(e,nxe)
-                            SetUnitY(e,nye)
+                            --SetUnitX(e,nxe)
+                            --SetUnitY(e,nye)
+                            SetUnitPositionSmooth(e,nxe,nye)
                         end
                         --UnitDamageTarget( caster, e, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS )
                     end

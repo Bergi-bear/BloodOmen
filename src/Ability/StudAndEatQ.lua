@@ -6,6 +6,14 @@
 do
     TimerStart(CreateTimer(), 0.11, false, function()
         InitStunPerDie()
+        SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh1", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack1, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack1, 853)
+        SetSoundVolume(SoundAttack1, 250)
+        SoundAttack2 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack2, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack2, 853)
+        SetSoundVolume(SoundAttack2, 250)
     end)
 end
 function InitStunPerDie()
@@ -20,7 +28,7 @@ function InitStunPerDie()
         local eventId         = GetHandleId(GetTriggerEventId())
         local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
         local target          = GetTriggerUnit() -- тот кто получил урон
-        --local caster          = GetEventDamageSource() -- тот кто нанёс урон
+        local caster          = GetEventDamageSource() -- тот кто нанёс урон
 
 
         if isEventDamaging then
@@ -33,9 +41,23 @@ function InitStunPerDie()
                     RemoveGuardPosition(target)
                    -- print("юнита можно съесть?")
                 end
-
-                --if GetUnitTypeId()
             end)
+
+            if GetUnitTypeId(caster)==FourCC("Hpal") and IsUnitInRange(caster,target,200) then
+                --print("звук удара")
+                local tl = Location(GetUnitXY(target))
+                local r=GetRandomInt(1,2)
+                if r==1 then
+                    PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                else
+                    PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
+                end
+                RemoveLocation(tl)
+                if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
+                    AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
+                    --print("Кровь")
+                end
+            end
         end
     end)
 

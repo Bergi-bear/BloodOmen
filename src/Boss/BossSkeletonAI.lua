@@ -23,12 +23,12 @@ end
 
 
 
-
+BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
     local BossFight=true
     print("Запущен ИИ Босса")
-
+    HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
 
@@ -46,7 +46,7 @@ function StartBossAI(zone)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 1500) then
+                if not IsUnitInRange(mainHero, boss, 2000) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
@@ -75,6 +75,7 @@ function StartBossAI(zone)
                 skeleton[3]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMinX(zone)+GetRectWidthBJ(zone),GetRectMinY(zone),GetRandomInt(0,360))
                 skeleton[4]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMinX(zone),GetRectMinY(zone),GetRandomInt(0,360))
                 for i=1,#skeleton do
+                    UnitApplyTimedLife(skeleton[i],FourCC('BTLF'),20)
                     if not IssueTargetOrder(skeleton[i],"attack",mainHero) then
                         IssuePointOrder(skeleton[i],"attack",GetUnitXY(mainHero))
                     end
@@ -84,7 +85,9 @@ function StartBossAI(zone)
                 PhaseOn = false
                 print("Падающие люстры")
                 TimerStart(CreateTimer(), 1, true, function()
-                    MarkAndFall(GetUnitX(mainHero),GetUnitY(mainHero),"HFMChandelier",boss) --люстра
+                    if IsUnitInRange(mainHero, boss, 900) and UnitAlive(mainHero)  then
+                        MarkAndFall(GetUnitX(mainHero),GetUnitY(mainHero),"HFMChandelier",boss) --люстра
+                    end
                     if phase~=2 then
                         DestroyTimer(GetExpiredTimer())
                     end
@@ -141,7 +144,7 @@ function MarkAndFall(x,y,effModel,hero)
                 DestroyTimer(GetExpiredTimer())
                 DestroyEffect(FallenEff)
                 BlzSetSpecialEffectPosition(FallenEff,5000,5000,0)
-                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster",x,y))
+                DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",x,y))
                 UnitDamageArea(hero,50,x,y,150) --при падении камня
                 UnitDamageArea(mainHero,50,x,y,150)
             end
@@ -154,12 +157,37 @@ function CreateFirePillar(xs,ys,boss,zone)
     local step=100
     xs=xs-step*1.7
     local x=xs
-    for k=1,14 do
+    local k=4
+    IssuePointOrder(boss,"move",xs,ys)
+    TimerStart(CreateTimer(), 1/16, true, function()
+        --for k=1,14 do
         for i =1,3 do
+            -- B006 лавйка, можно сломать
             x=x+step
-            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,ys-step*(k-1))
-            UnitDamageArea(boss,99,x,ys-step*(k-1),step*2)
+            local y=ys-step*(k-1)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            --DestroyEffect(eff)
+           -- local _,d=PointContentDestructable(x,y,step*2)
+            --if GetDestructableTypeId(d)==FourCC("B006") then
+                --print("Врезался в лавку")
+                --DestroyTimer(GetExpiredTimer())
+                local j=1.2
+                SetRect(GlobalRect, x - step*j, y - step*j, x + step*j, y +step*j)
+                EnumDestructablesInRect(GlobalRect,nil,function ()
+                    local d=GetEnumDestructable()
+                    --if GetDestructableLife(d)>0 then
+                        --print("Удалено "..GetDestructableName(d))
+                        RemoveDestructable(d)
+                    --end
+                end)
+            --end
+            UnitDamageArea(boss,99,x,y,step)
         end
         x=xs
-    end
+        k=k+1
+        if k>=15 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+    --end
 end

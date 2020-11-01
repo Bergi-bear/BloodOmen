@@ -79,6 +79,12 @@ gg_rct_DoorwayYard = nil
 gg_rct_Region_071 = nil
 gg_rct_AcidDoor = nil
 gg_rct_boss = nil
+gg_rct_Cry5 = nil
+gg_rct_Region_075 = nil
+gg_rct_WEbolldBoss = nil
+gg_rct_RedBossKey = nil
+gg_rct_GreenBoss = nil
+gg_rct_IceBoss = nil
 gg_cam_Cinematic1 = nil
 gg_cam_Camera_003 = nil
 gg_cam_Cinematic2 = nil
@@ -124,6 +130,7 @@ gg_snd_NecromancerYesAttack3 = nil
 gg_snd_KelThuzadDeath1 = nil
 gg_snd_UndeadDissipate2 = nil
 gg_snd_BattleNetDoorsStereo201 = nil
+gg_snd_MetalHeavySliceFlesh1 = nil
 gg_trg_Tips_1 = nil
 gg_trg_Tips_2 = nil
 gg_trg_Tips_3 = nil
@@ -146,6 +153,7 @@ gg_trg_Button_1 = nil
 gg_trg_Button_4 = nil
 gg_trg_Button_2 = nil
 gg_trg_Button_3 = nil
+gg_trg_Button_Fly = nil
 gg_trg_Grave1 = nil
 gg_trg_Grave2 = nil
 gg_trg_Grave3 = nil
@@ -167,8 +175,8 @@ gg_trg_RemoveDark = nil
 gg_trg_Button_5 = nil
 gg_trg_ButtonMainGate = nil
 gg_trg_Key_4 = nil
-gg_trg_AcidKey = nil
 gg_trg_AcidKeyDoor = nil
+gg_trg_AcidKey = nil
 gg_trg_Button_1_Copy = nil
 gg_trg_Rabbits = nil
 gg_trg_RabbitsEnd = nil
@@ -278,6 +286,11 @@ gg_dest_YTfb_11586 = nil
 gg_dest_YTfb_11587 = nil
 gg_dest_YTfb_11588 = nil
 gg_dest_YTfb_11589 = nil
+gg_dest_YTfb_12242 = nil
+gg_dest_YTfb_12243 = nil
+gg_dest_YTfb_12244 = nil
+gg_dest_YTfb_12245 = nil
+gg_dest_DTlv_12259 = nil
 function InitGlobals()
     udg_IntLightCheck = 0
     udg_Cat = 0
@@ -462,55 +475,59 @@ function InitSounds()
     SetSoundParamsFromLabel(gg_snd_BattleNetDoorsStereo201, "GlueScreenBNetSlam")
     SetSoundDuration(gg_snd_BattleNetDoorsStereo201, 2645)
     SetSoundVolume(gg_snd_BattleNetDoorsStereo201, 127)
+    gg_snd_MetalHeavySliceFlesh1 = CreateSound("Sound/Units/Combat/MetalHeavySliceFlesh1.flac", false, true, true, 0, 0, "CombatSoundsEAX")
+    SetSoundParamsFromLabel(gg_snd_MetalHeavySliceFlesh1, "MetalHeavySliceFlesh")
+    SetSoundDuration(gg_snd_MetalHeavySliceFlesh1, 1104)
+    SetSoundVolume(gg_snd_MetalHeavySliceFlesh1, 95)
 end
 
 function CreateAllDestructables()
     local d
     local t
     local life
-    gg_dest_B003_3905 = BlzCreateDestructableZWithSkin(FourCC("B003"), 778.2, 8281.3, 663.3, 181.177, 0.500, 0, FourCC("B003"))
-    gg_dest_B003_10418 = BlzCreateDestructableZWithSkin(FourCC("B003"), 10135.5, -2957.0, 568.6, 0.000, 0.500, 0, FourCC("B003"))
-    gg_dest_B003_3906 = BlzCreateDestructableZWithSkin(FourCC("B003"), 785.6, 8038.8, 663.3, 180.287, 0.500, 0, FourCC("B003"))
     gg_dest_B003_3904 = BlzCreateDestructableZWithSkin(FourCC("B003"), 590.5, 8531.5, 656.9, 224.099, 0.500, 0, FourCC("B003"))
-    gg_dest_B004_6078 = BlzCreateDestructableZWithSkin(FourCC("B004"), 2510.8, 1817.2, 928.0, 268.725, 5.000, 0, FourCC("B004"))
+    gg_dest_B003_3906 = BlzCreateDestructableZWithSkin(FourCC("B003"), 785.6, 8038.8, 663.3, 180.287, 0.500, 0, FourCC("B003"))
+    gg_dest_B003_10418 = BlzCreateDestructableZWithSkin(FourCC("B003"), 10135.5, -2957.0, 568.6, 0.000, 0.500, 0, FourCC("B003"))
+    gg_dest_B003_3905 = BlzCreateDestructableZWithSkin(FourCC("B003"), 778.2, 8281.3, 663.3, 181.177, 0.500, 0, FourCC("B003"))
     gg_dest_B004_10353 = BlzCreateDestructableZWithSkin(FourCC("B004"), 8971.7, -1414.9, 552.2, 270.000, 3.500, 0, FourCC("B004"))
+    gg_dest_B004_6078 = BlzCreateDestructableZWithSkin(FourCC("B004"), 2510.8, 1817.2, 928.0, 268.725, 5.000, 0, FourCC("B004"))
     gg_dest_CTtc_0212 = BlzCreateDestructableWithSkin(FourCC("CTtc"), 416.0, -2464.0, 270.000, 1.687, 2, FourCC("CTtc"))
     gg_dest_DTfx_10185 = BlzCreateDestructableWithSkin(FourCC("DTfx"), 8576.0, -1152.0, 270.000, 1.000, 0, FourCC("DTfx"))
     gg_dest_DTfx_0479 = BlzCreateDestructableZWithSkin(FourCC("DTfx"), 448.0, 6528.0, 567.3, 270.000, 1.000, 0, FourCC("DTfx"))
-    gg_dest_DTfx_4421 = BlzCreateDestructableWithSkin(FourCC("DTfx"), 3392.0, 3520.0, 270.000, 1.000, 0, FourCC("DTfx"))
     gg_dest_DTfx_10977 = BlzCreateDestructableWithSkin(FourCC("DTfx"), 4864.0, 6400.0, 270.000, 1.000, 0, FourCC("DTfx"))
+    gg_dest_DTfx_4421 = BlzCreateDestructableWithSkin(FourCC("DTfx"), 3392.0, 3520.0, 270.000, 1.000, 0, FourCC("DTfx"))
     gg_dest_DTg5_10374 = BlzCreateDestructableWithSkin(FourCC("DTg5"), 9344.0, -1024.0, 270.000, 0.900, 0, FourCC("DTg5"))
     gg_dest_DTlv_10436 = BlzCreateDestructableZWithSkin(FourCC("DTlv"), 10848.0, -3360.0, 628.8, 180.000, 1.500, 0, FourCC("DTlv"))
-    gg_dest_DTlv_6072 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 4448.0, 2656.0, 269.772, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_4275 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 2976.0, 6304.0, 0.613, 1.500, 0, FourCC("DTlv"))
+    gg_dest_DTlv_6072 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 4448.0, 2656.0, 269.772, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_0696 = BlzCreateDestructableWithSkin(FourCC("DTlv"), -2336.0, 2976.0, 43.000, 1.500, 0, FourCC("DTlv"))
+    gg_dest_DTlv_12259 = BlzCreateDestructableZWithSkin(FourCC("DTlv"), 1056.0, 8032.0, 503.3, 180.000, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_10970 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 9952.0, -1312.0, 90.193, 1.500, 0, FourCC("DTlv"))
-    gg_dest_YTfb_0973 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7840.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0974 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7968.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0975 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 8096.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0976 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7904.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0977 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 8032.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_11587 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9568.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_11586 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9504.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_12244 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 3296.0, 7264.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_12243 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 3296.0, 7328.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_1353 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 2016.0, 7200.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0703 = BlzCreateDestructableWithSkin(FourCC("YTfb"), -928.0, -672.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0704 = BlzCreateDestructableWithSkin(FourCC("YTfb"), -864.0, -672.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0705 = BlzCreateDestructableWithSkin(FourCC("YTfb"), -992.0, -672.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_12245 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 3296.0, 7200.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0509 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6432.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0508 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6496.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0507 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6560.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_0506 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6624.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_4504 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2784.0, 4384.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_4505 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2848.0, 4384.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_4506 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2912.0, 4384.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0973 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7840.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0506 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1760.0, 6624.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0972 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), -1376.0, 7776.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_0598 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6496.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_1741 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6304.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6073 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 1824.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6074 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 1888.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6075 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 1952.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_6076 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 2528.0, 2016.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_11170 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9696.0, -1824.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_12242 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 3296.0, 7392.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_8452 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1312.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_8453 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1248.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_8454 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 5344.0, 1184.0, 270.000, 1.000, 0, FourCC("YTfb"))
@@ -520,9 +537,9 @@ function CreateAllDestructables()
     gg_dest_YTfb_10010 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 6624.0, -3296.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_1739 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6432.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_1740 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6368.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0598 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6496.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0597 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6432.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_0596 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6368.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_0595 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6304.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_10520 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 10080.0, -2208.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_10522 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 10080.0, -2080.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_10521 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 10080.0, -2144.0, 270.000, 1.000, 0, FourCC("YTfb"))
@@ -530,14 +547,19 @@ function CreateAllDestructables()
     gg_dest_YTfb_10855 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 10080.0, -2720.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_10856 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 10080.0, -2656.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_10854 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 10080.0, -2784.0, 270.000, 1.000, 0, FourCC("YTfb"))
-    gg_dest_YTfb_11588 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9632.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_0595 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 736.0, 6304.0, 765.7, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11006 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 4192.0, 6048.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11007 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 4064.0, 6048.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11008 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 4128.0, 6048.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11009 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 4000.0, 6048.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11168 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9824.0, -1824.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11169 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9760.0, -1824.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_11170 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9696.0, -1824.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_11586 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9504.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_11587 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9568.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_11588 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9632.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfb_11589 = BlzCreateDestructableWithSkin(FourCC("YTfb"), 9696.0, -96.0, 270.000, 1.000, 0, FourCC("YTfb"))
+    gg_dest_YTfb_1741 = BlzCreateDestructableZWithSkin(FourCC("YTfb"), 1824.0, 6304.0, 509.6, 270.000, 1.000, 0, FourCC("YTfb"))
     gg_dest_YTfc_1351 = BlzCreateDestructableZWithSkin(FourCC("YTfc"), 2048.0, 7424.0, 765.7, 270.000, 1.000, 0, FourCC("YTfc"))
     gg_dest_YTfc_1352 = BlzCreateDestructableZWithSkin(FourCC("YTfc"), 2048.0, 7296.0, 765.7, 270.000, 1.000, 0, FourCC("YTfc"))
     gg_dest_YY13_0211 = BlzCreateDestructableZWithSkin(FourCC("YY13"), -1696.0, -2656.0, 187.8, 0.000, 1.000, 0, FourCC("YY13"))
@@ -547,14 +569,15 @@ end
 function CreateAllItems()
     local itemID
     gg_item_I000_0009 = BlzCreateItemWithSkin(FourCC("I000"), 2852.0, 6423.3, FourCC("I000"))
+    BlzCreateItemWithSkin(FourCC("I000"), 3776.4, 2780.6, FourCC("I000"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 9488.8, 2989.1, FourCC("lmbr"))
     gg_item_lmbr_0011 = BlzCreateItemWithSkin(FourCC("lmbr"), -910.1, 4967.8, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 8232.1, 9096.0, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 9496.1, 3067.2, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 8387.3, 2473.2, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 1303.9, 6345.6, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 9494.9, 2898.1, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 8232.1, 9096.0, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 820.0, 3122.4, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 9494.9, 2898.1, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 9506.7, 3179.3, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 9583.7, 3169.5, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 9656.6, 3174.4, FourCC("lmbr"))
@@ -701,9 +724,7 @@ function CreateUnitsForPlayer0()
     SetUnitState(gg_unit_H000_0004, UNIT_STATE_MANA, 15)
     SetUnitColor(gg_unit_H000_0004, ConvertPlayerColor(20))
     u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 6845.9, 2026.3, 45.000, FourCC("hrif"))
-    gg_unit_hrif_0204 = BlzCreateUnitWithSkin(p, FourCC("hrif"), 6439.9, 1595.8, 0.000, FourCC("hrif"))
-    gg_unit_hrif_0225 = BlzCreateUnitWithSkin(p, FourCC("hrif"), 7315.5, 1605.2, 45.000, FourCC("hrif"))
-    gg_unit_hrif_0227 = BlzCreateUnitWithSkin(p, FourCC("hrif"), 6850.9, 878.3, 135.000, FourCC("hrif"))
+    u = BlzCreateUnitWithSkin(p, FourCC("osp1"), 11636.2, -7.2, 98.891, FourCC("osp1"))
 end
 
 function CreateBuildingsForPlayer5()
@@ -722,6 +743,7 @@ function CreateUnitsForPlayer10()
     local t
     local life
     u = BlzCreateUnitWithSkin(p, FourCC("u005"), 9605.6, 4394.7, 277.530, FourCC("u005"))
+    u = BlzCreateUnitWithSkin(p, FourCC("hwt3"), 6842.5, 1126.6, 266.430, FourCC("hwt3"))
 end
 
 function CreateUnitsForPlayer11()
@@ -802,12 +824,16 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("u004"), 7491.4, 204.3, 83.826, FourCC("u004"))
     u = BlzCreateUnitWithSkin(p, FourCC("u004"), 7463.4, -133.8, 316.269, FourCC("u004"))
     u = BlzCreateUnitWithSkin(p, FourCC("u004"), 6897.5, -216.6, 154.525, FourCC("u004"))
-    u = BlzCreateUnitWithSkin(p, FourCC("u007"), 11249.0, -2789.1, 179.558, FourCC("u007"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h002"), 1591.2, 8552.6, 299.219, FourCC("h002"))
     u = BlzCreateUnitWithSkin(p, FourCC("u007"), 10334.4, -3334.5, 85.694, FourCC("u007"))
     u = BlzCreateUnitWithSkin(p, FourCC("u007"), 12398.1, -2377.7, 185.482, FourCC("u007"))
     u = BlzCreateUnitWithSkin(p, FourCC("u004"), 11990.3, -3241.9, 113.711, FourCC("u004"))
     u = BlzCreateUnitWithSkin(p, FourCC("u004"), 12053.1, -2006.1, 193.858, FourCC("u004"))
     u = BlzCreateUnitWithSkin(p, FourCC("u008"), 4593.4, 6441.4, 253.020, FourCC("u008"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h002"), 1169.6, 8122.9, 231.754, FourCC("h002"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h002"), 2213.4, 8440.0, 325.202, FourCC("h002"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h002"), 2936.8, 8153.7, 213.247, FourCC("h002"))
+    u = BlzCreateUnitWithSkin(p, FourCC("h002"), 1811.0, 8391.5, 104.764, FourCC("h002"))
 end
 
 function CreateNeutralPassiveBuildings()
@@ -863,7 +889,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), -1202.8, 8447.6, 308.100, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), -943.4, 6828.1, 270.560, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 2293.1, 7542.8, 264.470, FourCC("nvlw"))
-    u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 2461.4, 7543.6, 264.470, FourCC("nvlw"))
+    u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 3087.3, 7544.0, 264.470, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 1619.2, 6444.4, 272.667, FourCC("nrat"))
     u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 1119.3, 6315.9, 301.979, FourCC("nrat"))
     u = BlzCreateUnitWithSkin(p, FourCC("nrat"), 1251.2, 6499.6, 242.772, FourCC("nrat"))
@@ -889,15 +915,17 @@ function CreateNeutralPassive()
     gg_unit_opeo_0070 = BlzCreateUnitWithSkin(p, FourCC("opeo"), 962.5, 2153.7, 87.876, FourCC("opeo"))
     gg_unit_obot_0077 = BlzCreateUnitWithSkin(p, FourCC("obot"), 1032.5, 2381.5, 27.094, FourCC("obot"))
     gg_unit_unec_0079 = BlzCreateUnitWithSkin(p, FourCC("unec"), -5345.8, -3399.1, 109.833, FourCC("unec"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hwt3"), 6842.5, 1126.6, 266.430, FourCC("hwt3"))
     gg_unit_ninf_0197 = BlzCreateUnitWithSkin(p, FourCC("ninf"), 8441.1, 2494.1, 52.657, FourCC("ninf"))
     u = BlzCreateUnitWithSkin(p, FourCC("h002"), -6878.2, 15042.4, 280.168, FourCC("h002"))
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), -6586.0, 15022.1, 270.162, FourCC("hfoo"))
+    gg_unit_hrif_0204 = BlzCreateUnitWithSkin(p, FourCC("hrif"), 6439.9, 1595.8, 0.000, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("uske"), -6773.1, 15028.1, 269.288, FourCC("uske"))
     u = BlzCreateUnitWithSkin(p, FourCC("u003"), -6685.6, 15032.2, 269.540, FourCC("u003"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 3856.7, 5865.8, 355.320, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 4887.1, 3895.0, 270.816, FourCC("nvlw"))
+    gg_unit_hrif_0225 = BlzCreateUnitWithSkin(p, FourCC("hrif"), 7315.5, 1605.2, 45.000, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("Edem"), -6494.4, 5040.3, 70.479, FourCC("Edmm"))
+    gg_unit_hrif_0227 = BlzCreateUnitWithSkin(p, FourCC("hrif"), 6850.9, 878.3, 135.000, FourCC("hrif"))
     u = BlzCreateUnitWithSkin(p, FourCC("u007"), -6489.3, 15018.4, 257.210, FourCC("u007"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 2846.3, -74.7, 270.816, FourCC("nvlw"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 4438.5, -1035.3, 270.816, FourCC("nvlw"))
@@ -956,7 +984,7 @@ function CreateRegions()
     gg_rct_Solve3 = Rect(1952.0, 7104.0, 2080.0, 7488.0)
     gg_rct_Camera_fix = Rect(3744.0, 2816.0, 6368.0, 6880.0)
     gg_rct_Region_011 = Rect(-1760.0, 6272.0, -1632.0, 6880.0)
-    gg_rct_KainStart = Rect(9504.0, 2848.0, 9664.0, 3008.0)
+    gg_rct_KainStart = Rect(-224.0, 4128.0, -64.0, 4288.0)
     gg_rct_KotoBogSpawn2 = Rect(-1120.0, 3200.0, -1056.0, 3264.0)
     gg_rct_Region_014 = Rect(-1664.0, 7744.0, -1344.0, 8224.0)
     gg_rct_EnterDark_2 = Rect(-1312.0, 7744.0, -1184.0, 8384.0)
@@ -1020,6 +1048,12 @@ function CreateRegions()
     gg_rct_Region_071 = Rect(9600.0, -1888.0, 9888.0, -1728.0)
     gg_rct_AcidDoor = Rect(9376.0, -256.0, 9888.0, 128.0)
     gg_rct_boss = Rect(9088.0, 3328.0, 10112.0, 4640.0)
+    gg_rct_Cry5 = Rect(2176.0, 7072.0, 3136.0, 7616.0)
+    gg_rct_Region_075 = Rect(3200.0, 7072.0, 3392.0, 7520.0)
+    gg_rct_WEbolldBoss = Rect(6400.0, 992.0, 7264.0, 1952.0)
+    gg_rct_RedBossKey = Rect(1856.0, 5664.0, 2976.0, 6848.0)
+    gg_rct_GreenBoss = Rect(10752.0, -448.0, 11872.0, 64.0)
+    gg_rct_IceBoss = Rect(6656.0, -384.0, 7680.0, 416.0)
 end
 
 function CreateCameras()
@@ -1507,6 +1541,9 @@ function InitWASD(hero)
         elseif GetUnitTypeId(hero)==FourCC("hfoo") then   -- бандит
             IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
+        elseif GetUnitTypeId(hero)==FourCC("Edmm") then   -- Летучие мыши 2,5 dssd
+            IndexAnimationWalk=1
+            IndexAnimationAttack=GetRandomInt(3,4)
         end
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
@@ -1576,7 +1613,11 @@ function InitWASD(hero)
                 SetUnitFacing(hero, angle)
                 SetUnitPositionSmooth(hero,nx,ny)
                 if animWalk==0 then
-                    SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+                    if  GetUnitTypeId(hero)~=FourCC("Edmm") then
+                        SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+                    else
+                      --  print("летучие мыши рестарт анимации движения")
+                    end
                     --print("w")
                     animStand=3
                 end
@@ -1586,7 +1627,12 @@ function InitWASD(hero)
                 animStand=animStand+TIMER_PERIOD
                 if animStand>=2 then --длительность анимации WALK
                     --print(animWalk)
-                    ResetUnitAnimation(hero)
+                    if  GetUnitTypeId(hero)~=FourCC("Edmm") then
+                        ResetUnitAnimation(hero)
+                        --print("дефолтный сборс")
+                    else
+                       -- print("сборс анимации мышей")
+                    end
                     animStand=0
                 end
                 --end
@@ -1813,7 +1859,14 @@ function CreateWASDActions()
             local data = HERO[pid]
             local hero = data.UnitHero
             data.ReleaseRMB = false
+
            -- print("мышка отпущена")
+
+
+
+
+
+
             if data.isShield then
                 UnitRemoveAbility(data.UnitHero,FourCC("A003"))
                 UnitRemoveAbility(data.UnitHero,FourCC("A004"))
@@ -1823,7 +1876,10 @@ function CreateWASDActions()
             end
 
             if UnitAlive(hero) then
-
+                if data.ReleaseA or data.ReleaseW or data.ReleaseS or data.ReleaseD then
+                    -- print("Скольжение2") --не работает
+                    SetUnitAnimationByIndex(mainHero,IndexAnimationWalk)
+                end
             end
         end
     end)
@@ -1929,7 +1985,7 @@ end
 
 
 onForces = {}
-function UnitAddForceSimple(hero, angle, speed, distance)
+function UnitAddForceSimple(hero, angle, speed, distance,flag)
     -- псевдо вектор использовать только для юнитов
     local currentdistance = 0
     if onForces[GetHandleId(hero)] == nil then
@@ -1943,23 +1999,23 @@ function UnitAddForceSimple(hero, angle, speed, distance)
             local x, y = GetUnitX(hero), GetUnitY(hero)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
-            if IsUnitType(hero,UNIT_TYPE_HERO) and HERO[0].isCharging then
-                local e=nil
-                GroupEnumUnitsInRange(perebor,newX, newY,200,nil)
-                while true do
-                    e = FirstOfGroup(perebor)
-                    if e == nil then break end
-                    if UnitAlive(e) and (IsUnitEnemy(e,GetOwningPlayer(hero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and IsUnitVisible(e,GetOwningPlayer(hero))  then
-                        UnitAddForceSimple(e,-180+AngleBetweenXY(GetUnitX(e),GetUnitY(e),GetUnitXY(e)),20,200)
-                    end
-                    GroupRemoveUnit(perebor,e)
-                end
+            if flag==5 then
+                local eff=AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveMissile.mdl",newX, newY)
+                BlzSetSpecialEffectColor(eff,255,0,0,0)
+                DestroyEffect(eff)
+                UnitDamageArea(hero,5,newX, newY,100)
+
             end
 
             if currentdistance >= distance then
                 --or (data.OnWater and data.OnTorrent==false)
                 --data.IsDisabled=false
                 --data.OnWater=false
+                if flag==5 then
+                    ShowUnit(hero,true)
+                end
+
+
                 if IsUnitType(hero,UNIT_TYPE_HERO) then
                     if HERO[0].isCharging then
                         --print("рывок окончен")
@@ -2020,9 +2076,10 @@ function PointContentDestructable (x,y,range,iskill,damage,flag)
     local content=false
     if range==nil then range=80 end
     if iskill==nil then iskill=false end
+    local d=nil
     SetRect(GlobalRect, x - range, y - range, x + range, y +range)
     EnumDestructablesInRect(GlobalRect,nil,function ()
-        local d=GetEnumDestructable()
+        d=GetEnumDestructable()
         if GetDestructableLife(d)>0 then
             content=true
 
@@ -2038,7 +2095,7 @@ function PointContentDestructable (x,y,range,iskill,damage,flag)
             end
         end
     end)
-    return content
+    return content,d
 end
 
 function PlayUnitAnimationFromChat()
@@ -2295,6 +2352,41 @@ end
 ---
 do
     TimerStart(CreateTimer(), 0.11, false, function()
+        InitBB()
+    end)
+end
+
+function InitBB()
+    local SpellTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        local player = Player(i)
+        TriggerRegisterPlayerUnitEvent(SpellTrigger, player, EVENT_PLAYER_UNIT_SPELL_CAST)
+    end
+    TriggerAddAction(SpellTrigger, function()
+        if GetSpellAbilityId() == FourCC('dssd') then --мыши
+            local caster=GetTriggerUnit()
+           -- UnitAddItemById(caster,FourCC("I004"))
+            TimerStart(CreateTimer(), 1/64, true, function()
+                if GetUnitTypeId(caster)==FourCC('Hpal') then
+                    DestroyTimer(GetExpiredTimer())
+                    if HERO[0].ReleaseA or HERO[0].ReleaseW or HERO[0].ReleaseS or HERO[0].ReleaseD then
+                       -- print("скольжение после мышей") --не работает
+                        SetUnitAnimationByIndex(caster,IndexAnimationWalk)
+                    end
+                end
+            end)
+        end
+    end)
+end
+
+
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 28.10.2020 19:30
+---
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
         InitCastMC()
     end)
 end
@@ -2399,26 +2491,31 @@ function InitSpire()
             local x,y=GetSpellTargetX(),GetSpellTargetY()
             local xs,ys=GetUnitXY(caster)
             local angle=AngleBetweenXY(xs,ys,x,y)/bj_DEGTORAD
-            local eff=AddSpecialEffect("Abilities\\Weapons\\Dryadmissile\\Dryadmissile.mdl",xs,ys)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl",xs,ys)
             local dist=600
             local speed=15
             local curDist=0
             BlzSetSpecialEffectYaw(eff, math.rad(angle))
+
             TimerStart(CreateTimer(), 1/64, true, function()
                 curDist=curDist+speed
                 local nx,ny=MoveXY(xs,ys,curDist,angle)
                 BlzSetSpecialEffectPosition(eff,nx,ny,GetTerrainZ(nx,ny)+60)
-
+                BlzSetSpecialEffectColor(eff,255,0,0)
                 local e=nil
                 GroupEnumUnitsInRange(perebor,nx,ny,70,nil)
                 while true do
                     e = FirstOfGroup(perebor)
                     if e == nil then break end
                     if UnitAlive(e) and UnitAlive(caster) and (IsUnitEnemy(e,GetOwningPlayer(caster)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
+                        if GetUnitTypeId(e)==FourCC("osp1") then
+                            KillUnit(e)
+                        end
                         local nxe,nye=MoveXY(GetUnitX(e),GetUnitY(e),speed,angle)
                         if not PointContentDestructable (nx,ny,70) then
-                            SetUnitX(e,nxe)
-                            SetUnitY(e,nye)
+                            --SetUnitX(e,nxe)
+                            --SetUnitY(e,nye)
+                            SetUnitPositionSmooth(e,nxe,nye)
                         end
                         --UnitDamageTarget( caster, e, 100, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS )
                     end
@@ -2453,6 +2550,14 @@ end
 do
     TimerStart(CreateTimer(), 0.11, false, function()
         InitStunPerDie()
+        SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh1", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack1, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack1, 853)
+        SetSoundVolume(SoundAttack1, 250)
+        SoundAttack2 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack2, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack2, 853)
+        SetSoundVolume(SoundAttack2, 250)
     end)
 end
 function InitStunPerDie()
@@ -2467,7 +2572,7 @@ function InitStunPerDie()
         local eventId         = GetHandleId(GetTriggerEventId())
         local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
         local target          = GetTriggerUnit() -- тот кто получил урон
-        --local caster          = GetEventDamageSource() -- тот кто нанёс урон
+        local caster          = GetEventDamageSource() -- тот кто нанёс урон
 
 
         if isEventDamaging then
@@ -2480,12 +2585,65 @@ function InitStunPerDie()
                     RemoveGuardPosition(target)
                    -- print("юнита можно съесть?")
                 end
-
-                --if GetUnitTypeId()
             end)
+
+            if GetUnitTypeId(caster)==FourCC("Hpal") and IsUnitInRange(caster,target,200) then
+                --print("звук удара")
+                local tl = Location(GetUnitXY(target))
+                local r=GetRandomInt(1,2)
+                if r==1 then
+                    PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                else
+                    PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
+                end
+                RemoveLocation(tl)
+                if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
+                    AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
+                    --print("Кровь")
+                end
+            end
         end
     end)
 
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 01.11.2020 20:48
+---
+
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitBossZoneWE()
+    end)
+end
+function InitBossZoneWE()
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_WEbolldBoss)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartBossAIWE(gg_rct_WEbolldBoss)
+            DisableTrigger(this)
+        end
+    end)
+end
+
+
+function StartBossAIWE(zone)
+    local boss=FindUnitOfType(FourCC("hwt3"))
+    --print("запущен ии водного элементаля, он должен что то делать")
+    TimerStart(CreateTimer(), 5, true, function()
+        if IsUnitInRange(boss,mainHero,500) and not IsUnitPaused(boss) then
+            UnitAddAbility(boss,FourCC("AInv"))
+            UnitAddItemById(boss,FourCC("I004"))
+            ShowUnit(boss,false)
+            UnitAddForceSimple(boss,GetUnitFacing(boss),15,600,5)
+        end
+        if not UnitAlive(boss) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
 end
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -2512,12 +2670,12 @@ end
 
 
 
-
+BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
     local BossFight=true
     print("Запущен ИИ Босса")
-
+    HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
 
@@ -2535,7 +2693,7 @@ function StartBossAI(zone)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 1500) then
+                if not IsUnitInRange(mainHero, boss, 2000) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
@@ -2564,6 +2722,7 @@ function StartBossAI(zone)
                 skeleton[3]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMinX(zone)+GetRectWidthBJ(zone),GetRectMinY(zone),GetRandomInt(0,360))
                 skeleton[4]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMinX(zone),GetRectMinY(zone),GetRandomInt(0,360))
                 for i=1,#skeleton do
+                    UnitApplyTimedLife(skeleton[i],FourCC('BTLF'),20)
                     if not IssueTargetOrder(skeleton[i],"attack",mainHero) then
                         IssuePointOrder(skeleton[i],"attack",GetUnitXY(mainHero))
                     end
@@ -2573,7 +2732,9 @@ function StartBossAI(zone)
                 PhaseOn = false
                 print("Падающие люстры")
                 TimerStart(CreateTimer(), 1, true, function()
-                    MarkAndFall(GetUnitX(mainHero),GetUnitY(mainHero),"HFMChandelier",boss) --люстра
+                    if IsUnitInRange(mainHero, boss, 900) and UnitAlive(mainHero)  then
+                        MarkAndFall(GetUnitX(mainHero),GetUnitY(mainHero),"HFMChandelier",boss) --люстра
+                    end
                     if phase~=2 then
                         DestroyTimer(GetExpiredTimer())
                     end
@@ -2630,7 +2791,7 @@ function MarkAndFall(x,y,effModel,hero)
                 DestroyTimer(GetExpiredTimer())
                 DestroyEffect(FallenEff)
                 BlzSetSpecialEffectPosition(FallenEff,5000,5000,0)
-                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\Thunderclap\\ThunderClapCaster",x,y))
+                DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",x,y))
                 UnitDamageArea(hero,50,x,y,150) --при падении камня
                 UnitDamageArea(mainHero,50,x,y,150)
             end
@@ -2643,16 +2804,217 @@ function CreateFirePillar(xs,ys,boss,zone)
     local step=100
     xs=xs-step*1.7
     local x=xs
-    for k=1,14 do
+    local k=4
+    IssuePointOrder(boss,"move",xs,ys)
+    TimerStart(CreateTimer(), 1/16, true, function()
+        --for k=1,14 do
         for i =1,3 do
+            -- B006 лавйка, можно сломать
             x=x+step
-            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,ys-step*(k-1))
-            UnitDamageArea(boss,99,x,ys-step*(k-1),step*2)
+            local y=ys-step*(k-1)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            --DestroyEffect(eff)
+           -- local _,d=PointContentDestructable(x,y,step*2)
+            --if GetDestructableTypeId(d)==FourCC("B006") then
+                --print("Врезался в лавку")
+                --DestroyTimer(GetExpiredTimer())
+                local j=1.2
+                SetRect(GlobalRect, x - step*j, y - step*j, x + step*j, y +step*j)
+                EnumDestructablesInRect(GlobalRect,nil,function ()
+                    local d=GetEnumDestructable()
+                    --if GetDestructableLife(d)>0 then
+                        --print("Удалено "..GetDestructableName(d))
+                        RemoveDestructable(d)
+                    --end
+                end)
+            --end
+            UnitDamageArea(boss,99,x,y,step)
         end
         x=xs
-    end
-
+        k=k+1
+        if k>=15 then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+    --end
 end
+do --Инициализация
+    TimerStart(CreateTimer(), 0.1, false, function()
+        if BlzLoadTOCFile("Main.toc") then
+            --print("успех")
+        else
+            print("провал загрузки ток кастом бара")
+        end
+    end)
+end
+
+
+function HealthBarAdd(u)
+    local bar = BlzCreateSimpleFrame("MyFakeBar", BlzGetOriginFrame(ORIGIN_FRAME_GAME_UI, 0), 0)
+    BlzFrameSetVisible(bar,true)
+    BlzFrameSetTexture(bar, "Replaceabletextures\\Teamcolor\\Teamcolor00.blp", 0, true)
+    BlzFrameSetTexture(BlzGetFrameByName("MyFakeBarBorder",0),"MyBarBorder.blp", 0, true)
+    BlzFrameSetText(BlzGetFrameByName("MyFakeBarTitle",0), "Boss")
+    BlzFrameSetAbsPoint(bar,FRAMEPOINT_CENTER,0.4,0.55)
+    BlzFrameSetSize(bar,0.4,.04)
+    local lefttext = BlzGetFrameByName("MyFakeBarLeftText",0)
+    local righttext = BlzGetFrameByName("MyFakeBarRightText",0)
+    local function on_timer()
+        BlzFrameSetValue(bar, GetUnitLifePercent(u))
+        BlzFrameSetText(lefttext, R2I(GetWidgetLife(u)))
+        BlzFrameSetText(righttext, R2I(BlzGetUnitMaxHP(u)))
+    end
+    TimerStart(CreateTimer(),0.5,true, on_timer)
+    return bar
+end
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 01.11.2020 20:48
+---
+
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitGreenBoss()
+    end)
+end
+function InitGreenBoss()
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_GreenBoss)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartGreenRed(gg_rct_GreenBoss)
+            DisableTrigger(this)
+        end
+    end)
+end
+
+
+function StartGreenRed(zone)
+    local boss=FindUnitOfType(FourCC("u002"))
+    UnitAddAbility(boss,FourCC("A00B"))
+    local spawn=true
+
+    --print("Гринбосс")
+    TimerStart(CreateTimer(), 1, true, function()
+        if  not IsUnitPaused(boss) then
+            if IsUnitInRange(boss,mainHero,800)  then
+                if spawn then
+                    --local nx,ny=0,0
+                    local angle=45
+                    for i=1,8 do
+                        local nx,ny=MoveXY(GetUnitX(boss),GetUnitY(boss),150,angle*i)
+                        CreateUnit(GetOwningPlayer(boss),FourCC("osp1"),nx,ny,0)
+                       -- print(i.." вардов")
+                    end
+                end
+                spawn=false
+                IssuePointOrder(boss,"ward",GetUnitXY(mainHero))
+                --print("ward")
+                --osp1
+            else
+                spawn=true
+            end
+        end
+        if not UnitAlive(boss) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 01.11.2020 20:48
+---
+
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitIceBoss()
+    end)
+end
+function InitIceBoss()
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_IceBoss)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartIceBoss(gg_rct_IceBoss)
+            DisableTrigger(this)
+        end
+    end)
+end
+
+
+function StartIceBoss(zone)
+    local boss=FindUnitOfType(FourCC("u001"))
+    UnitAddAbility(boss,FourCC("A00C"))
+    --print("Ледяной босс")
+    TimerStart(CreateTimer(), 1, true, function()
+        if  not IsUnitPaused(boss) then
+            if  OrderId2String(GetUnitCurrentOrder(boss))~="blizzard" then
+                IssuePointOrder(boss,"blizzard",GetUnitXY(boss))
+            end
+        end
+        if not UnitAlive(boss) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 01.11.2020 20:48
+---
+
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitBossRed()
+    end)
+end
+function InitBossRed()
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_RedBossKey)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartBossRed(gg_rct_RedBossKey)
+            DisableTrigger(this)
+        end
+    end)
+end
+
+
+function StartBossRed(zone)
+    local boss=FindUnitOfType(FourCC("u000"))
+    --print("Редбосс")
+    TimerStart(CreateTimer(), 5, true, function()
+        if IsUnitInRange(boss,mainHero,500) and not IsUnitPaused(boss) then
+            CreateMeteorMark(boss,GetUnitXY(mainHero))
+        end
+        if not UnitAlive(boss) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+function CreateMeteorMark(boss,x,y)
+    local mark=AddSpecialEffect("Snipe Target",x,y)
+    BlzSetSpecialEffectScale(mark,5)
+    TimerStart(CreateTimer(), 2, false, function()
+        DestroyEffect(mark)
+        BlzSetSpecialEffectPosition(mark,5000,5000,0)
+        local eff=AddSpecialEffect("Abilities\\Spells\\Demon\\RainOfFire\\RainOfFireTarget.mdl",x,y)
+        TimerStart(CreateTimer(), 1, false, function()
+            --print("Упал?")
+            UnitDamageArea(boss,50,x,y,150)
+        end)
+    end)
+    --"Abilities\\Spells\\Demon\\RainOfFire\\RainOfFireTarget.mdl"
+end
+
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
 --- Created by Bergi.
@@ -2947,23 +3309,25 @@ function InitPUI()
     TriggerRegisterAnyUnitEventBJ(this, EVENT_PLAYER_UNIT_PICKUP_ITEM)
     TriggerAddAction(this, function()
         local item=GetManipulatedItem()
-        BlzFrameSetVisible(frame,true)
-        BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
-        BlzFrameSetAlpha(frame,255)
-        BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
-                --|cffffcc001-й уровень:|r
-        local p=1/64
-        secToHideItem=secToHideItem+6
-        TimerStart(CreateTimer(), p, true, function()
-            secToHideItem=secToHideItem-p
-            if secToHideItem<=0 then
-                DestroyTimer(GetExpiredTimer())
-                BlzFrameSetVisible(frame,false)
-            end
-            if secToHideItem<=2.5 then
-                BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
-            end
-        end)
+        if GetItemTypeId(item)~=FourCC("I004") then --Список исключений предметов
+            BlzFrameSetVisible(frame,true)
+            BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
+            BlzFrameSetAlpha(frame,255)
+            BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
+            --|cffffcc001-й уровень:|r
+            local p=1/64
+            secToHideItem=secToHideItem+6
+            TimerStart(CreateTimer(), p, true, function()
+                secToHideItem=secToHideItem-p
+                if secToHideItem<=0 then
+                    DestroyTimer(GetExpiredTimer())
+                    BlzFrameSetVisible(frame,false)
+                end
+                if secToHideItem<=2.5 then
+                    BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
+                end
+            end)
+        end
 
     end)
 
@@ -3681,6 +4045,23 @@ function InitTrig_Button_3()
     TriggerAddAction(gg_trg_Button_3, Trig_Button_3_Actions)
 end
 
+function Trig_Button_Fly_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    PlaySoundBJ(gg_snd_tremblement)
+    TriggerSleepAction(4.00)
+    KillDestructable(gg_dest_YTfb_12242)
+    KillDestructable(gg_dest_YTfb_12243)
+    KillDestructable(gg_dest_YTfb_12244)
+    KillDestructable(gg_dest_YTfb_12245)
+    SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_Region_075)
+end
+
+function InitTrig_Button_Fly()
+    gg_trg_Button_Fly = CreateTrigger()
+    TriggerRegisterDeathEvent(gg_trg_Button_Fly, gg_dest_DTlv_12259)
+    TriggerAddAction(gg_trg_Button_Fly, Trig_Button_Fly_Actions)
+end
+
 function Trig_Grave1_Conditions()
     if (not (GetEnteringUnit() == gg_unit_Hpal_0002)) then
         return false
@@ -3986,61 +4367,14 @@ function InitTrig_Respawn_rat()
 end
 
 function Trig_Trap3_Damage_Copy_Conditions()
-    if (not (GetEnteringUnit() == gg_unit_Hpal_0002)) then
+    if (not (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal"))) then
         return false
     end
     return true
 end
 
-function Trig_Trap3_Damage_Copy_Func001A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func002A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func003A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func004A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func005A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func006A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func007A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
-function Trig_Trap3_Damage_Copy_Func008A()
-    RemoveDestructable(GetEnumDestructable())
-    CreateDestructableLoc(FourCC("YTfb"), GetDestructableLoc(GetEnumDestructable()), GetRandomDirectionDeg(), 1, 0)
-end
-
 function Trig_Trap3_Damage_Copy_Actions()
-    EnumDestructablesInRectAll(gg_rct_NoFly1, Trig_Trap3_Damage_Copy_Func001A)
-    EnumDestructablesInRectAll(gg_rct_NoFly2, Trig_Trap3_Damage_Copy_Func002A)
-    EnumDestructablesInRectAll(gg_rct_NoFly3, Trig_Trap3_Damage_Copy_Func003A)
-    EnumDestructablesInRectAll(gg_rct_NoFly4, Trig_Trap3_Damage_Copy_Func004A)
-    EnumDestructablesInRectAll(gg_rct_NoFly5, Trig_Trap3_Damage_Copy_Func005A)
-    EnumDestructablesInRectAll(gg_rct_NoFly6, Trig_Trap3_Damage_Copy_Func006A)
-    EnumDestructablesInRectAll(gg_rct_NoFly7, Trig_Trap3_Damage_Copy_Func007A)
-    EnumDestructablesInRectAll(gg_rct_NoFly8, Trig_Trap3_Damage_Copy_Func008A)
+    QuestMessageBJ(GetPlayersAll(), bj_QUESTMESSAGE_UPDATED, "TRIGSTR_331")
 end
 
 function InitTrig_Trap3_Damage_Copy()
@@ -4249,18 +4583,6 @@ function InitTrig_Key_4()
     TriggerAddAction(gg_trg_Key_4, Trig_Key_4_Actions)
 end
 
-function Trig_AcidKey_Actions()
-    PlaySoundBJ(gg_snd_KelThuzadDeath1)
-    TriggerSleepAction(2.00)
-    CreateItemLoc(FourCC("I003"), GetUnitLoc(GetDyingUnit()))
-end
-
-function InitTrig_AcidKey()
-    gg_trg_AcidKey = CreateTrigger()
-    TriggerRegisterUnitEvent(gg_trg_AcidKey, gg_unit_u002_0163, EVENT_UNIT_DEATH)
-    TriggerAddAction(gg_trg_AcidKey, Trig_AcidKey_Actions)
-end
-
 function Trig_AcidKeyDoor_Conditions()
     if (not (GetEnteringUnit() == gg_unit_Hpal_0002)) then
         return false
@@ -4315,6 +4637,18 @@ function InitTrig_AcidKeyDoor()
     TriggerRegisterEnterRectSimple(gg_trg_AcidKeyDoor, gg_rct_AcidDoor)
     TriggerAddCondition(gg_trg_AcidKeyDoor, Condition(Trig_AcidKeyDoor_Conditions))
     TriggerAddAction(gg_trg_AcidKeyDoor, Trig_AcidKeyDoor_Actions)
+end
+
+function Trig_AcidKey_Actions()
+    PlaySoundBJ(gg_snd_KelThuzadDeath1)
+    TriggerSleepAction(2.00)
+    CreateItemLoc(FourCC("I003"), GetUnitLoc(GetDyingUnit()))
+end
+
+function InitTrig_AcidKey()
+    gg_trg_AcidKey = CreateTrigger()
+    TriggerRegisterUnitEvent(gg_trg_AcidKey, gg_unit_u002_0163, EVENT_UNIT_DEATH)
+    TriggerAddAction(gg_trg_AcidKey, Trig_AcidKey_Actions)
 end
 
 function Trig_Button_1_Copy_Conditions()
@@ -4622,6 +4956,7 @@ function InitTrig_Cry()
     TriggerRegisterEnterRectSimple(gg_trg_Cry, gg_rct_Cry2)
     TriggerRegisterEnterRectSimple(gg_trg_Cry, gg_rct_Cry3)
     TriggerRegisterEnterRectSimple(gg_trg_Cry, gg_rct_Cry4)
+    TriggerRegisterEnterRectSimple(gg_trg_Cry, gg_rct_Cry5)
     TriggerAddCondition(gg_trg_Cry, Condition(Trig_Cry_Conditions))
     TriggerAddAction(gg_trg_Cry, Trig_Cry_Actions)
 end
@@ -4809,6 +5144,7 @@ function InitCustomTriggers()
     InitTrig_Button_4()
     InitTrig_Button_2()
     InitTrig_Button_3()
+    InitTrig_Button_Fly()
     InitTrig_Grave1()
     InitTrig_Grave2()
     InitTrig_Grave3()
@@ -4830,8 +5166,8 @@ function InitCustomTriggers()
     InitTrig_Button_5()
     InitTrig_ButtonMainGate()
     InitTrig_Key_4()
-    InitTrig_AcidKey()
     InitTrig_AcidKeyDoor()
+    InitTrig_AcidKey()
     InitTrig_Button_1_Copy()
     InitTrig_Rabbits()
     InitTrig_RabbitsEnd()
