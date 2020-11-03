@@ -23,7 +23,7 @@ end
 
 
 function StartIceBoss(zone)
-    local boss=FindUnitOfType(FourCC("u001"))
+    local boss=FindUnitOfType(FourCC("u001"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
     UnitAddAbility(boss,FourCC("A00C"))
     --print("Ледяной босс")
     TimerStart(CreateTimer(), 1, true, function()

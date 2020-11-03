@@ -476,9 +476,12 @@ function attack(data)
             local angle=-180+AngleBetweenXY(GetPlayerMouseX[0],GetPlayerMouseY[0],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
             SetUnitFacing(data.UnitHero,angle)
             TimerStart(CreateTimer(), 0.5, false, function()
-                local damage=25
+                local damage=BlzGetUnitBaseDamage(mainHero,0)
+                if UnitHasItemOfTypeBJ(mainHero,FourCC('ratf')) then
+                    damage=damage+15
+                end
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                if IsUnitType(data.UnitHero,UNIT_TYPE_HERO) then
+                if GetUnitTypeId(mainHero)~=FourCC("Edmm") then
                     UnitDamageArea(data.UnitHero,damage,nx,ny,100)
                 end
             end)
@@ -547,6 +550,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
     end
     if not IsUnitType(hero, UNIT_TYPE_STRUCTURE) and onForces[GetHandleId(hero)]  then
         onForces[GetHandleId(hero)]=false
+        local m=0
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             currentdistance = currentdistance + speed
             --print(currentdistance)
@@ -554,10 +558,15 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
             if flag==5 then
-                local eff=AddSpecialEffect("Abilities\\Spells\\Other\\CrushingWave\\CrushingWaveMissile.mdl",newX, newY)
-                BlzSetSpecialEffectColor(eff,255,0,0,0)
-                DestroyEffect(eff)
                 UnitDamageArea(hero,5,newX, newY,100)
+                m=m+1
+                if m>=6 then
+                    local eff=AddSpecialEffect("Blood Massacre",newX, newY)
+                    BlzSetSpecialEffectColor(eff,255,0,0,0)
+                    DestroyEffect(eff)
+                    m=0
+                end
+
 
             end
 
@@ -567,6 +576,7 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 --data.OnWater=false
                 if flag==5 then
                     ShowUnit(hero,true)
+
                 end
 
 

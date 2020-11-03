@@ -23,7 +23,7 @@ end
 
 
 function StartGreenRed(zone)
-    local boss=FindUnitOfType(FourCC("u002"))
+    local boss=FindUnitOfType(FourCC("u002"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
     UnitAddAbility(boss,FourCC("A00B"))
     local spawn=true
 

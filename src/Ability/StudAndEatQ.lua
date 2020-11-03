@@ -6,6 +6,7 @@
 do
     TimerStart(CreateTimer(), 0.11, false, function()
         InitStunPerDie()
+        InitSpellEat()
         SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh1", false, true, true, 0, 0, "MissilesEAX")
         SetSoundParamsFromLabel(SoundAttack1, "MetalHeavySliceFlesh")
         SetSoundDuration(SoundAttack1, 853)
@@ -33,13 +34,20 @@ function InitStunPerDie()
 
         if isEventDamaging then
             TimerStart(CreateTimer(), 0.11, false, function()
-                if UnitAlive(target) and GetUnitStatePercent(target,UNIT_STATE_LIFE,UNIT_STATE_MAX_LIFE)<=30 and GetOwningPlayer(target)~=Player(0) and GetUnitLevel(target)<=5 and not IsUnitType(target,UNIT_TYPE_UNDEAD) then
-                    StunUnit(target,5)
+                if UnitAlive(target) and GetUnitStatePercent(target,UNIT_STATE_LIFE,UNIT_STATE_MAX_LIFE)<=30 and GetOwningPlayer(target)~=Player(0)  and not IsUnitType(target,UNIT_TYPE_UNDEAD) then --and GetUnitLevel(target)<=5
+                    local savedOwner=GetOwningPlayer(target)
+                    StunUnit(target,3.5)
                     UnitAddType(target,UNIT_TYPE_UNDEAD)
                     SetUnitOwner(target,Player(PLAYER_NEUTRAL_PASSIVE),true)
                     SetUnitAnimation(target,"death")
                     RemoveGuardPosition(target)
-                   -- print("юнита можно съесть?")
+                    -- print("юнита можно съесть?")
+                    TimerStart(CreateTimer(), 3.5, false, function()
+                        UnitRemoveType(target,UNIT_TYPE_UNDEAD)
+                        ResetUnitAnimation(target)
+                        SetUnitOwner(target,savedOwner,true)
+                    end)
+
                 end
             end)
 
@@ -60,5 +68,21 @@ function InitStunPerDie()
             end
         end
     end)
+end
 
+function InitSpellEat()
+    local SpellTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        local player = Player(i)
+        TriggerRegisterPlayerUnitEvent(SpellTrigger, player, EVENT_PLAYER_UNIT_SPELL_CAST)
+    end
+    TriggerAddAction(SpellTrigger, function()
+        if GetSpellAbilityId() == FourCC('A002') then -- пожирание
+            local target=GetSpellTargetUnit()
+            if IsUnitPaused(target) then
+                ShowUnit(target,false)
+                print("Был ли баг двнойной смерти?")
+            end
+        end
+    end)
 end

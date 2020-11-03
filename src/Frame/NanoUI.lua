@@ -112,11 +112,15 @@ function CreateQWERDFG()
     local next=0.039
     local last=0
     for i=8,11 do --QWER
-        BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, 0.07-next+next*i ,next/2)
+        if i>=9 then
+            BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, 0.07-next*2+next*i ,next/2)
+        else
+            BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, 0.07-next+next*i ,next/2)
+        end
         last=0.07-next+next*i
     end
     for i=4,7 do --FGTH
-        BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, last-next*3+next*i ,next/2)
+        BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..i, 0), FRAMEPOINT_CENTER, last-next*4+next*i ,next/2)
     end
     --BlzFrameSetAbsPoint(BlzGetFrameByName("CommandButton_"..0, 0), FRAMEPOINT_CENTER, 0.4 ,next*1,5) --центровка
 end

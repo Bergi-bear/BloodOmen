@@ -23,7 +23,7 @@ end
 
 
 function StartBossRed(zone)
-    local boss=FindUnitOfType(FourCC("u000"))
+    local boss=FindUnitOfType(FourCC("u000"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
     --print("Редбосс")
     TimerStart(CreateTimer(), 5, true, function()
         if IsUnitInRange(boss,mainHero,500) and not IsUnitPaused(boss) then

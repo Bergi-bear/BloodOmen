@@ -28,7 +28,7 @@ function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
     local BossFight=true
     print("Запущен ИИ Босса")
-    HealthBarAdd(boss)
+    local bar=HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
 
@@ -42,6 +42,10 @@ function StartBossAI(zone)
             StartSound(bj_questCompletedSound)
             DestroyTimer(GetExpiredTimer())
             phase = 0
+            BlzFrameSetVisible(bar,false)
+            EnumDestructablesInRect(gg_rct_bossWin,nil,function()
+                KillDestructable(GetEnumDestructable())
+            end)
             print("Даём нарграду? ,босс повержен")
 
         else --Проверяем есть ли живые герои, когда тиник жив
@@ -51,6 +55,7 @@ function StartBossAI(zone)
                     phase=0
                     DestroyFogModifier(FW)
                     print("Герой мерт или далеко ушёл, остановка фаз")
+                    BlzFrameSetVisible(bar,false)
                 end
             end
         end
@@ -68,7 +73,7 @@ function StartBossAI(zone)
             --фазы
             if phase == 1 and PhaseOn then
                 PhaseOn = false
-                print("Призываем скелетов")
+                --print("Призываем скелетов")
                 local skeleton={}
                 skeleton[1]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMaxX(zone),GetRectMaxY(zone),GetRandomInt(0,360))
                 skeleton[2]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMaxX(zone)-GetRectWidthBJ(zone),GetRectMinY(zone)+GetRectHeightBJ(zone),GetRandomInt(0,360))
@@ -83,7 +88,10 @@ function StartBossAI(zone)
             end
             if phase == 2 and PhaseOn then
                 PhaseOn = false
-                print("Падающие люстры")
+                --print("Падающие люстры")
+                if not IssueTargetOrder(boss,"attack",mainHero) then
+                    IssuePointOrder(boss,"attack",GetUnitXY(mainHero))
+                end
                 TimerStart(CreateTimer(), 1, true, function()
                     if IsUnitInRange(mainHero, boss, 900) and UnitAlive(mainHero)  then
                         MarkAndFall(GetUnitX(mainHero),GetUnitY(mainHero),"HFMChandelier",boss) --люстра
@@ -96,7 +104,7 @@ function StartBossAI(zone)
             end
             if phase == 3 and PhaseOn  then -- оживление големов
                 PhaseOn = false
-                print("Пускаем волну в 1 из 3 направлений")
+                --print("Пускаем волну в 1 из 3 направлений")
                 local r=GetRandomInt(1,3)
                 local xs,ys=GetRectCenterX(zone),GetRectCenterY(zone)
                 if r==1 then
@@ -119,7 +127,8 @@ function StartBossAI(zone)
             end
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
-                print("перезапуск боссфайта")
+                --print("перезапуск боссфайта")
+                BlzFrameSetVisible(bar,true)
                 HealUnit(boss,9999)
                 BossFight=true
             end

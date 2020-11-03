@@ -23,7 +23,7 @@ function InitBB()
                 if GetUnitTypeId(caster)==FourCC('Hpal') then
                     DestroyTimer(GetExpiredTimer())
                     if HERO[0].ReleaseA or HERO[0].ReleaseW or HERO[0].ReleaseS or HERO[0].ReleaseD then
-                       -- print("скольжение после мышей") --не работает
+                       -- print("скольжение после мышей")
                         SetUnitAnimationByIndex(caster,IndexAnimationWalk)
                     end
                 end

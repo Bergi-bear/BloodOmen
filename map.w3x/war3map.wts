@@ -1291,12 +1291,6 @@ STRING 330
 (Для нежити)
 }
 
-STRING 331
-{
-321
-
-}
-
 STRING 332
 // Destructibles: B006 (Лавка, можно сломать), Name (Name)
 {
@@ -1319,5 +1313,75 @@ STRING 335
 // Abilities: A00A (Сквозное прохождение сквозь юнитов), Name (Name)
 {
 Сквозное прохождение сквозь юнитов
+}
+
+STRING 336
+// Doodads: D02A (Blood), Name (Name)
+{
+Blood
+}
+
+STRING 337
+// Units: o001 (Bergi), Name (Name)
+{
+Bergi
+}
+
+STRING 338
+// Units: n004 (KotoBog), Name (Name)
+{
+KotoBog
+}
+
+STRING 341
+// Units: u009 (Shadow), Name (Name)
+{
+Shadow
+}
+
+STRING 342
+// Doodads: D02B (Magical Runes Red), Name (Name)
+{
+Magical Runes Red
+}
+
+STRING 343
+// Units: hfoo (Bandit), EditorSuffix (Name - Editor Suffix)
+{
+(junior)
+}
+
+STRING 344
+// Units: h006 (Bandit), Name (Name)
+{
+Bandit
+}
+
+STRING 345
+// Units: h006 (Bandit), EditorSuffix (Name - Editor Suffix)
+{
+(middle)
+}
+
+STRING 346
+// Doodads: D02C (Стена), Name (Name)
+{
+Стена
+}
+
+STRING 347
+// Doodads: D02D (Blood Hor), Name (Name)
+{
+Blood Hor
+}
+
+STRING 348
+{
+Kain
+}
+
+STRING 349
+{
+Hunger and weakness are no bar to vengeance’s call.  I would find my slayers and send them back whence I came.
 }
 

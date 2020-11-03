@@ -23,7 +23,8 @@ end
 
 
 function StartBossAIWE(zone)
-    local boss=FindUnitOfType(FourCC("hwt3"))
+    local boss=FindUnitOfType(FourCC("hwt3"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
+    local hero=boss
     --print("запущен ии водного элементаля, он должен что то делать")
     TimerStart(CreateTimer(), 5, true, function()
         if IsUnitInRange(boss,mainHero,500) and not IsUnitPaused(boss) then
@@ -31,6 +32,21 @@ function StartBossAIWE(zone)
             UnitAddItemById(boss,FourCC("I004"))
             ShowUnit(boss,false)
             UnitAddForceSimple(boss,GetUnitFacing(boss),15,600,5)
+            local bar=AddSpecialEffect("Progressbar",GetUnitXY(hero))
+            BlzSetSpecialEffectColor(bar,255,255,255)
+            BlzPlaySpecialEffect(bar,ANIM_TYPE_BIRTH)
+            BlzSetSpecialEffectTimeScale(bar,0.22)
+            BlzSetSpecialEffectScale(bar,1.5)
+            local sec=0
+            TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+                sec=sec+TIMER_PERIOD
+                BlzSetSpecialEffectPosition(bar,GetUnitX(hero),GetUnitY(hero),BlzGetLocalUnitZ(hero)+260)
+                if sec>5 then
+                    DestroyTimer(GetExpiredTimer())
+                    DestroyEffect(bar)
+                    BlzSetSpecialEffectPosition(bar,5000,5000,0)
+                end
+            end)
         end
         if not UnitAlive(boss) then
             DestroyTimer(GetExpiredTimer())
