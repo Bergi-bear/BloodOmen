@@ -26,11 +26,11 @@ function StartGreenRed(zone)
     local boss=FindUnitOfType(FourCC("u002"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
     UnitAddAbility(boss,FourCC("A00B"))
     local spawn=true
-
+    StunUnit(boss,0.2)
     --print("Гринбосс")
     TimerStart(CreateTimer(), 1, true, function()
-        if  not IsUnitPaused(boss) then
-            if IsUnitInRange(boss,mainHero,800)  then
+        if StunSystem[GetHandleId(boss)].Time==0 then
+            if IsUnitInRange(boss,mainHero,1600)  then
                 if spawn then
                     --local nx,ny=0,0
                     local angle=45

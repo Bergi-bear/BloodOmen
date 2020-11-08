@@ -20,7 +20,7 @@ function InitPUI()
             BlzFrameSetVisible(frame,true)
             BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
             BlzFrameSetAlpha(frame,255)
-            BlzFrameSetText(text, "You acquired new item:      |cffffcc00"..GetItemName(item).."|r")
+            BlzFrameSetText(text, "You acquired new item:    |cffffcc00"..GetItemName(item).."|r")
             --|cffffcc001-й уровень:|r
             local p=1/64
             secToHideItem=secToHideItem+6

@@ -98,7 +98,10 @@ function MenuFrame()
         elseif i==1 then
             BlzFrameSetVisible(f10, false)
         elseif i==2 then
-            BlzFrameSetVisible(f10, false)
+            BlzFrameSetParent(f10, BlzGetFrameByName("ConsoleUIBackdrop", 0))
+            BlzFrameSetVisible(f10, true)
+            BlzFrameClearAllPoints(f10)
+            BlzFrameSetAbsPoint(f10, FRAMEPOINT_CENTER, 0.65+(0.08*1) ,0.59)
         elseif i==3 then
             BlzFrameSetParent(f10, BlzGetFrameByName("ConsoleUIBackdrop", 0))
             BlzFrameSetVisible(f10, true)
@@ -264,7 +267,7 @@ function CreateEmptyGlue(texture,scale,posX,posY,flag)
         if flag==1 then
             --print("обновление текста")
             local damage=0
-            if UnitHasItemOfTypeBJ(mainHero,FourCC('ratf')) then
+            if UnitHasItemOfTypeBJ(mainHero,FourCC('I005')) then
                 damage=damage+15
             end
             BlzFrameSetText(textCurrent, " "..R2I(damage+BlzGetUnitBaseDamage(mainHero,0)))

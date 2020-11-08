@@ -458,12 +458,6 @@ STRING 120
 Iron Sword
 }
 
-STRING 121
-// Abilities: A002 (Hunger), Name (Name)
-{
-Hunger
-}
-
 STRING 123
 {
 Meow
@@ -778,13 +772,13 @@ STRING 234
 }
 
 STRING 235
-// Abilities: A002 (Hunger), Researchhotkey (Hotkey - Learn)
+// Abilities: A002 (Blood drinking), Researchhotkey (Hotkey - Learn)
 {
 Q
 }
 
 STRING 236
-// Abilities: A002 (Hunger), Hotkey (Hotkey - Normal)
+// Abilities: A002 (Blood drinking), Hotkey (Hotkey - Normal)
 {
 Q
 }
@@ -803,12 +797,12 @@ Crow
 
 STRING 242
 {
-Journey
+Long night
 }
 
 STRING 243
 {
-Barkeep did not let me stay. I need to keep walking down the road.
+And so I left - cold of heart and soul.  Forced to the road, and the long, bitter night.
 }
 
 STRING 244
@@ -1162,28 +1156,10 @@ STRING 305
 Ice key
 }
 
-STRING 306
-// Abilities: A005 (Контроль разума), Name (Name)
-{
-Контроль разума
-}
-
 STRING 307
-// Abilities: A005 (Контроль разума), Hotkey (Hotkey - Normal)
+// Abilities: A006 (Освободить разум), Hotkey (Hotkey - Normal)
 {
 F
-}
-
-STRING 308
-// Abilities: A005 (Контроль разума), Tip (Tooltip - Normal)
-{
-Контроль разума
-}
-
-STRING 310
-// Abilities: A005 (Контроль разума), Ubertip (Tooltip - Normal - Extended)
-{
-Захватывает контроль над вражеским или нейтральным живым существом. Сам Каин при этом становится неподвижным и защищённым от урона.
 }
 
 STRING 311
@@ -1193,7 +1169,7 @@ STRING 311
 }
 
 STRING 312
-// Abilities: A006 (Освободить разум), Hotkey (Hotkey - Normal)
+// Abilities: A005 (Кислотная бомба), Hotkey (Hotkey - Normal)
 {
 F
 }
@@ -1220,28 +1196,10 @@ STRING 316
 When rainfall comes, vampires are wise to find shelter from its acidic touch.
 }
 
-STRING 317
-// Abilities: A007 (Копьё), Name (Name)
-{
-Копьё
-}
-
 STRING 318
-// Abilities: A007 (Копьё), Hotkey (Hotkey - Normal)
+// Abilities: A007 (Blood Gout), Hotkey (Hotkey - Normal)
 {
 R
-}
-
-STRING 319
-// Abilities: A007 (Копьё), Tip (Tooltip - Normal)
-{
-Копьё
-}
-
-STRING 320
-// Abilities: A007 (Копьё), Ubertip (Tooltip - Normal - Extended)
-{
-Убросает копьё в указанном направлении, Копьё отталкивает врага на 300 единиц и оглушает на 2 сек, если прижимает врага к стене. Наносит 100 урона.
 }
 
 STRING 321
@@ -1295,12 +1253,6 @@ STRING 332
 // Destructibles: B006 (Лавка, можно сломать), Name (Name)
 {
 Лавка, можно сломать
-}
-
-STRING 333
-// Abilities: A009 (100% уворот), Name (Name)
-{
-100% уворот
 }
 
 STRING 334
@@ -1383,5 +1335,237 @@ Kain
 STRING 349
 {
 Hunger and weakness are no bar to vengeance’s call.  I would find my slayers and send them back whence I came.
+}
+
+STRING 350
+{
+Use |cffd45e19WASD|r to move Kain.
+}
+
+STRING 354
+{
+|cffffff00Hint:
+|rDirect cursor and press|cffd45e19 Left Mouse Button|r to attack. Hold |cffd45e19Right Mouse Button|r to defend yourself.
+}
+
+STRING 355
+{
+You have learn new skill|cffffff00 Bat form (E)|r. In bat form Kain moves faster and can fly over some obstacles, but lose ability to attack.
+}
+
+STRING 356
+{
+You have learn new skill|cffffff00 Blood wave (R)|r. Using this skill Kain is able to push away his enemies. If enemy faces obstacle he will be stunned for some time.
+}
+
+STRING 357
+{
+You have learn new skill|cffffff00 Mind control (F)|r. With this spell Kain could throw a magic projectile that allowed him to replace a Human's Soul with his own, completely taking control of his victim's body and it's actions. While possessing an enemy, Kain's soul-absent body would be protected against all damage by a Repel barrier.
+}
+
+STRING 359
+{
+|cffffff00Hint:
+|rUsing |cffffff00Blood drinking|r |cffd45e19(Q) |rKain is able to drink blood of prisoners and some low HP enemies to restore his health and mana.
+}
+
+STRING 360
+// Destructibles: YTlb (Препятствие Vision), Name (Name)
+{
+Препятствие Vision
+}
+
+STRING 361
+{
+|cffffff00Hint:
+|rWall buttons also can be unpressed. To open some of the doors you need to find the right combination.
+}
+
+STRING 362
+{
+|cffffff00Hint:
+|rThe graves gives shelter to these dead. But it looks like they were rotated recently.
+}
+
+STRING 363
+{
+You need |cffff0000Red key|r to open it.
+}
+
+STRING 364
+{
+You need |cff0000ffBlue key|r |rto open it.
+}
+
+STRING 365
+{
+You need|cff00ff00 Green key|r to open it.
+}
+
+STRING 366
+// Units: h007 (Bandit), Name (Name)
+{
+Bandit
+}
+
+STRING 367
+// Units: h007 (Bandit), EditorSuffix (Name - Editor Suffix)
+{
+(range)
+}
+
+STRING 368
+// Doodads: D02E (Blood Fountain), Name (Name)
+{
+Blood Fountain
+}
+
+STRING 369
+// Abilities: A009 (Уже не100% уворот), Name (Name)
+{
+Уже не100% уворот
+}
+
+STRING 370
+{
+Kain
+}
+
+STRING 371
+{
+This spell allows me to enslave my enemies, giving me control of their bodies. When I release my grip, their bodies will shrivel and die, as I displace their souls, and replace them with my own.
+}
+
+STRING 372
+{
+Kain
+}
+
+STRING 373
+{
+This spell allows me to use blood from my own body as a weapon.
+}
+
+STRING 374
+{
+Kain
+}
+
+STRING 375
+{
+In bat form, I can travel great distances with ease. From my vantage in the heavens, no region of Nosgoth is forbidden to me.
+}
+
+STRING 376
+// Abilities: A002 (Blood drinking), Name (Name)
+{
+Blood drinking
+}
+
+STRING 377
+// Abilities: A002 (Blood drinking), Researchtip (Tooltip - Learn)
+{
+Blood drinking
+}
+
+STRING 378
+// Abilities: A002 (Blood drinking), Researchubertip (Tooltip - Learn - Extended)
+{
+This ability allows Kain to drink blood of his victims.
+}
+
+STRING 379
+// Abilities: A002 (Blood drinking), Ubertip (Tooltip - Normal - Extended)
+{
+This ability allows Kain to drink blood of his victims.
+}
+
+STRING 380
+// Abilities: dssd (Bat form), Researchtip (Tooltip - Learn)
+{
+Bat form
+}
+
+STRING 381
+// Abilities: dssd (Bat form), Researchubertip (Tooltip - Learn - Extended)
+{
+It allowed Kain to turn into a flock of bats and move across vast distances and fly over obstacles.
+}
+
+STRING 382
+// Abilities: dssd (Bat form), Ubertip (Tooltip - Normal - Extended)
+{
+It allowed Kain to turn into a flock of bats and move across vast distances and fly over obstacles.
+}
+
+STRING 385
+// Abilities: A005 (Кислотная бомба), Ubertip (Tooltip - Normal - Extended)
+{
+With this spell Kain could throw a magic projectile that allowed him to replace a Alive Soul with his own, completely taking control of his victim's body and it's actions. While possessing an enemy, Kain's soul-absent body would be protected against all damage by a Repel barrier.
+}
+
+STRING 386
+// Abilities: A007 (Blood Gout), Name (Name)
+{
+Blood Gout
+}
+
+STRING 387
+// Abilities: A007 (Blood Gout), Tip (Tooltip - Normal)
+{
+Blood Gout
+}
+
+STRING 388
+// Abilities: A007 (Blood Gout), Ubertip (Tooltip - Normal - Extended)
+{
+When used, it allowed Kain to create a projectile from his own blood which upon striking an enemy. Using this spell, Kain able to push the enemies and objects.
+}
+
+STRING 389
+{
+Keep walking down the road
+}
+
+STRING 390
+// Abilities: A002 (Blood drinking), Tip (Tooltip - Normal)
+{
+Blood drinking
+}
+
+STRING 391
+// Doodads: D02F (МегаСвет), Name (Name)
+{
+МегаСвет
+}
+
+STRING 392
+// Doodads: D02G (+Свет Факела), Name (Name)
+{
++Свет Факела
+}
+
+STRING 393
+// Units: h008 (Малая могилика), Name (Name)
+{
+Малая могилика
+}
+
+STRING 394
+// Doodads: D02H (Block Wall 1111), Name (Name)
+{
+Block Wall 1111
+}
+
+STRING 395
+{
+|cffffff00Hint:
+|rSun lights hurts you with periodical damage. Stay care!
+}
+
+STRING 396
+// Abilities: A005 (Кислотная бомба), Tip (Tooltip - Normal)
+{
+Control mind
 }
 

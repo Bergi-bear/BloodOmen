@@ -11,7 +11,7 @@ end
 function InitNotAttack()
     local ThisClick = CreateTrigger()
     TriggerRegisterCommandEvent(ThisClick, FourCC("A002"), "darkritual")
-    TriggerRegisterCommandEvent(ThisClick, FourCC("A005"), "mount")
+    TriggerRegisterCommandEvent(ThisClick, FourCC("A005"), "acidbomb")
     TriggerRegisterCommandEvent(ThisClick, FourCC("A007"), "nagabuild")
     --TriggerRegisterCommandEvent(ThisClick, 0, "cancel")
     --TriggerRegisterCommandEvent(ThisClick, 0, "stop")

@@ -11,7 +11,7 @@ do
 end
 function InitBossZone()
     local this = CreateTrigger()
-    TriggerRegisterEnterRectSimple(this, gg_rct_boss)
+    TriggerRegisterEnterRectSimple(this, gg_rct_BossRealStart)
     TriggerAddAction(this, function()
         local hero=GetTriggerUnit()
         if IsUnitType(hero,UNIT_TYPE_HERO) then
@@ -27,7 +27,7 @@ BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
     local BossFight=true
-    print("Запущен ИИ Босса")
+    --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
@@ -46,7 +46,7 @@ function StartBossAI(zone)
             EnumDestructablesInRect(gg_rct_bossWin,nil,function()
                 KillDestructable(GetEnumDestructable())
             end)
-            print("Даём нарграду? ,босс повержен")
+            --print("Даём нарграду? ,босс повержен")
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
@@ -54,7 +54,7 @@ function StartBossAI(zone)
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
-                    print("Герой мерт или далеко ушёл, остановка фаз")
+                    --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
                 end
             end
@@ -140,7 +140,6 @@ function MarkAndFall(x,y,effModel,hero)
     local mark=AddSpecialEffect("Snipe Target",x,y)
     BlzSetSpecialEffectScale(mark,5)
     TimerStart(CreateTimer(), 2, false, function()
-
         local FallenEff=AddSpecialEffect(effModel,x,y)
         BlzSetSpecialEffectZ(FallenEff,1000)
         BlzSetSpecialEffectYaw(FallenEff, math.rad(GetRandomReal(0,360)))

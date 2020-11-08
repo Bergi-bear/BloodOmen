@@ -24,9 +24,11 @@ end
 
 function StartBossRed(zone)
     local boss=FindUnitOfType(FourCC("u000"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
+    StunUnit(boss,0.2)
+    UnitAddType(boss,UNIT_TYPE_UNDEAD)
     --print("Редбосс")
     TimerStart(CreateTimer(), 5, true, function()
-        if IsUnitInRange(boss,mainHero,500) and not IsUnitPaused(boss) then
+        if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
             CreateMeteorMark(boss,GetUnitXY(mainHero))
         end
         if not UnitAlive(boss) then

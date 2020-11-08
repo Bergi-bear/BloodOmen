@@ -4,7 +4,7 @@
 --- DateTime: 02.11.2020 19:47
 ---
 
-TIMER_PERIOD = 0.03125
+TIMER_PERIOD2 = 0.03125
 function AngleBetweenXY(xa, ya, xb, yb)
     return math.atan(yb - ya, xb - xa)
 end
@@ -40,7 +40,7 @@ function AddQuest(hero, qx, qy,message)
         CreateForUnitWayToPoint(hero,qx, qy)
 
     end)
-    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+    TimerStart(CreateTimer(), TIMER_PERIOD2, true, function()
         local z = BlzGetLocalUnitZ(hero)
         local xc, yc = GetUnitX(hero), GetUnitY(hero)
         local angle = AngleBetweenXY(xc, yc, qx, qy)
@@ -57,7 +57,7 @@ function AddQuest(hero, qx, qy,message)
             end
             DestroyTimer(GetExpiredTimer())
             --DestroyEffect(QuestPointer)
-            print("квест №" .. "1" .. " выполнен, даём награду")
+           -- print("квест №" .. "1" .. " выполнен, даём награду")
         end
     end)
     TimerStart(CreateTimer(), 10, true, function()

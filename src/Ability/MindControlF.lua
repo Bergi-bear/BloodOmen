@@ -25,14 +25,23 @@ function InitCastMC()
                 UnitAddAbility(caster,FourCC("A004"))
                 UnitAddAbility(target,FourCC("A006")) -- освобождение разума
                 UnitAddAbility(target,FourCC("Abun")) -- запрет дефолт атаки
+                HERO[0].ReleaseW=false
+                HERO[0].ReleaseA=false
+                HERO[0].ReleaseS=false
+                HERO[0].ReleaseD=false
                 mainHero=target
                 udg_mainHero=target
                 tempHero=caster
+                ResetUnitAnimation(tempHero)
                 SelectUnitForPlayerSingle(mainHero,Player(0))
                 SetUnitOwner(target,Player(0),true)
                 TimerStart(CreateTimer(), 1, true, function()
                     if not UnitAlive(target) then
                         DestroyTimer(GetExpiredTimer())
+                        --HERO[0].ReleaseW=false
+                        --HERO[0].ReleaseA=false
+                        --HERO[0].ReleaseS=false
+                        --HERO[0].ReleaseD=false
                         mainHero=caster
                         udg_mainHero=caster
                         UnitRemoveAbility(caster,FourCC("A003"))

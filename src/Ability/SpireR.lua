@@ -37,7 +37,7 @@ function InitSpire()
                 while true do
                     e = FirstOfGroup(perebor)
                     if e == nil then break end
-                    if UnitAlive(e) and UnitAlive(caster) and (IsUnitEnemy(e,GetOwningPlayer(caster)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
+                    if UnitAlive(e) and UnitAlive(caster) and (IsUnitEnemy(e,GetOwningPlayer(caster)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and GetUnitTypeId(e)~=FourCC("hrif") then
                         if GetUnitTypeId(e)==FourCC("osp1") then
                             KillUnit(e)
                         end
@@ -70,4 +70,3 @@ function InitSpire()
         end
     end)
 end
-

@@ -7,7 +7,8 @@ do
     TimerStart(CreateTimer(), 0.11, false, function()
         InitStunPerDie()
         InitSpellEat()
-        SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh1", false, true, true, 0, 0, "MissilesEAX")
+        --звуки попаданий
+        SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh3", false, true, true, 0, 0, "MissilesEAX")
         SetSoundParamsFromLabel(SoundAttack1, "MetalHeavySliceFlesh")
         SetSoundDuration(SoundAttack1, 853)
         SetSoundVolume(SoundAttack1, 250)
@@ -15,12 +16,32 @@ do
         SetSoundParamsFromLabel(SoundAttack2, "MetalHeavySliceFlesh")
         SetSoundDuration(SoundAttack2, 853)
         SetSoundVolume(SoundAttack2, 250)
+        --Звуки промахов
+        SoundAttack3 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceFlesh1", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack3, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack3, 853)
+        SetSoundVolume(SoundAttack3, 250)
+        SoundAttack4 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack4, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack4, 853)
+        SetSoundVolume(SoundAttack4, 250)
+        --Звуки ударов по декору
+        SoundAttack5 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceWood1", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack5, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack5, 853)
+        SetSoundVolume(SoundAttack5, 250)
+        SoundAttack6 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceWood2", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack6, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack6, 853)
+        SetSoundVolume(SoundAttack6, 250)
+
     end)
 end
 function InitStunPerDie()
     local DamageTrigger = CreateTrigger()
     for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
         TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGING) -- До вычета брони
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
     end
     TriggerAddAction(DamageTrigger, function()
 
@@ -28,6 +49,7 @@ function InitStunPerDie()
         if damage < 1 then return end
         local eventId         = GetHandleId(GetTriggerEventId())
         local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
+        local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
         local target          = GetTriggerUnit() -- тот кто получил урон
         local caster          = GetEventDamageSource() -- тот кто нанёс урон
 
@@ -35,24 +57,30 @@ function InitStunPerDie()
         if isEventDamaging then
             TimerStart(CreateTimer(), 0.11, false, function()
                 if UnitAlive(target) and GetUnitStatePercent(target,UNIT_STATE_LIFE,UNIT_STATE_MAX_LIFE)<=30 and GetOwningPlayer(target)~=Player(0)  and not IsUnitType(target,UNIT_TYPE_UNDEAD) then --and GetUnitLevel(target)<=5
-                    local savedOwner=GetOwningPlayer(target)
-                    StunUnit(target,3.5)
-                    UnitAddType(target,UNIT_TYPE_UNDEAD)
-                    SetUnitOwner(target,Player(PLAYER_NEUTRAL_PASSIVE),true)
-                    SetUnitAnimation(target,"death")
-                    RemoveGuardPosition(target)
-                    -- print("юнита можно съесть?")
-                    TimerStart(CreateTimer(), 3.5, false, function()
-                        UnitRemoveType(target,UNIT_TYPE_UNDEAD)
-                        ResetUnitAnimation(target)
-                        SetUnitOwner(target,savedOwner,true)
-                    end)
+                    local r=GetRandomInt(1,2)
+                    if r==1 then
+                        local savedOwner=GetOwningPlayer(target)
+                        StunUnit(target,3.5)
+                        UnitAddType(target,UNIT_TYPE_UNDEAD)
+                        SetUnitOwner(target,Player(PLAYER_NEUTRAL_PASSIVE),true)
+                        SetUnitAnimation(target,"death")
+                        RemoveGuardPosition(target)
+                        -- print("юнита можно съесть?")
+                        TimerStart(CreateTimer(), 3.5, false, function()
+                            UnitRemoveType(target,UNIT_TYPE_UNDEAD)
+                            if UnitAlive(target) then
+                                ResetUnitAnimation(target)
+                            end
+                            SetUnitOwner(target,savedOwner,true)
+                        end)
+                    end
 
                 end
             end)
 
             if GetUnitTypeId(caster)==FourCC("Hpal") and IsUnitInRange(caster,target,200) then
                 --print("звук удара")
+
                 local tl = Location(GetUnitXY(target))
                 local r=GetRandomInt(1,2)
                 if r==1 then
@@ -67,6 +95,15 @@ function InitStunPerDie()
                 end
             end
         end
+        if isEventDamaged  then -- после вычена брони для показа конкретного урона
+            FlyTextTagMiss(target,R2I(damage),GetOwningPlayer(caster))-- герой видит урон который наносит
+            if GetUnitTypeId(target)==FourCC("Hpal") then
+                if not HERO[0].isAttacking and not HERO[0].ReleaseW and not HERO[0].ReleaseA and not HERO[0].ReleaseS and not HERO[0].ReleaseD then
+                    SetUnitAnimationByIndex(target,4)
+                end
+                --print("герой получил урон, путь его колбасит")
+            end
+        end
     end)
 end
 
@@ -79,9 +116,11 @@ function InitSpellEat()
     TriggerAddAction(SpellTrigger, function()
         if GetSpellAbilityId() == FourCC('A002') then -- пожирание
             local target=GetSpellTargetUnit()
-            if IsUnitPaused(target) then
-                ShowUnit(target,false)
-                print("Был ли баг двнойной смерти?")
+            if StunSystem[GetHandleId(target)] then
+                if StunSystem[GetHandleId(target)].Time>0 then
+                    --ShowUnit(target,false)
+                   -- print("Был ли баг двнойной смерти?")
+                end
             end
         end
     end)

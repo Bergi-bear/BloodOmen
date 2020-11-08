@@ -97,7 +97,13 @@ function InitWASD(hero)
             IndexAnimationAttack=GetRandomInt(3,4)
         elseif GetUnitTypeId(hero)==FourCC("Edmm") then   -- Летучие мыши 2,5 dssd
             IndexAnimationWalk=1
+            --IndexAnimationAttack=GetRandomInt(3,4)
+        elseif GetUnitTypeId(hero)==FourCC("h006") then   -- бандит 6 уровня
+            IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
+        elseif GetUnitTypeId(hero)==FourCC("h007") then   -- бандит стрелок
+            IndexAnimationWalk=4
+            IndexAnimationAttack=GetRandomInt(9,9)
         end
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
@@ -162,6 +168,11 @@ function InitWASD(hero)
 
         if not data.isAttacking and UnitAlive(hero) and not data.isShield then
             if data.IsMoving then
+                if  GetUnitTypeId(hero)==FourCC("Edmm") then--летучие мыши более быстрые
+                    speed=7
+                else
+                    speed=5
+                end
                 local x,y=GetUnitXY(hero)
                 local nx,ny=MoveXY(x,y,speed,angle)
                 SetUnitFacing(hero, angle)
@@ -379,7 +390,7 @@ function CreateWASDActions()
             --data.Shield=true
 
             if  UnitAlive(data.UnitHero)  then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
-                if not data.isAttacking  and GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then --
+                if GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then -- not data.isAttacking  and -- убрал атаку у щита
                     data.isShield=true
                     UnitAddAbility(data.UnitHero,FourCC("A003"))
                     UnitAddAbility(data.UnitHero,FourCC("A004"))
@@ -467,7 +478,7 @@ function attack(data)
             --print("a "..GetUnitName(mainHero))
             data.isAttacking=true
 
-            local state={data.ReleaseW,data.ReleaseA,data.ReleaseS,data.ReleaseD}
+            --local state={data.ReleaseW,data.ReleaseA,data.ReleaseS,data.ReleaseD}
             data.ReleaseW=false
             data.ReleaseA=false
             data.ReleaseS=false
@@ -477,16 +488,25 @@ function attack(data)
             SetUnitFacing(data.UnitHero,angle)
             TimerStart(CreateTimer(), 0.5, false, function()
                 local damage=BlzGetUnitBaseDamage(mainHero,0)
-                if UnitHasItemOfTypeBJ(mainHero,FourCC('ratf')) then
+                if UnitHasItemOfTypeBJ(mainHero,FourCC('I005')) then
                     damage=damage+15
                 end
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                if GetUnitTypeId(mainHero)~=FourCC("Edmm") then
-                    UnitDamageArea(data.UnitHero,damage,nx,ny,100)
+                if GetUnitTypeId(mainHero)~=FourCC("Edmm") and not data.isShield then
+                    if not UnitDamageArea(data.UnitHero,damage,nx,ny,100) then
+                        local tl = Location(GetUnitXY(mainHero))
+                        local r=GetRandomInt(1,2)
+                        if r==1 then
+                            PlaySoundAtPointBJ(SoundAttack3, 100, tl, 0)
+                        else
+                            PlaySoundAtPointBJ(SoundAttack4, 100, tl, 0)
+                        end
+                        RemoveLocation(tl)
+                    end
                 end
             end)
 
-            TimerStart(CreateTimer(), 0.8, false, function()
+            TimerStart(CreateTimer(), 0.7, false, function()
                 data.isAttacking=false
                 data.ReleaseLMB = false
             end)
@@ -651,6 +671,16 @@ function PointContentDestructable (x,y,range,iskill,damage,flag)
                 content=false
             end
             if iskill then
+                if GetUnitTypeId(flag)==FourCC("Hpal") then
+                    local tl = Location(GetUnitXY(flag))
+                    local r=GetRandomInt(1,2)
+                    if r==1 then
+                        PlaySoundAtPointBJ(SoundAttack5, 100, tl, 0)
+                    else
+                        PlaySoundAtPointBJ(SoundAttack6, 100, tl, 0)
+                    end
+                    RemoveLocation(tl)
+                end
                 SetDestructableLife(d,GetDestructableLife(d)-damage)
                 if GetDestructableLife(d)>=1 then
                     SetDestructableAnimation(d,"Stand Hit")
@@ -668,6 +698,6 @@ function PlayUnitAnimationFromChat()
     TriggerAddAction(this, function()
         local s=S2I(GetEventPlayerChatString())
         SetUnitAnimationByIndex(mainHero,s)
-        print(GetUnitName(mainHero).." "..s)
+        --print(GetUnitName(mainHero).." "..s)
     end)
 end

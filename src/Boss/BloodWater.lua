@@ -25,9 +25,11 @@ end
 function StartBossAIWE(zone)
     local boss=FindUnitOfType(FourCC("hwt3"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
     local hero=boss
+    StunUnit(boss,0.2)
+    UnitAddType(boss,UNIT_TYPE_UNDEAD)
     --print("запущен ии водного элементаля, он должен что то делать")
     TimerStart(CreateTimer(), 5, true, function()
-        if IsUnitInRange(boss,mainHero,500) and not IsUnitPaused(boss) then
+        if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss)  then
             UnitAddAbility(boss,FourCC("AInv"))
             UnitAddItemById(boss,FourCC("I004"))
             ShowUnit(boss,false)
@@ -53,3 +55,4 @@ function StartBossAIWE(zone)
         end
     end)
 end
+
