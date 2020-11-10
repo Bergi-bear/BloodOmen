@@ -907,7 +907,7 @@ Pillar small 3x Hor
 }
 
 STRING 267
-// Abilities: dssd (Bath form), Hotkey (Hotkey - Normal)
+// Abilities: dssd (Bat form), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1457,12 +1457,6 @@ STRING 379
 This ability allows Kain to drink blood of his victims.
 }
 
-STRING 381
-// Abilities: dssd (Bath form), Ubertip (Tooltip - Normal - Extended)
-{
-It allowed Kain to turn into a flock of bats and move across vast distances and fly over obstacles.
-}
-
 STRING 385
 // Abilities: A005 (Acid Bomb), Ubertip (Tooltip - Normal - Extended)
 {
@@ -1603,12 +1597,6 @@ STRING 409
 // Abilities: A00E (Горящий топор Леорика), Name (Name)
 {
 Горящий топор Леорика
-}
-
-STRING 410
-// Units: Giam (Giant skeleton), Name (Name)
-{
-Giant skeleton
 }
 
 STRING 411
@@ -1759,15 +1747,106 @@ STRING 437
 'Tis not over, Kain. These fools were merely the instruments of your murder, not the cause. Look to their masters. Look to the Pillars and gain way to the Fortress of the Mind...
 }
 
-STRING 438
-// Abilities: dssd (Bath form), Name (Name)
+STRING 443
+// Units: Giam (Grave keeper), Name (Name)
 {
-Bath form
+Grave keeper
 }
 
-STRING 439
-// Abilities: dssd (Bath form), Tip (Tooltip - Normal)
+STRING 444
+// Units: u00B (Ancient mage), Name (Name)
 {
-Bath form
+Ancient mage
+}
+
+STRING 445
+// Items: I006 (Skull), Name (Name)
+{
+Skull
+}
+
+STRING 446
+// Items: I006 (Skull), Ubertip (Tooltip - Extended)
+{
+Skeleton skull. It is full of magic.
+}
+
+STRING 447
+// Doodads: D02N (Skull), Name (Name)
+{
+Skull
+}
+
+STRING 448
+// Abilities: dssd (Bat form), Name (Name)
+{
+Bat form
+}
+
+STRING 449
+// Abilities: dssd (Bat form), Tip (Tooltip - Normal)
+{
+Bat form
+}
+
+STRING 450
+// Abilities: dssd (Bat form), Ubertip (Tooltip - Normal - Extended)
+{
+It allows Kain to turn into a flock of bats and move across vast distances and fly over obstacles.
+}
+
+STRING 451
+// Items: I007 (Old key), Name (Name)
+{
+Old key
+}
+
+STRING 452
+// Items: I007 (Old key), Tip (Tooltip - Basic)
+{
+'Stolen from tomb riders'. What does it mean?
+}
+
+STRING 453
+// Items: I007 (Old key), Ubertip (Tooltip - Extended)
+{
+'Stolen from tomb riders'. What does it mean?
+}
+
+STRING 454
+// Units: o002 (Bergios), Name (Name)
+{
+Bergios
+}
+
+STRING 455
+// Units: n007 (KotoBog), Name (Name)
+{
+KotoBog
+}
+
+STRING 456
+// Units: n007 (KotoBog), EditorSuffix (Name - Editor Suffix)
+{
+The Great
+}
+
+STRING 457
+// Abilities: A00G (Chain Lightning), Hotkey (Hotkey - Normal)
+{
+G
+}
+
+STRING 461
+// Abilities: A00G (Chain Lightning), Tip (Tooltip - Normal)
+{
+Chain Lightning
+}
+
+STRING 462
+// Abilities: A00G (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+Поражает молнией до 4х существ. Если не двигаться, то молния допонительно поражает врага нанося ему 10 урона в секунду.
+Требуется мана на поддержание
 }
 

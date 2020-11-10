@@ -604,8 +604,21 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                     DestroyEffect(eff)
                     m=0
                 end
-
-
+            end
+            if flag==6 then
+                local e=nil
+                GroupEnumUnitsInRange(perebor,newX, newY,100,nil)
+                while true do
+                    e = FirstOfGroup(perebor)
+                    if e == nil then break end
+                    if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE) then
+                        if StunSystem[GetHandleId(e)].Time==0 then
+                            StunUnit(e,1)
+                        end
+                        UnitAddForceSimple(e,GetUnitFacing(hero),15,200)
+                    end
+                    GroupRemoveUnit(perebor,e)
+                end
             end
 
             if currentdistance >= distance then
@@ -617,6 +630,11 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
 
                 end
 
+                if flag==6 then -- башлорд конец бега
+                    ResetUnitAnimation(hero)
+                    BlzPauseUnitEx(hero,false)
+                    SetUnitTimeScale(hero,1)
+                end
 
                 if IsUnitType(hero,UNIT_TYPE_HERO) then
                     if HERO[0].isCharging then

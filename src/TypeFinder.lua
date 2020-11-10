@@ -46,7 +46,7 @@ function FindUnitOfType(id,flag,x,y)
 		unit=rg[GetRandomInt(1,#rg)]
 	end
 	if unit==nil then
-	--	print("Не найдено живых юнитов данного типа")
+		--print("Не найдено живых юнитов данного типа")
 	end
 	return unit,k
 end

@@ -162,6 +162,7 @@ function MarkAndFall(x,y,effModel,hero)
         BlzSetSpecialEffectYaw(FallenEff, math.rad(GetRandomReal(0,360)))
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
             local z=BlzGetLocalSpecialEffectZ(FallenEff)
+
             BlzSetSpecialEffectZ(FallenEff,z-25)
             if z<=GetTerrainZ(x,y) then
                 DestroyEffect(mark)
@@ -309,5 +310,6 @@ function MarkPillar(xs,ys,boss,zone)
         DestroyTimer(GetExpiredTimer())
         local tmpLoc=GetRandomLocInRect(zone)
         local woman=CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE),FourCC("nvlw"),GetLocationX(tmpLoc),GetLocationY(tmpLoc),GetUnitFacing(boss))
+        RemoveLocation(tmpLoc)
     end)
 end

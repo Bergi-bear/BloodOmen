@@ -61,7 +61,7 @@ function InitStunPerDie()
             TimerStart(CreateTimer(), 0.11, false, function()
                 if UnitAlive(target) and GetUnitStatePercent(target,UNIT_STATE_LIFE,UNIT_STATE_MAX_LIFE)<=30 and GetOwningPlayer(target)~=Player(0)  and not IsUnitType(target,UNIT_TYPE_UNDEAD) then --and GetUnitLevel(target)<=5
                     local r=GetRandomInt(1,2)
-                    if r==1 then
+                    if r==1 and damage>10 then
                         local savedOwner=GetOwningPlayer(target)
                         StunUnit(target,3.5)
                         UnitAddType(target,UNIT_TYPE_UNDEAD)
@@ -104,14 +104,25 @@ function InitStunPerDie()
             end
         end
         if isEventDamaged  then -- после вычена брони для показа конкретного урона
-            FlyTextTagMiss(target,R2I(damage),GetOwningPlayer(caster))-- герой видит урон который наносит
+            if damage>=2 then
+                FlyTextTagMiss(target,R2I(damage),GetOwningPlayer(caster))-- герой видит урон который наносит
+            end
             if GetUnitTypeId(target)==FourCC("Hpal") then
                 if not HERO[0].isAttacking and not HERO[0].ReleaseW and not HERO[0].ReleaseA and not HERO[0].ReleaseS and not HERO[0].ReleaseD then
-                    SetUnitAnimationByIndex(target,4)
+                    if GetUnitAbilityLevel(target,FourCC("A004"))==0 then
+                        SetUnitAnimationByIndex(target,4)
+                    else
+                        local AngleSource = math.deg(AngleBetweenXY(GetUnitX(caster), GetUnitY(caster), GetUnitX(target), GetUnitY(target)))
+                        local eff=AddSpecialEffect("DefendCaster",GetUnitXY(target))
+                        BlzSetSpecialEffectYaw(eff,math.rad(AngleSource-180))
+                        DestroyEffect(eff)
+                    end
                 end
                 --print("герой получил урон, путь его колбасит")
             end
             FlyTextTagShieldXY(GetUnitX(target),GetUnitY(target),R2I(damage),GetOwningPlayer(target))-- показ полученного урона
+
+
         end
     end)
 end

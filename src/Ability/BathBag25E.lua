@@ -23,17 +23,20 @@ function InitBB()
                 UnitMakeAbilityPermanent(caster,true,FourCC('A002')) --Пожирание
                 UnitMakeAbilityPermanent(caster,true,FourCC('A005')) -- контроль разума
                 UnitMakeAbilityPermanent(caster,true,FourCC('A007')) -- копьё
+                UnitMakeAbilityPermanent(caster,true,FourCC('A00G')) -- молния
                 local slot=RemoveAllItems(caster)
+                local maxHP=BlzGetUnitMaxHP(caster)
                 TimerStart(CreateTimer(), 1/128, false, function()
 
                     UnitAddAbility(caster,FourCC("S000"))--момент превразения в мышь
-                    AddAlItems(caster,slot)
+                    AddAlItems(caster,slot,maxHP)
                 end)
                 -- UnitAddItemById(caster,FourCC("I004"))
                 TimerStart(CreateTimer(), 3, false, function()
                     slot=RemoveAllItems(caster)
-                    UnitAddAbility(caster,FourCC("S001"))
-                    AddAlItems(caster,slot)
+                    --maxHP=BlzGetUnitMaxHP(caster)
+                    UnitAddAbility(caster,FourCC("S001")) -- перелючение обратно
+                    AddAlItems(caster,slot,maxHP)
                     if HERO[0].ReleaseA or HERO[0].ReleaseW or HERO[0].ReleaseS or HERO[0].ReleaseD then
                         TimerStart(CreateTimer(), 0.1, false, function()
                             --print("скольжение после мышей")
@@ -59,10 +62,14 @@ function RemoveAllItems(hero)
     return slot
 end
 
-function AddAlItems(hero,slot)
+function AddAlItems(hero,slot,maxHP)
     TimerStart(CreateTimer(), 0.05, false, function()
         for i=0,5 do
             UnitAddItemById(hero,slot[i])
         end
+    end)
+    --print(maxHP)
+    TimerStart(CreateTimer(), 0.05, false, function()
+        BlzSetUnitMaxHP(hero,maxHP)
     end)
 end
