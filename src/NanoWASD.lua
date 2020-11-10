@@ -104,6 +104,18 @@ function InitWASD(hero)
         elseif GetUnitTypeId(hero)==FourCC("h007") then   -- бандит стрелок
             IndexAnimationWalk=4
             IndexAnimationAttack=GetRandomInt(9,9)
+        elseif GetUnitTypeId(hero)==FourCC("h00A") then   -- ассасин уровень 7
+            IndexAnimationWalk=4
+            IndexAnimationAttack=GetRandomInt(3,3)
+        elseif GetUnitTypeId(hero)==FourCC("h00B") then   -- бандит уровень 8
+            IndexAnimationWalk=5
+            IndexAnimationAttack=GetRandomInt(3,4)
+        elseif GetUnitTypeId(hero)==FourCC("n006") then   -- мужик
+            IndexAnimationWalk=6
+            IndexAnimationAttack=GetRandomInt(4,5)
+        elseif GetUnitTypeId(hero)==FourCC("nvlw") then   -- девушка
+            IndexAnimationWalk=1
+            IndexAnimationAttack=GetRandomInt(3,3)
         end
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
@@ -165,46 +177,52 @@ function InitWASD(hero)
             data.ReleaseS=false
             data.ReleaseD=false
         end
-
-        if not data.isAttacking and UnitAlive(hero) and not data.isShield then
-            if data.IsMoving then
-                if  GetUnitTypeId(hero)==FourCC("Edmm") then--летучие мыши более быстрые
-                    speed=7
-                else
-                    speed=5
-                end
-                local x,y=GetUnitXY(hero)
-                local nx,ny=MoveXY(x,y,speed,angle)
-                SetUnitFacing(hero, angle)
-                SetUnitPositionSmooth(hero,nx,ny)
-                if animWalk==0 then
-                    if  GetUnitTypeId(hero)~=FourCC("Edmm") then
-                        SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+        if not StunSystem[GetHandleId(mainHero)] then
+            StunUnit(mainHero,0.2)
+        end
+        if  StunSystem[GetHandleId(mainHero)].Time==0 then
+            if not data.isAttacking and UnitAlive(hero) and not data.isShield then
+                if data.IsMoving then
+                    if  GetUnitTypeId(hero)==FourCC("Edmm") then--летучие мыши более быстрые
+                        speed=7
                     else
-                      --  print("летучие мыши рестарт анимации движения")
+                        speed=5
                     end
-                    --print("w")
-                    animStand=3
+                    local x,y=GetUnitXY(hero)
+                    local nx,ny=MoveXY(x,y,speed,angle)
+                    SetUnitFacing(hero, angle)
+                    SetUnitPositionSmooth(hero,nx,ny)
+                    if animWalk==0 then
+                        if  GetUnitTypeId(hero)~=FourCC("Edmm") then
+                            SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+                        else
+                            --  print("летучие мыши рестарт анимации движения")
+                        end
+                        --print("w")
+                        animStand=3
+                    end
+                else
+                    --if animWalk==0 then
+
+                    animStand=animStand+TIMER_PERIOD
+                    if animStand>=2 then --длительность анимации WALK
+                        --print(animWalk)
+                        if  GetUnitTypeId(hero)~=FourCC("Edmm") then
+                            ResetUnitAnimation(hero)
+                            --print("дефолтный сборс")
+                        else
+                            -- print("сборс анимации мышей")
+                        end
+                        animStand=0
+                    end
+                    --end
+                    --print("r")--..GetUnitName(mainHero)
                 end
             else
-                --if animWalk==0 then
-
-                animStand=animStand+TIMER_PERIOD
-                if animStand>=2 then --длительность анимации WALK
-                    --print(animWalk)
-                    if  GetUnitTypeId(hero)~=FourCC("Edmm") then
-                        ResetUnitAnimation(hero)
-                        --print("дефолтный сборс")
-                    else
-                       -- print("сборс анимации мышей")
-                    end
-                    animStand=0
-                end
-                --end
-                --print("r")--..GetUnitName(mainHero)
+                --print("onattaking")
             end
-        else
-            --print("onattaking")
+        else-- иначе юнит оглушен
+            SetUnitAnimationByIndex(mainHero,5)
         end
 
 
@@ -224,7 +242,7 @@ function CreateWASDActions()
         if not data.ReleaseW and not data.isAttacking  and  UnitAlive(data.UnitHero) then
             data.ReleaseW = true
             SelectUnitForPlayerSingle(mainHero,Player(0))
-            if not data.isAttacking and not data.isShield then
+            if not data.isAttacking and not data.isShield and StunSystem[GetHandleId(mainHero)].Time==0 then
 
                 UnitAddForceSimple(data.UnitHero,90,5, 15)
                 animStand=3
@@ -255,7 +273,7 @@ function CreateWASDActions()
         if not data.ReleaseS and not data.isAttacking and UnitAlive(data.UnitHero) then
             data.ReleaseS = true
             SelectUnitForPlayerSingle(mainHero,Player(0))
-            if not data.isAttacking and not data.isShield then
+            if not data.isAttacking and not data.isShield and StunSystem[GetHandleId(mainHero)].Time==0 then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,270,5, 15)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -285,7 +303,7 @@ function CreateWASDActions()
         if not data.ReleaseD and not data.isAttacking  and UnitAlive(data.UnitHero) then
             data.ReleaseD = true
             SelectUnitForPlayerSingle(mainHero,Player(0))
-            if not data.isAttacking and not data.isShield then
+            if not data.isAttacking and not data.isShield and StunSystem[GetHandleId(mainHero)].Time==0 then
                 animStand=3
                 UnitAddForceSimple(data.UnitHero,0,5, 15)
                 SetUnitAnimationByIndex(data.UnitHero,IndexAnimationWalk)
@@ -313,7 +331,7 @@ function CreateWASDActions()
     TriggerAddAction(TrigPressA, function()
         local pid = GetPlayerId(GetTriggerPlayer())
         local data = HERO[pid]
-        if not data.ReleaseA and not data.isAttacking  and  UnitAlive(data.UnitHero) then
+        if not data.ReleaseA and not data.isAttacking  and  UnitAlive(data.UnitHero) and StunSystem[GetHandleId(mainHero)].Time==0 then
             data.ReleaseA = true
             SelectUnitForPlayerSingle(mainHero,Player(0))
             if not data.isAttacking and not data.isShield then

@@ -482,18 +482,6 @@ STRING 163
 Дерево No Pass
 }
 
-STRING 164
-// Abilities: dssd (Bat form), Name (Name)
-{
-Bat form
-}
-
-STRING 165
-// Abilities: dssd (Bat form), Tip (Tooltip - Normal)
-{
-Bat form
-}
-
 STRING 174
 // Units: n002 (Big smart rat), Name (Name)
 {
@@ -919,13 +907,7 @@ Pillar small 3x Hor
 }
 
 STRING 267
-// Abilities: dssd (Bat form), Researchhotkey (Hotkey - Learn)
-{
-E
-}
-
-STRING 268
-// Abilities: dssd (Bat form), Hotkey (Hotkey - Normal)
+// Abilities: dssd (Bath form), Hotkey (Hotkey - Normal)
 {
 E
 }
@@ -1350,7 +1332,7 @@ You have learn new skill|cffffff00 Bat form (E)|r. In bat form Kain moves faster
 
 STRING 356
 {
-You have learn new skill|cffffff00 Blood wave (R)|r. Using this skill Kain is able to push away his enemies. If enemy faces obstacle he will be stunned for some time.
+You have learn new skill|cffffff00 Blood gout (R)|r. Using this skill Kain is able to push away his enemies. If enemy faces obstacle he will be stunned for some time.
 }
 
 STRING 357
@@ -1475,20 +1457,8 @@ STRING 379
 This ability allows Kain to drink blood of his victims.
 }
 
-STRING 380
-// Abilities: dssd (Bat form), Researchtip (Tooltip - Learn)
-{
-Bat form
-}
-
 STRING 381
-// Abilities: dssd (Bat form), Researchubertip (Tooltip - Learn - Extended)
-{
-It allowed Kain to turn into a flock of bats and move across vast distances and fly over obstacles.
-}
-
-STRING 382
-// Abilities: dssd (Bat form), Ubertip (Tooltip - Normal - Extended)
+// Abilities: dssd (Bath form), Ubertip (Tooltip - Normal - Extended)
 {
 It allowed Kain to turn into a flock of bats and move across vast distances and fly over obstacles.
 }
@@ -1621,5 +1591,183 @@ STRING 407
 // Items: I005 (Iron Sword), Ubertip (Tooltip - Extended)
 {
 Forged by the Serioli, the legendary weapon masters of Nosgoth, this blade will serve me well, in life and beyond.
+}
+
+STRING 408
+// Abilities: A00D (Криты леорика), Name (Name)
+{
+Криты леорика
+}
+
+STRING 409
+// Abilities: A00E (Горящий топор Леорика), Name (Name)
+{
+Горящий топор Леорика
+}
+
+STRING 410
+// Units: Giam (Giant skeleton), Name (Name)
+{
+Giant skeleton
+}
+
+STRING 411
+// Units: h00A (Assassin), Name (Name)
+{
+Assassin
+}
+
+STRING 412
+// Units: h00A (Assassin), EditorSuffix (Name - Editor Suffix)
+{
+(range)
+}
+
+STRING 413
+// Units: h00B (Bandit), Name (Name)
+{
+Bandit
+}
+
+STRING 414
+// Units: h00B (Bandit), EditorSuffix (Name - Editor Suffix)
+{
+(senior)
+}
+
+STRING 415
+// Doodads: D02I (Table Vertical), Name (Name)
+{
+Table Vertical
+}
+
+STRING 416
+// Doodads: D02J (Stone Day), Name (Name)
+{
+Stone Day
+}
+
+STRING 417
+// Doodads: D02K (Stone Day 2), Name (Name)
+{
+Stone Day 2
+}
+
+STRING 418
+// Doodads: D02L (Stone Day 3), Name (Name)
+{
+Stone Day 3
+}
+
+STRING 419
+// Abilities: A00F (Bash), EditorSuffix (Editor Suffix)
+{
+ (Bash Lord)
+}
+
+STRING 420
+// Units: n006 (Villager), EditorSuffix (Name - Editor Suffix)
+{
+(Male)
+}
+
+STRING 421
+// Doodads: D02M (Building Ruined), Name (Name)
+{
+Building Ruined
+}
+
+STRING 422
+// Units: h00C (Brigand), Name (Name)
+{
+Brigand
+}
+
+STRING 423
+// Units: h00C (Brigand), EditorSuffix (Name - Editor Suffix)
+{
+(senior)
+}
+
+STRING 424
+{
+Brigand
+}
+
+STRING 425
+{
+What trickery is this?!
+}
+
+STRING 426
+{
+Brigand
+}
+
+STRING 427
+{
+There he is! Kill him!
+}
+
+STRING 428
+{
+Brigand
+}
+
+STRING 429
+{
+I thought we killed you, bastard!
+}
+
+STRING 430
+{
+Brigand
+}
+
+STRING 431
+{
+Have at ye, cur! If we put you down once, we can do it again!
+}
+
+STRING 432
+{
+Kain
+}
+
+STRING 433
+{
+Their sneering faces were forever etched upon my memory. I had crossed death for this moment. My mind was empty save for one thought: I would kill.
+}
+
+STRING 434
+{
+Kain
+}
+
+STRING 435
+{
+Their sneering faces were forever etched upon my memory. I had crossed death for this moment. My mind was empty save for one thought: I would kill.
+}
+
+STRING 436
+{
+Mortanius
+}
+
+STRING 437
+{
+'Tis not over, Kain. These fools were merely the instruments of your murder, not the cause. Look to their masters. Look to the Pillars and gain way to the Fortress of the Mind...
+}
+
+STRING 438
+// Abilities: dssd (Bath form), Name (Name)
+{
+Bath form
+}
+
+STRING 439
+// Abilities: dssd (Bath form), Tip (Tooltip - Normal)
+{
+Bath form
 }
 

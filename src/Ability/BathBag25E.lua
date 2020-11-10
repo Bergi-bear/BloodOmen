@@ -16,19 +16,53 @@ function InitBB()
         TriggerRegisterPlayerUnitEvent(SpellTrigger, player, EVENT_PLAYER_UNIT_SPELL_CAST)
     end
     TriggerAddAction(SpellTrigger, function()
-        if GetSpellAbilityId() == FourCC('dssd') then --мыши
-            local caster=GetTriggerUnit()
-           -- UnitAddItemById(caster,FourCC("I004"))
-            TimerStart(CreateTimer(), 1/64, true, function()
-                if GetUnitTypeId(caster)==FourCC('Hpal') then
-                    DestroyTimer(GetExpiredTimer())
+        if not HERO[0].isShield then
+            if GetSpellAbilityId() == FourCC('dssd') then --мыши
+                local caster=GetTriggerUnit()
+                UnitMakeAbilityPermanent(caster,true,FourCC('dssd')) --сами мыши
+                UnitMakeAbilityPermanent(caster,true,FourCC('A002')) --Пожирание
+                UnitMakeAbilityPermanent(caster,true,FourCC('A005')) -- контроль разума
+                UnitMakeAbilityPermanent(caster,true,FourCC('A007')) -- копьё
+                local slot=RemoveAllItems(caster)
+                TimerStart(CreateTimer(), 1/128, false, function()
+
+                    UnitAddAbility(caster,FourCC("S000"))--момент превразения в мышь
+                    AddAlItems(caster,slot)
+                end)
+                -- UnitAddItemById(caster,FourCC("I004"))
+                TimerStart(CreateTimer(), 3, false, function()
+                    slot=RemoveAllItems(caster)
+                    UnitAddAbility(caster,FourCC("S001"))
+                    AddAlItems(caster,slot)
                     if HERO[0].ReleaseA or HERO[0].ReleaseW or HERO[0].ReleaseS or HERO[0].ReleaseD then
-                       -- print("скольжение после мышей")
-                        SetUnitAnimationByIndex(caster,IndexAnimationWalk)
+                        TimerStart(CreateTimer(), 0.1, false, function()
+                            --print("скольжение после мышей")
+                            SetUnitAnimationByIndex(caster,IndexAnimationWalk)
+                        end)
                     end
-                end
-            end)
+                end)
+            end
         end
     end)
 end
 
+function RemoveAllItems(hero)
+    local slot={}
+    --print("удаляем предметы")
+    for i=0,5 do
+        --print(i)
+        slot[i]=GetItemTypeId(UnitItemInSlot(hero,i))
+        --print(GetItemName(slot[i]))
+        RemoveItem(UnitItemInSlot(hero,i))
+
+    end
+    return slot
+end
+
+function AddAlItems(hero,slot)
+    TimerStart(CreateTimer(), 0.1, false, function()
+        for i=0,5 do
+            UnitAddItemById(hero,slot[i])
+        end
+    end)
+end

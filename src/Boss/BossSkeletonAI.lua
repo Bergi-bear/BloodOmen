@@ -26,6 +26,7 @@ end
 BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
+    BossDamaged(boss)
     local BossFight=true
     --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
@@ -59,8 +60,15 @@ function StartBossAI(zone)
                 end
             end
         end
-        if BossFight then -- если идёт бой
+        if BossFight then -- если идёт бой и каждую фазу
             sec = sec + 1
+            if GetUnitLifePercent(boss)<=25 then
+                UnitAddAbility(boss,FourCC("A00D"))
+                UnitAddAbility(boss,FourCC("A00E"))
+            else
+                UnitRemoveAbility(boss,FourCC("A00D"))
+                UnitRemoveAbility(boss,FourCC("A00E"))
+            end
             if sec >= 10 then
                 sec = 0
                 phase = phase + 1
@@ -79,6 +87,12 @@ function StartBossAI(zone)
                 skeleton[2]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMaxX(zone)-GetRectWidthBJ(zone),GetRectMinY(zone)+GetRectHeightBJ(zone),GetRandomInt(0,360))
                 skeleton[3]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMinX(zone)+GetRectWidthBJ(zone),GetRectMinY(zone),GetRandomInt(0,360))
                 skeleton[4]=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),GetRectMinX(zone),GetRectMinY(zone),GetRandomInt(0,360))
+                if GetUnitLifePercent(boss)<=50 then
+                    skeleton[5]=CreateUnit(GetOwningPlayer(boss),FourCC("n005"),GetRectMaxX(zone),GetRectMaxY(zone),GetRandomInt(0,360))
+                    skeleton[6]=CreateUnit(GetOwningPlayer(boss),FourCC("n005"),GetRectMaxX(zone)-GetRectWidthBJ(zone),GetRectMinY(zone)+GetRectHeightBJ(zone),GetRandomInt(0,360))
+                    skeleton[7]=CreateUnit(GetOwningPlayer(boss),FourCC("n005"),GetRectMinX(zone)+GetRectWidthBJ(zone),GetRectMinY(zone),GetRandomInt(0,360))
+                    skeleton[8]=CreateUnit(GetOwningPlayer(boss),FourCC("n005"),GetRectMinX(zone),GetRectMinY(zone),GetRandomInt(0,360))
+                end
                 for i=1,#skeleton do
                     UnitApplyTimedLife(skeleton[i],FourCC('BTLF'),20)
                     if not IssueTargetOrder(skeleton[i],"attack",mainHero) then
@@ -102,7 +116,7 @@ function StartBossAI(zone)
                 end)
 
             end
-            if phase == 3 and PhaseOn  then -- оживление големов
+            if phase == 3 and PhaseOn  then -- запуск волны
                 PhaseOn = false
                 --print("Пускаем волну в 1 из 3 направлений")
                 local r=GetRandomInt(1,3)
@@ -112,18 +126,21 @@ function StartBossAI(zone)
                 elseif r==2 then
                     xs=xs+GetRectWidthBJ(zone)/3
                 end
-                local eff=AddSpecialEffect("s_cube1",xs,ys)
-                BlzSetSpecialEffectZ(eff,GetUnitZ(mainHero)-45)
-                BlzSetSpecialEffectMatrixScale(eff,4,14,0.5)
-                BlzSetSpecialEffectColor(eff,255,0,0)
-                BlzSetSpecialEffectAlpha(eff,100)
+                MarkPillar(xs,ys,boss,zone)
 
-                TimerStart(CreateTimer(), 3, false, function()
-                    CreateFirePillar(xs,ys,boss,zone)
-                    DestroyEffect(eff)
-                    BlzSetSpecialEffectPosition(eff,5000,5000,0)
-                    DestroyTimer(GetExpiredTimer())
-                end)
+                if GetUnitLifePercent(boss)<=15 then--мега ярость
+                    local second=true
+                    if r==1 then
+                        xs=xs+GetRectWidthBJ(zone)/3
+                    elseif r==2 then
+                        xs=xs-GetRectWidthBJ(zone)/3
+                    elseif r==3 then
+                        second=false
+                    end
+                    if second then --запуск второй волны
+                        MarkPillar(xs,ys,boss,zone)
+                    end
+                end
             end
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
@@ -166,7 +183,8 @@ function CreateFirePillar(xs,ys,boss,zone)
     xs=xs-step*1.7
     local x=xs
     local k=4
-    IssuePointOrder(boss,"move",xs,ys)
+
+    IssuePointOrder(boss,"attack",GetUnitXY(mainHero))
     TimerStart(CreateTimer(), 1/16, true, function()
         --for k=1,14 do
         for i =1,3 do
@@ -175,6 +193,15 @@ function CreateFirePillar(xs,ys,boss,zone)
             local y=ys-step*(k-1)
             local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
             --DestroyEffect(eff)
+            local sec=0
+            TimerStart(CreateTimer(), 0.2, true, function()
+                sec=sec+0.2
+                UnitDamageArea(boss,20,x,y,step)
+                if sec>=5 then
+                    DestroyEffect(eff)
+                    DestroyTimer(GetExpiredTimer())
+                end
+            end)
            -- local _,d=PointContentDestructable(x,y,step*2)
             --if GetDestructableTypeId(d)==FourCC("B006") then
                 --print("Врезался в лавку")
@@ -198,4 +225,89 @@ function CreateFirePillar(xs,ys,boss,zone)
         end
     end)
     --end
+end
+
+function BossDamaged(boss)
+    local DamageTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        --TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGING) -- До вычета брони
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
+    end
+    local bossTakenDamage=0
+    TriggerAddAction(DamageTrigger, function()
+        local damage     = GetEventDamage() -- число урона
+        if damage < 1 then return end
+        local eventId         = GetHandleId(GetTriggerEventId())
+        --local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
+        local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
+        local target          = GetTriggerUnit() -- тот кто получил урон
+        local caster          = GetEventDamageSource() -- тот кто нанёс урон
+
+
+        if isEventDamaged then
+            if target==boss then--  босс получает 100 урона
+                bossTakenDamage=bossTakenDamage+damage
+                if bossTakenDamage>=100 then
+                    bossTakenDamage=0
+                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero))/bj_DEGTORAD
+
+                    CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
+                end
+            end
+            if caster==boss then
+                local r=GetRandomInt(1,5)
+                if r==1 and IsUnitInRange(boss,mainHero,300) then
+                    SpireCast(boss,GetUnitXY(mainHero))
+                end
+            end
+        end
+
+    end)
+
+end
+
+function CreateFireLine(boss,angle,distance)
+    local x,y=GetUnitXY(boss)
+    --local currentDistance=0
+    local speed=128
+    local step=distance//speed
+    local mark={}
+    for i=1,step do
+        x,y=MoveXY(x,y,speed,angle)
+        mark[i]=AddSpecialEffect("Snipe Target",x,y)
+        BlzSetSpecialEffectScale(mark[i],5)
+    end
+
+    TimerStart(CreateTimer(), 2, false, function()
+        for i=1,#mark do
+            DestroyEffect(mark[i])
+            BlzSetSpecialEffectPosition(mark[i],5000,5000,0)
+        end
+        x,y=GetUnitXY(boss)
+        TimerStart(CreateTimer(), 1/16, true, function()
+            x,y=MoveXY(x,y,speed,angle)
+            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",x,y)
+            UnitDamageArea(boss,99,x,y,speed)
+            distance=distance-speed
+            if distance<=0 then
+                DestroyTimer(GetExpiredTimer())
+            end
+        end)
+    end)
+end
+
+function MarkPillar(xs,ys,boss,zone)
+    local eff=AddSpecialEffect("s_cube1",xs,ys)
+    BlzSetSpecialEffectZ(eff,GetUnitZ(mainHero)-45)
+    BlzSetSpecialEffectMatrixScale(eff,4,14,0.5)
+    BlzSetSpecialEffectColor(eff,255,0,0)
+    BlzSetSpecialEffectAlpha(eff,100)
+    TimerStart(CreateTimer(), 3, false, function()
+        CreateFirePillar(xs,ys,boss,zone)
+        DestroyEffect(eff)
+        BlzSetSpecialEffectPosition(eff,5000,5000,0)
+        DestroyTimer(GetExpiredTimer())
+        local tmpLoc=GetRandomLocInRect(zone)
+        local woman=CreateUnit(Player(PLAYER_NEUTRAL_PASSIVE),FourCC("nvlw"),GetLocationX(tmpLoc),GetLocationY(tmpLoc),GetUnitFacing(boss))
+    end)
 end

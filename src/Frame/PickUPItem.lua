@@ -22,6 +22,10 @@ function InitPUI()
             BlzFrameSetAlpha(frame,255)
             BlzFrameSetText(text, "You acquired new item:         |cffffcc00"..GetItemName(item).."|r")
             --|cffffcc001-й уровень:|r
+
+            local tl = Location(GetUnitXY(target))
+            PlaySoundAtPointBJ(HintSound, 100, tl, 0)
+            RemoveLocation(tl)
             local p=1/64
             secToHideItem=secToHideItem+6
             TimerStart(CreateTimer(), p, true, function()

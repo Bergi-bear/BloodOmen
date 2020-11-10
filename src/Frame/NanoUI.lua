@@ -216,6 +216,7 @@ function InitSelectionRegister()
 
                 if not mainHero then
                     --print("Определён первый герой для игрока")
+                    StunUnit(hero,0.2)
                     mainHero=hero
                     InitWASD(mainHero)
                     --print("initwasd")

@@ -34,7 +34,10 @@ do
         SetSoundParamsFromLabel(SoundAttack6, "MetalHeavySliceFlesh")
         SetSoundDuration(SoundAttack6, 853)
         SetSoundVolume(SoundAttack6, 250)
-
+        HintSound = CreateSound("Sound\\Interface\\Hint", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(HintSound, "MetalHeavySliceFlesh")
+        SetSoundDuration(HintSound, 853)
+        SetSoundVolume(HintSound, 250)
     end)
 end
 function InitStunPerDie()
@@ -89,9 +92,14 @@ function InitStunPerDie()
                     PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
                 end
                 RemoveLocation(tl)
+
                 if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
+                    AddSpecialEffect("Objects\\Spawnmodels\\Other\\BeastmasterBlood\\BeastmasterBlood.mdl",GetUnitXY(target))
+                    --print("Кровь обычная")
+
+                else
                     AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
-                    --print("Кровь")
+                    --print(" кровь нежити")
                 end
             end
         end
@@ -103,6 +111,7 @@ function InitStunPerDie()
                 end
                 --print("герой получил урон, путь его колбасит")
             end
+            FlyTextTagShieldXY(GetUnitX(target),GetUnitY(target),R2I(damage),GetOwningPlayer(target))-- показ полученного урона
         end
     end)
 end
