@@ -2840,7 +2840,7 @@ function RemoveAllItems(hero)
 end
 
 function AddAlItems(hero,slot)
-    TimerStart(CreateTimer(), 0.1, false, function()
+    TimerStart(CreateTimer(), 0.05, false, function()
         for i=0,5 do
             UnitAddItemById(hero,slot[i])
         end
@@ -4001,13 +4001,25 @@ do
     end)
 end
 secToHideItem=0
-function InitPUI()
 
+
+function InitPUI()
+    local k=1
+    local BDShowItems={}
     local frame,text=CreateInfoItemBOX()
     local this = CreateTrigger()
     TriggerRegisterAnyUnitEventBJ(this, EVENT_PLAYER_UNIT_PICKUP_ITEM)
     TriggerAddAction(this, function()
         local item=GetManipulatedItem()
+        if not ItemInBD(BDShowItems,GetItemTypeId(item)) then
+            table.insert(BDShowItems,GetItemTypeId(item))
+            print("пердмет показан первый раз")
+        else
+
+            print("последующий")
+            return
+        end
+
         if GetItemTypeId(item)~=FourCC("I004") then --Список исключений предметов
             BlzFrameSetVisible(frame,true)
             BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
@@ -4049,6 +4061,16 @@ function CreateInfoItemBOX()
     BlzFrameSetText(textCurrent, "You acquired new item:      ")
     BlzFrameSetVisible(buttonIconFrame,false)
     return buttonIconFrame,textCurrent
+end
+
+function ItemInBD(table,id)
+    local has=false
+    for i=1,#table do
+        if table[i]==id then
+            has=true
+        end
+    end
+    return has
 end
 --CUSTOM_CODE
 function Trig_Gain_Func001C()

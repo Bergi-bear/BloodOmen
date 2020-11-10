@@ -60,7 +60,7 @@ function RemoveAllItems(hero)
 end
 
 function AddAlItems(hero,slot)
-    TimerStart(CreateTimer(), 0.1, false, function()
+    TimerStart(CreateTimer(), 0.05, false, function()
         for i=0,5 do
             UnitAddItemById(hero,slot[i])
         end
