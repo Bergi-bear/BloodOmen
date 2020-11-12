@@ -53,7 +53,7 @@ function StartBossAI2(zone)
 
         else --Проверяем есть ли живые герои,
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 2000) then
+                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
@@ -163,8 +163,9 @@ function StartBossAI2(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
+                IssuePointOrder(boss,"boss",GetRectCenterX(zone),GetRectCenterY(zone))
                 BlzFrameSetVisible(bar,true)
-                HealUnit(boss,9999)
+                HealUnit(boss,150)
                 BossFight=true
             end
         end--конец
@@ -230,6 +231,8 @@ function CreateGrave(boss,x,y)
     BlzSetSpecialEffectScale(eff,2.3)
     BlzSetSpecialEffectYaw(eff, math.rad(GetRandomInt(0,360)))
     --print(z.." стартовая")
+    local skeleton=nil
+    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw")}
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         if sec>2 then
             BlzSetSpecialEffectPosition(eff,x,y,z-1)
@@ -241,13 +244,22 @@ function CreateGrave(boss,x,y)
             DestroyTimer(GetExpiredTimer())
             DestroyEffect(eff)
             DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl",x,y))
-            local skeleton=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),x,y,GetRandomInt(0,360))
+            if GetUnitTypeId(boss)==FourCC("u00B") then
+                skeleton=CreateUnit(GetOwningPlayer(boss),id[GetRandomInt(1,#id)],x,y,GetRandomInt(0,360))
+            else
+                skeleton=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),x,y,GetRandomInt(0,360))
+            end
+            if GetUnitTypeId(skeleton)==FourCC("nvlw") then
+                SetUnitOwner(skeleton,Player(PLAYER_NEUTRAL_PASSIVE),true)
+            end
+
             UnitApplyTimedLife(skeleton,FourCC('BTLF'),20)
             if not IssueTargetOrder(skeleton,"attack",mainHero) then
                 IssuePointOrder(skeleton,"attack",GetUnitXY(mainHero))
             end
         end
     end)
+    return skeleton
 end
 
 function RunSkeleton(boss)
@@ -272,10 +284,10 @@ function AreaSplashMark(boss)
         BlzPauseUnitEx(boss,false)
         DestroyEffect(mark)
         BlzSetSpecialEffectPosition(mark,5000,5000,0)
-        nx,ny=MoveXY(GetUnitX(boss),GetUnitY(boss),200,GetUnitFacing(boss))
+        --nx,ny=MoveXY(GetUnitX(boss),GetUnitY(boss),200,GetUnitFacing(boss))
         DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",nx,ny))
         UnitDamageArea(boss,100,nx,ny,200) --урон
-        StunArea(boss,250,1,nx,ny)
+        StunArea(boss,200,1,nx,ny)
         SetUnitTimeScale(boss,1)
         ResetUnitAnimation(boss)
     end)

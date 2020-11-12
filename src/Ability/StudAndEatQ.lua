@@ -7,37 +7,6 @@ do
     TimerStart(CreateTimer(), 0.11, false, function()
         InitStunPerDie()
         InitSpellEat()
-        --звуки попаданий
-        SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh3", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(SoundAttack1, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack1, 853)
-        SetSoundVolume(SoundAttack1, 250)
-        SoundAttack2 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(SoundAttack2, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack2, 853)
-        SetSoundVolume(SoundAttack2, 250)
-        --Звуки промахов
-        SoundAttack3 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceFlesh1", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(SoundAttack3, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack3, 853)
-        SetSoundVolume(SoundAttack3, 250)
-        SoundAttack4 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(SoundAttack4, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack4, 853)
-        SetSoundVolume(SoundAttack4, 250)
-        --Звуки ударов по декору
-        SoundAttack5 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceWood1", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(SoundAttack5, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack5, 853)
-        SetSoundVolume(SoundAttack5, 250)
-        SoundAttack6 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceWood2", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(SoundAttack6, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack6, 853)
-        SetSoundVolume(SoundAttack6, 250)
-        HintSound = CreateSound("Sound\\Interface\\Hint", false, true, true, 0, 0, "MissilesEAX")
-        SetSoundParamsFromLabel(HintSound, "MetalHeavySliceFlesh")
-        SetSoundDuration(HintSound, 853)
-        SetSoundVolume(HintSound, 250)
     end)
 end
 function InitStunPerDie()
@@ -74,7 +43,11 @@ function InitStunPerDie()
                             if UnitAlive(target) then
                                 ResetUnitAnimation(target)
                             end
-                            SetUnitOwner(target,savedOwner,true)
+                            if UnitAlive(target) then
+                                SetUnitOwner(target,savedOwner,true)
+                            else
+                                AddHeroXP(caster,50,true)
+                            end
                         end)
                     end
 

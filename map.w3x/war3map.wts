@@ -1097,12 +1097,6 @@ STRING 299
 Бафф щита
 }
 
-STRING 300
-// Items: I001 (Blood key), Name (Name)
-{
-Blood key
-}
-
 STRING 301
 // Units: H000 ( ), Propernames (Proper Names)
 {
@@ -1127,40 +1121,16 @@ STRING 304
 Fog Blue
 }
 
-STRING 305
-// Items: I002 (Ice key), Name (Name)
-{
-Ice key
-}
-
 STRING 307
-// Abilities: A006 (Освободить разум), Hotkey (Hotkey - Normal)
+// Abilities: A006 (Free your mind), Hotkey (Hotkey - Normal)
 {
 F
-}
-
-STRING 311
-// Abilities: A006 (Освободить разум), Name (Name)
-{
-Освободить разум
 }
 
 STRING 312
 // Abilities: A005 (Acid Bomb), Hotkey (Hotkey - Normal)
 {
 F
-}
-
-STRING 313
-// Abilities: A006 (Освободить разум), Tip (Tooltip - Normal)
-{
-Освободить разум
-}
-
-STRING 314
-// Abilities: A006 (Освободить разум), Ubertip (Tooltip - Normal - Extended)
-{
-Освобождает разум этого существа и поглощает его плоть
 }
 
 STRING 315
@@ -1207,12 +1177,6 @@ STRING 325
 // Doodads: D029 (Cupol), Name (Name)
 {
 Cupol
-}
-
-STRING 328
-// Items: I003 (Acid key), Name (Name)
-{
-Acid key
 }
 
 STRING 329
@@ -1727,26 +1691,6 @@ STRING 433
 Their sneering faces were forever etched upon my memory. I had crossed death for this moment. My mind was empty save for one thought: I would kill.
 }
 
-STRING 434
-{
-Kain
-}
-
-STRING 435
-{
-Their sneering faces were forever etched upon my memory. I had crossed death for this moment. My mind was empty save for one thought: I would kill.
-}
-
-STRING 436
-{
-Mortanius
-}
-
-STRING 437
-{
-'Tis not over, Kain. These fools were merely the instruments of your murder, not the cause. Look to their masters. Look to the Pillars and gain way to the Fortress of the Mind...
-}
-
 STRING 443
 // Units: Giam (Grave keeper), Name (Name)
 {
@@ -1832,21 +1776,105 @@ The Great
 }
 
 STRING 457
-// Abilities: A00G (Chain Lightning), Hotkey (Hotkey - Normal)
+// Abilities: A00G (Lightning), Hotkey (Hotkey - Normal)
 {
 G
 }
 
-STRING 461
-// Abilities: A00G (Chain Lightning), Tip (Tooltip - Normal)
+STRING 463
 {
-Chain Lightning
+|cffffff00Hint:
+|rToo late to get back. Kain wants|cffff0000 BLOOD|r.
 }
 
-STRING 462
-// Abilities: A00G (Chain Lightning), Ubertip (Tooltip - Normal - Extended)
+STRING 469
 {
-Поражает молнией до 4х существ. Если не двигаться, то молния допонительно поражает врага нанося ему 10 урона в секунду.
-Требуется мана на поддержание
+Kain
+}
+
+STRING 470
+{
+There is no greater release than that from vengeance sated.  With my assassins dead, my quest was over.
+
+
+}
+
+STRING 471
+{
+Mortanius
+}
+
+STRING 472
+{
+'Tis not over, Kain. These fools were merely the instruments of your murder, not the cause. Look to their masters. Look to the Pillars and gain way to the Fortress of the Mind...
+}
+
+STRING 473
+{
+Kain
+}
+
+STRING 474
+{
+With this spell I can call upon the heavens to tear my enemies apart with its explosive power. Oh, how their bodies will rupture as the scything energy rips through them!
+}
+
+STRING 475
+{
+You have learn new skill|cffffff00 Lightning (G)|r. With this spell Kain able to use power of lightning upon his enemies. Cast it as long as you have mana to burn everyone down.
+}
+
+STRING 476
+// Abilities: A00G (Lightning), Name (Name)
+{
+Lightning
+}
+
+STRING 477
+// Abilities: A00G (Lightning), Ubertip (Tooltip - Normal - Extended)
+{
+ It is the powerful and costly spell in Kain's repertory, as it enables him to call upon thunderbolts from the skies, to crush up to 4 enemies with a massive amount of energy along a period of time.Period pedends of how long you hold it and how much mana you have.
+}
+
+STRING 478
+// Items: I001 (Red key), Name (Name)
+{
+Red key
+}
+
+STRING 479
+// Items: I002 (Blue key), Name (Name)
+{
+Blue key
+}
+
+STRING 480
+// Items: I003 (Green key), Name (Name)
+{
+Green key
+}
+
+STRING 481
+// Abilities: A006 (Free your mind), Name (Name)
+{
+Free your mind
+}
+
+STRING 482
+// Abilities: A006 (Free your mind), Tip (Tooltip - Normal)
+{
+Free your mind
+}
+
+STRING 483
+// Abilities: A006 (Free your mind), Ubertip (Tooltip - Normal - Extended)
+{
+Frees the mind of this creature and consumes its flesh
+}
+
+STRING 484
+// Abilities: A00G (Lightning), Tip (Tooltip - Normal)
+{
+Lightning
 }
 

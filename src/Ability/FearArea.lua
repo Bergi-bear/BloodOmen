@@ -24,6 +24,19 @@ function StartFearArea()
                         local angle=-180+AngleBetweenXY(GetUnitX(e),GetUnitY(e),GetUnitXY(mainHero))/bj_DEGTORAD
                         local nx,ny=MoveXY(GetUnitX(e),GetUnitY(e),400,angle)
                         IssuePointOrder(e,"move",nx,ny)
+                        local r=GetRandomInt(1,3)
+                        --U01Peasant15A
+                        --U01Peasant15B
+                        --U01Peasant15С
+                        local tl = Location(GetUnitXY(e))
+                        if r==1 then
+                            PlaySoundAtPointBJ(gg_snd_U01Peasant15A, 100, tl, 0)
+                        elseif r==2 then
+                            PlaySoundAtPointBJ(gg_snd_U01Peasant15B, 100, tl, 0)
+                        elseif r==3 then
+                            PlaySoundAtPointBJ(gg_snd_U01Peasant15C, 100, tl, 0)
+                        end
+                        RemoveLocation(tl)
                     end
                 end
             end

@@ -24,7 +24,7 @@ function InitNotAttack()
     TriggerAddAction(TrigPressAny, function()
         if HERO[0].ONTarget then
             --print("Способность отменена или подтверждена")
-            TimerStart(CreateTimer(), 1, false, function()
+            TimerStart(CreateTimer(), 0.1, false, function()
                 HERO[0].ONTarget=false
             end)
         end

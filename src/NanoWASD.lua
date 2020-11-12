@@ -192,9 +192,12 @@ function InitWASD(hero)
                     local nx,ny=MoveXY(x,y,speed,angle)
                     SetUnitFacing(hero, angle)
                     SetUnitPositionSmooth(hero,nx,ny)
+
                     if animWalk==0 then
                         if  GetUnitTypeId(hero)~=FourCC("Edmm") then
                             SetUnitAnimationByIndex(hero,IndexAnimationWalk)
+                            local r={SoundStep1,SoundStep2,SoundStep3,SoundStep4}
+                            PlaySoundNearUnit(hero,r[GetRandomInt(1,4)])
                         else
                             --  print("летучие мыши рестарт анимации движения")
                         end
@@ -412,6 +415,7 @@ function CreateWASDActions()
                     data.isShield=true
                     UnitAddAbility(data.UnitHero,FourCC("A003"))
                     UnitAddAbility(data.UnitHero,FourCC("A004"))
+                    BlzUnitDisableAbility(mainHero,FourCC('dssd'),true,false)
                     data.ReleaseW=false
                     data.ReleaseA=false
                     data.ReleaseS=false
@@ -453,6 +457,7 @@ function CreateWASDActions()
             if data.isShield then
                 UnitRemoveAbility(data.UnitHero,FourCC("A003"))
                 UnitRemoveAbility(data.UnitHero,FourCC("A004"))
+                BlzUnitDisableAbility(mainHero,FourCC('dssd'),false,false)
                 --DestroyEffect(data.ShieldEff)
                 --print("щит отключен")
                 data.isShield=false
@@ -502,6 +507,27 @@ function attack(data)
             data.ReleaseS=false
             data.ReleaseD=false
             SetUnitAnimationByIndex(data.UnitHero,IndexAnimationAttack)
+            local e=nil
+            local k=0
+            GroupEnumUnitsInRange(perebor,GetUnitX(mainHero),GetUnitY(mainHero),200,nil)
+
+            while true do
+                e = FirstOfGroup(perebor)
+                if e == nil then break end
+                if UnitAlive(e) and UnitAlive(mainHero) and (IsUnitEnemy(e,GetOwningPlayer(mainHero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) then
+                    k=k+1
+                end
+                GroupRemoveUnit(perebor,e)
+            end
+            if k>1 then
+                SetUnitAnimationByIndex(data.UnitHero,12)-- всегда сплешь
+                local eff=AddSpecialEffectTarget("Sweep_Attachments_FX\\Sweep_Blood_Large",mainHero,"hand left")
+                TimerStart(CreateTimer(), 5, false, function()
+                    DestroyEffect(eff)
+                end)
+            end
+
+
             local angle=-180+AngleBetweenXY(GetPlayerMouseX[0],GetPlayerMouseY[0],GetUnitX(data.UnitHero),GetUnitY(data.UnitHero))/bj_DEGTORAD
             SetUnitFacing(data.UnitHero,angle)
             TimerStart(CreateTimer(), 0.5, false, function()
@@ -511,7 +537,8 @@ function attack(data)
                 end
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
                 if GetUnitTypeId(mainHero)~=FourCC("Edmm") and not data.isShield then
-                    if not UnitDamageArea(data.UnitHero,damage,nx,ny,100) then
+                    local is,_,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
+                    if not is then
                         local tl = Location(GetUnitXY(mainHero))
                         local r=GetRandomInt(1,2)
                         if r==1 then
@@ -521,23 +548,17 @@ function attack(data)
                         end
                         RemoveLocation(tl)
                     end
+
                 end
             end)
 
             TimerStart(CreateTimer(), 0.7, false, function()
                 data.isAttacking=false
-                data.ReleaseLMB = false
+                --data.ReleaseLMB = false
             end)
         end
     end
 end
-
-function Shield(data)
-    if not data.isShield and GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then
-
-    end
-end
-
 
 
 function dash(data) --ОТКЛЮЧЕНО, ЭТО ПЕРЕКАТ
@@ -611,10 +632,10 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 while true do
                     e = FirstOfGroup(perebor)
                     if e == nil then break end
-                    if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE) then
-                        if StunSystem[GetHandleId(e)].Time==0 then
-                            StunUnit(e,1)
-                        end
+                    if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(hero)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE) and IsUnitType(e,UNIT_TYPE_HERO) then
+                        --if StunSystem[GetHandleId(e)].Time==0 then
+                        --    StunUnit(e,1)
+                        --end
                         UnitAddForceSimple(e,GetUnitFacing(hero),15,200)
                     end
                     GroupRemoveUnit(perebor,e)
@@ -677,6 +698,7 @@ function UnitDamageArea(u,damage,x,y,range)
     local e=nil
     local hero=nil
     GroupEnumUnitsInRange(perebor,x,y,range,nil)
+    local k=0
     while true do
         e = FirstOfGroup(perebor)
         if e == nil then break end
@@ -684,11 +706,12 @@ function UnitDamageArea(u,damage,x,y,range)
             UnitDamageTarget( u, e, damage, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS )
             isdamage=true
             hero=e
+            k=k+1
         end
         GroupRemoveUnit(perebor,e)
     end
     if PointContentDestructable(x,y,range,true,1+damage,u) then	isdamage=true	end
-    return isdamage, hero
+    return isdamage, hero,k
 end
 
 GlobalRect=Rect(0,0,0,0)
@@ -727,12 +750,17 @@ function PointContentDestructable (x,y,range,iskill,damage,flag)
     end)
     return content,d
 end
-
+CQX=430
+CQY=6500
 function PlayUnitAnimationFromChat()
     local this=CreateTrigger()
     TriggerRegisterPlayerChatEvent(this,Player(0),"",true)
     TriggerAddAction(this, function()
         local s=S2I(GetEventPlayerChatString())
+        if GetEventPlayerChatString()=="w" then
+            CreateForUnitWayToPoint(mainHero,CQX,CQY)
+            return
+        end
         SetUnitAnimationByIndex(mainHero,s)
         --print(GetUnitName(mainHero).." "..s)
     end)

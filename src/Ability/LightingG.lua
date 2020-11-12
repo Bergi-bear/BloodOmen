@@ -20,6 +20,18 @@ function InitLightingSpell()
         if GetSpellAbilityId() == FourCC('A00G') then --Удар молнией
             local caster=GetTriggerUnit()
             local target=GetSpellTargetUnit()
+            local e=nil
+            local k=1
+            GroupEnumUnitsInRange(perebor,GetUnitX(target),GetUnitY(target),300,nil)
+            while true do
+                e = FirstOfGroup(perebor)
+                if e == nil then break end
+                if UnitAlive(e) and IsUnitEnemy(e,GetOwningPlayer(caster)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE)  and k<=4 then
+                    k=k+1
+                    UnitDamageTarget( caster, e, 1, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_UNIVERSAL, WEAPON_TYPE_WHOKNOWS )
+                end
+                GroupRemoveUnit(perebor,e)
+            end
             local effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
         end
     end)
@@ -48,16 +60,20 @@ function InitDamageLighting()
             local damagetype = BlzGetEventDamageType()
             --print(ConvertDamageTypeToString(damagetype))
             local xLast=GetUnitX(caster)
-            if damagetype==DAMAGE_TYPE_LIGHTNING then
+            if damagetype==DAMAGE_TYPE_UNIVERSAL then
                 local sec=0
-                TimerStart(CreateTimer(), 0.1, true, function()
+                TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                     --print("Поражение болнией")
                     CreateLighting2Unit(caster,target)
                     if UnitDamageTarget( caster, target, 1, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS ) then
-                        sec=sec+0.1
-                        if sec>=1 then
+                        sec=sec+TIMER_PERIOD
+                        if GetUnitLifePercent(target)<=5 then
+                            SetUnitExploded(target, true)
+                            --print("взрываем юнита")
+                        end
+                        if sec>=0.1 then
                             sec=0
-                            SetUnitState(caster,UNIT_STATE_MANA,GetUnitState(caster,UNIT_STATE_MANA)-1)
+                            SetUnitState(caster,UNIT_STATE_MANA,GetUnitState(caster,UNIT_STATE_MANA)-2)
                         end
                     end
                     StunUnit(target,1)
@@ -78,7 +94,7 @@ function InitDamageLighting()
 end
 
 function CreateLighting2Unit(caster,target)
-    local h=140
+    local h=100
     local x,y=GetUnitXY(caster)
     local x1,y1=GetUnitXY(target)
     local z,z1=BlzGetUnitZ(caster)+h,BlzGetUnitZ(target)+h

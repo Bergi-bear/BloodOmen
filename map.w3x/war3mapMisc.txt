@@ -5,5 +5,7 @@ HeroFactorXP=100
 IntManaBonus=25.0
 IntRegenBonus=0.05
 MaxHeroLevel=25
+MaxUnitSpeed=999.0
+MinUnitSpeed=1.0
 StrRegenBonus=0.001
 

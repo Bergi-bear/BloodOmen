@@ -51,7 +51,7 @@ function StartBossAI(zone)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 2000) then
+                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
@@ -145,8 +145,9 @@ function StartBossAI(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
+                IssuePointOrder(boss,"move",GetRectCenterX(zone),GetRectCenterY(zone))
                 BlzFrameSetVisible(bar,true)
-                HealUnit(boss,9999)
+                HealUnit(boss,500)
                 BossFight=true
             end
         end--конец
