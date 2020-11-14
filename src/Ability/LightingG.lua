@@ -62,10 +62,12 @@ function InitDamageLighting()
             local xLast=GetUnitX(caster)
             if damagetype==DAMAGE_TYPE_UNIVERSAL then
                 local sec=0
+                local breakDamage=0
                 TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                     --print("Поражение болнией")
                     CreateLighting2Unit(caster,target)
                     if UnitDamageTarget( caster, target, 1, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS ) then
+                        breakDamage=breakDamage+1
                         sec=sec+TIMER_PERIOD
                         if GetUnitLifePercent(target)<=5 then
                             SetUnitExploded(target, true)
@@ -80,10 +82,22 @@ function InitDamageLighting()
                     if not UnitAlive(target) then
                         DestroyTimer(GetExpiredTimer())
                     end
-                    if xLast~=GetUnitX(caster) or GetUnitState(caster,UNIT_STATE_MANA)<=1 then
+                    if xLast~=GetUnitX(caster) or GetUnitState(caster,UNIT_STATE_MANA)<=1  then
                         --print("сдвинулся или потерял ману")
                         DestroyTimer(GetExpiredTimer())
                     end
+
+                    --Блок для боссов
+                    if  breakDamage>=100 and target==BOSS then
+                        --print("Босс сбрасывает с себя молнию")
+                        local angle=360/12 -- 30
+                        for i=1,12 do
+                            local nx,ny=MoveXY(GetUnitX(target),GetUnitY(target),50,angle*i)
+                            SpireCast(target,nx,ny)
+                        end
+                        DestroyTimer(GetExpiredTimer())
+                    end
+
                     xLast=GetUnitX(caster)
                 end)
 

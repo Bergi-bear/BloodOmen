@@ -22,10 +22,11 @@ function InitBossZone()
 end
 
 
-
+BOSS=nil
 BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
+    BOSS=boss
     BossDamaged(boss)
     local BossFight=true
     --print("Запущен ИИ Босса")

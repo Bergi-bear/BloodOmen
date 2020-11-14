@@ -1878,3 +1878,111 @@ STRING 484
 Lightning
 }
 
+STRING 485
+{
+xWizard
+}
+
+STRING 486
+{
+There is MUST be some secret!
+}
+
+STRING 507
+{
+xWizard
+}
+
+STRING 508
+{
+Haven't you seen something in this place?
+}
+
+STRING 509
+{
+xWizard
+}
+
+STRING 510
+{
+I'm fine, chat! No spoilers, please!
+}
+
+STRING 511
+{
+xWizard
+}
+
+STRING 512
+{
+How did I get here? Big brain!
+}
+
+STRING 513
+{
+xWizard
+}
+
+STRING 514
+{
+Hey, you, yes, you! Can You help me please? I'm stuck!
+}
+
+STRING 515
+// Units: u00C (Ancient skeleton), Name (Name)
+{
+Ancient skeleton
+}
+
+STRING 516
+// Units: u00D (Key master), Name (Name)
+{
+Key master
+}
+
+STRING 517
+// Units: u00D (Key master), EditorSuffix (Name - Editor Suffix)
+{
+(yellow)
+}
+
+STRING 518
+// Units: n008 (xWizard), Name (Name)
+{
+xWizard
+}
+
+STRING 519
+// Doodads: D02O (DoorwayYellow), Name (Name)
+{
+DoorwayYellow
+}
+
+STRING 520
+{
+xWizard
+}
+
+STRING 521
+{
+Finally! I'm free!
+}
+
+STRING 531
+// Items: I008 (Yellow key), Name (Name)
+{
+Yellow key
+}
+
+STRING 532
+// Items: I008 (Yellow key), Tip (Tooltip - Basic)
+{
+This key is covered in blood.
+}
+
+STRING 533
+// Items: I008 (Yellow key), Ubertip (Tooltip - Extended)
+{
+This key is covered in blood.
+}
+

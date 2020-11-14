@@ -27,6 +27,7 @@ BossHPBar=nil
 notSplash=true
 function StartBossAI2(zone)
     local boss = FindUnitOfType(FourCC('Giam'))--баш лорд
+    BOSS=boss
     BossDamaged2(boss)
     BlzSetUnitMaxHP(boss,300)
     local BossFight=true
