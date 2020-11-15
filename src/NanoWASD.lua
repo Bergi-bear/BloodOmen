@@ -103,10 +103,10 @@ function InitWASD(hero)
             IndexAnimationAttack=GetRandomInt(3,4)
         elseif GetUnitTypeId(hero)==FourCC("h007") then   -- бандит стрелок
             IndexAnimationWalk=4
-            IndexAnimationAttack=GetRandomInt(9,9)
+            IndexAnimationAttack=9
         elseif GetUnitTypeId(hero)==FourCC("h00A") then   -- ассасин уровень 7
             IndexAnimationWalk=4
-            IndexAnimationAttack=GetRandomInt(3,3)
+            IndexAnimationAttack=3
         elseif GetUnitTypeId(hero)==FourCC("h00B") then   -- бандит уровень 8
             IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
@@ -115,7 +115,10 @@ function InitWASD(hero)
             IndexAnimationAttack=GetRandomInt(4,5)
         elseif GetUnitTypeId(hero)==FourCC("nvlw") then   -- девушка
             IndexAnimationWalk=1
-            IndexAnimationAttack=GetRandomInt(3,3)
+            IndexAnimationAttack=3
+        elseif GetUnitTypeId(hero)==FourCC("o004") then   -- девушка
+            IndexAnimationWalk=1
+            IndexAnimationAttack=2
         end
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
@@ -415,7 +418,7 @@ function CreateWASDActions()
                     data.isShield=true
                     UnitAddAbility(data.UnitHero,FourCC("A003"))
                     UnitAddAbility(data.UnitHero,FourCC("A004"))
-                    BlzUnitDisableAbility(mainHero,FourCC('dssd'),true,false)
+                    --BlzUnitDisableAbility(mainHero,FourCC('dssd'),true,false)
                     data.ReleaseW=false
                     data.ReleaseA=false
                     data.ReleaseS=false
@@ -457,7 +460,7 @@ function CreateWASDActions()
             if data.isShield then
                 UnitRemoveAbility(data.UnitHero,FourCC("A003"))
                 UnitRemoveAbility(data.UnitHero,FourCC("A004"))
-                BlzUnitDisableAbility(mainHero,FourCC('dssd'),false,false)
+                --BlzUnitDisableAbility(mainHero,FourCC('dssd'),false,false)
                 --DestroyEffect(data.ShieldEff)
                 --print("щит отключен")
                 data.isShield=false

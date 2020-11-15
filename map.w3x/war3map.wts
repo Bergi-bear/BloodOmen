@@ -1986,3 +1986,37 @@ STRING 533
 This key is covered in blood.
 }
 
+STRING 534
+{
+Mr Ogre man
+}
+
+STRING 535
+{
+Huh? What? Who? Hey, find your own mountain, buddy!
+}
+
+STRING 544
+// Units: o003 (Mr Ogre man), Name (Name)
+{
+Mr Ogre man
+}
+
+STRING 545
+// Units: h00D (Bandit), Name (Name)
+{
+Bandit
+}
+
+STRING 546
+// Units: h00D (Bandit), EditorSuffix (Name - Editor Suffix)
+{
+(quest)
+}
+
+STRING 547
+// Destructibles: B007 (Broken Lever), Name (Name)
+{
+Broken Lever
+}
+

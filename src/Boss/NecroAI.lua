@@ -4,47 +4,79 @@
 --- DateTime: 10.11.2020 23:27
 ---
 --"u00B
-do
-    TimerStart(CreateTimer(), 1, false, function()
-        RegisterNecroBoss()
+
+function RegisterNecroBossOLD() --этот блок был багованный и я его переписал
+    local gg_trg_RANGE = CreateTrigger()
+    local boss,k=FindUnitOfType(FourCC("u00B"))
+    BOSS=boss
+    --print("Некромант здесь")
+    TriggerRegisterUnitInRangeSimple(gg_trg_RANGE, 700, boss)
+    TriggerAddAction(gg_trg_RANGE, function()
+        local hero=GetTriggerUnit()
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        print("Запускаем некроманта")
+        if hero==mainHero then
+            --print(GetUnitName())
+            StartNecromantGui(boss)
+            DisableTrigger(GetTriggeringTrigger())
+        end
+
     end)
 end
 
 
-function RegisterNecroBoss()
-    local gg_trg_RANGE = CreateTrigger()
-    local boss,k=FindUnitOfType(FourCC("u00B"))
-    BOSS=boss
-    --print(k)
-    TriggerRegisterUnitInRangeSimple(gg_trg_RANGE, 700, boss)
-    TriggerAddAction(gg_trg_RANGE, function()
+
+do
+    TimerStart(CreateTimer(), 3, false, function()
+        --RegisterNecroBoss()
+        InitBossZone3()
+    end)
+end
+
+
+
+function InitBossZone3()
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_FieldSkeletons)
+    TriggerAddAction(this, function()
         local hero=GetTriggerUnit()
-        --print("Запускаем некроманта")
-        if hero==mainHero then
-            --print(GetUnitName())
-            local bar=HealthBarAdd(boss)
-            TimerStart(CreateTimer(), 2.5, true, function()
-                if IsUnitInRange(mainHero,boss,1500) then
-                    BlzFrameSetVisible(bar,true)
-                    local tl=GetRandomLocInRect(gg_rct_FieldSkeletons)
-                    local x,y=GetLocationX(tl),GetLocationY(tl)
-                    local s=CreateGrave(boss,x,y)
-                    local dmg=GetRandomInt(10,15)
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartNecromantGui(gg_rct_FieldSkeletons)
+            DisableTrigger(this)
+        end
+    end)
+end
 
-                    --print(dmg)
-                    HealUnit(boss,-dmg)
-                    RemoveLocation(tl)
-                else
-                    BlzFrameSetVisible(bar,false)
-                end
 
-                if not UnitAlive(boss) then
-                    DestroyTimer(GetExpiredTimer())
-                    BlzFrameSetVisible(bar,false)
-                end
-            end)
-            DisableTrigger(GetTriggeringTrigger())
+
+function StartNecromantGui(zone)
+
+    local boss=FindUnitOfType(FourCC("u00B"))
+    BOSS=boss
+    local bar=HealthBarAdd(boss)
+    TimerStart(CreateTimer(), 2.5, true, function()
+        if IsUnitInRange(mainHero,boss,1500) then
+            BlzFrameSetVisible(bar,true)
+            local tl=GetRandomLocInRect(gg_rct_FieldSkeletons)
+            local x,y=GetLocationX(tl),GetLocationY(tl)
+            local s=CreateGrave(boss,x,y)
+            local dmg=GetRandomInt(10,20)
+            --print(dmg)
+            HealUnit(boss,-dmg)
+            RemoveLocation(tl)
+        else
+            BlzFrameSetVisible(bar,false)
         end
 
+        if not UnitAlive(boss) then
+            DestroyTimer(GetExpiredTimer())
+            BlzFrameSetVisible(bar,false)
+        end
     end)
 end

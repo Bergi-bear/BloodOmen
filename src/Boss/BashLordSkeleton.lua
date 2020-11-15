@@ -29,7 +29,7 @@ function StartBossAI2(zone)
     local boss = FindUnitOfType(FourCC('Giam'))--баш лорд
     BOSS=boss
     BossDamaged2(boss)
-    BlzSetUnitMaxHP(boss,300)
+    BlzSetUnitMaxHP(boss,600)
     local BossFight=true
     --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
@@ -157,7 +157,7 @@ function StartBossAI2(zone)
                     if phase~=4 then
                        -- print("фаза "..phase.." завершена")
                         DestroyTimer(GetExpiredTimer())
-                        BlzPauseUnitEx(boss,false)
+                        --BlzPauseUnitEx(boss,false)
                     end
                 end)
             end
@@ -233,7 +233,7 @@ function CreateGrave(boss,x,y)
     BlzSetSpecialEffectYaw(eff, math.rad(GetRandomInt(0,360)))
     --print(z.." стартовая")
     local skeleton=nil
-    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw")}
+    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw"),FourCC("u009"),FourCC("u000")}
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         if sec>2 then
             BlzSetSpecialEffectPosition(eff,x,y,z-1)
@@ -250,11 +250,25 @@ function CreateGrave(boss,x,y)
             else
                 skeleton=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),x,y,GetRandomInt(0,360))
             end
-            if GetUnitTypeId(skeleton)==FourCC("nvlw") then
+            if GetUnitTypeId(skeleton)==FourCC("nvlw") then --девочка
                 SetUnitOwner(skeleton,Player(PLAYER_NEUTRAL_PASSIVE),true)
             end
 
-            UnitApplyTimedLife(skeleton,FourCC('BTLF'),20)
+            if GetUnitTypeId(skeleton)==FourCC("u000") then --красный босс
+                StunUnit(boss,0.2)
+                --print("Редбосс")
+                TimerStart(CreateTimer(), 5, true, function()
+                    if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
+                        CreateMeteorMark(boss,GetUnitXY(mainHero))
+                    end
+                    if not UnitAlive(boss) then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
+            end
+
+
+            UnitApplyTimedLife(skeleton,FourCC('BTLF'),25)
             if not IssueTargetOrder(skeleton,"attack",mainHero) then
                 IssuePointOrder(skeleton,"attack",GetUnitXY(mainHero))
             end

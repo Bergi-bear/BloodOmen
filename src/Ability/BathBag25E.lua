@@ -47,6 +47,11 @@ function InitBB()
                     end
                 end)
             end
+        else
+            local caster=GetTriggerUnit()
+            TimerStart(CreateTimer(), 0.05, false, function()
+                BlzStartUnitAbilityCooldown(caster,FourCC('dssd'),1)
+            end)
         end
     end)
 end

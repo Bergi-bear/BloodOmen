@@ -29,18 +29,22 @@ function RegisterPeonBoss()
     end)
 end
 
-
+bsx,bsy=0,0
 function StartPEONAI(boss)
     --local boss = FindUnitOfType(FourCC('u005'))
     BOSS=boss
+    bsx,bsy=GetUnitXY(boss)
     --BossDamaged(boss)
     local BossFight=true
-    print("Запущен ИИ Босса пеона")
+    UnitAddAbility(boss,FourCC("A008"))
+    --UnitAddAbility(boss,FourCC("Avul"))
+    UnitAddType(boss,UNIT_TYPE_UNDEAD)
+    --print("Запущен ИИ Босса пеона")
     local bar=HealthBarAdd(boss)
     --local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     --FogModifierStart(FW)
 
-    local phase = 3 --стартовая фаза
+    local phase = 0 --стартовая фаза
     local sec = 0
     local PhaseOn = true
     local OnAttack=true
@@ -51,6 +55,9 @@ function StartPEONAI(boss)
             phase = 0
             BlzFrameSetVisible(bar,false)
             print("Босс Берги повержен, победа")
+            TimerStart(CreateTimer(), 1, false, function()
+                CustomVictoryBJ(Player(0),true,true)
+            end)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
@@ -71,12 +78,13 @@ function StartPEONAI(boss)
                 phase = phase + 1
                 PhaseOn = true
                 --print("phase " .. phase)
-                if phase >= 6 then --число фаз +1
+                if phase >= 4 then --число фаз +1
                     phase = 0
                 end
             end
             --фазы
             if phase == 1 and PhaseOn then
+                SetUnitPositionSmooth(boss,bsx,bsy)
                 PhaseOn = false
                 --print("Серия я ударов")
                 -- Удар в центр
@@ -88,19 +96,22 @@ function StartPEONAI(boss)
                 end)
 
                 TimerStart(CreateTimer(), 7, false, function()
-                    PeonAttackRight(boss)
+                    PeonAttackRight(boss,280)
                 end)
                     -- Удары справа налево
                 -- Замах слева на право
             end
             if phase == 2 and PhaseOn then
+                SetUnitPositionSmooth(boss,bsx,bsy)
+                UnitRemoveAbility(boss,FourCC("Avul"))
                 PhaseOn = false
                 local nx,ny=MoveXY(x,y,-1000,GetUnitFacing(boss))
-                IssuePointOrder(boss,"move",nx,ny)
+
                 CameraSetEQNoiseForPlayer(Player(0), 3)
 
                 --print("Призыв катапульт, стреляют навесом")
                 TimerStart(CreateTimer(), 2, false, function()
+                    IssuePointOrder(boss,"move",nx,ny)
                     CameraClearNoiseForPlayer(Player(0))
                     local e=nil
                     local id=FourCC("ocat")
@@ -127,7 +138,8 @@ function StartPEONAI(boss)
                             if UnitAlive(e) and GetUnitTypeId(e)==id then
                                 SetUnitOwner(e,Player(PLAYER_NEUTRAL_PASSIVE),true)
                                 IssueImmediateOrder(e,"stop")
-                                IssuePointOrder(boss,"move",x,y)
+                                --IssuePointOrder(boss,"move",x,y)
+                                SetUnitZ(boss,0)
                             end
                             GroupRemoveUnit(perebor,e)
                         end
@@ -139,25 +151,37 @@ function StartPEONAI(boss)
 
             end
             if phase == 3 and PhaseOn  then -- запуск волны
+                SetUnitPositionSmooth(boss,bsx,bsy)
                 PhaseOn = false
                 --CameraSetEQNoiseForPlayer(Player(0), 4)
                 --TriggerSleepAction(2.00)
                 --CameraClearNoiseForPlayer(Player(0))
 
-                print("Пеон убегает, а потом прыгает на героя")
+                --print("Пеон убегает, а потом прыгает на героя")
                 PeonJumpAndFall(boss)
             end
 
-            if phase == 4 and PhaseOn  then -- запуск волны
+            if (phase == 4 or phase == 0)  and PhaseOn  then -- запуск волны
+                SetUnitPositionSmooth(boss,bsx,bsy)
                 PhaseOn = false
-                PeonAttackRight(boss,300)
-                print("Серия атак создающая шипы")
+                -- gg_rct_PeonPlace
+                for i=1,5 do
+                    local nx,ny=GetLocationX(GetRandomLocInRect(gg_rct_PeonPlace)),GetLocationY(GetRandomLocInRect(gg_rct_PeonPlace))
+                    local peon=CreateUnit(Player(PLAYER_NEUTRAL_AGGRESSIVE),FourCC("o004"),nx,ny,GetRandomInt(0,360))
+                    IssueTargetOrder(peon,"attack",mainHero)
+                    --print("peon")
+                end
+
+                TimerStart(CreateTimer(), 4, false, function()
+                    PeonAttackRight(boss,300)
+                end)
+                --print("Серия атак создающая шипы")
 
             end
 
             if phase == 5 and PhaseOn  then -- запуск волны
                 PhaseOn = false
-                print("Призыв мелких пеонов для отхила")
+                --print("Призыв мелких пеонов для отхила")
 
             end
         else-- перезапуск боссфайта
@@ -165,7 +189,7 @@ function StartPEONAI(boss)
                 --print("перезапуск боссфайта")
                 --IssuePointOrder(boss,"move",GetRectCenterX(zone),GetRectCenterY(zone))
                 BlzFrameSetVisible(bar,true)
-                HealUnit(boss,500)
+                --HealUnit(boss,500)
                 BossFight=true
             end
         end--конец
@@ -187,6 +211,8 @@ function PeonAttackCenter(boss)
             SetUnitAnimationByIndex(boss,2)
             BlzSetSpecialEffectPosition(mark,5000,5000,0)
             DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",x,y))
+            UnitDamageArea(boss,100,x,y,300)
+
             k=k+1
             if k>4 then
                 DestroyTimer(GetExpiredTimer())
@@ -211,6 +237,8 @@ function PeonAttackLeft(boss)
         SetUnitAnimationByIndex(boss,3)
         --BlzSetSpecialEffectPosition(mark,5000,5000,0)
         DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",nx,ny))
+        UnitDamageArea(boss,100,nx,ny,200)
+
         k=k+1
         if k>7 then
             DestroyTimer(GetExpiredTimer())
@@ -237,6 +265,7 @@ function PeonAttackRight(boss,range)
             angle=angle+17
             --print(angle)
             DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",nx,ny))
+            UnitDamageArea(boss,100,nx,ny,200)
             k=k+1
             if k>7 then
                 DestroyTimer(GetExpiredTimer())
@@ -298,7 +327,7 @@ function PeonJumpAndFall(boss)
                 SetUnitZ(boss,GetUnitZ(boss)+60)
             else
                 if down then
-                    print("Пора опускаться "..GetUnitZ(boss))
+                    --print("Пора опускаться "..GetUnitZ(boss))
                     up=false
                     z=GetUnitZ(boss)
                     down=false
@@ -316,20 +345,27 @@ function PeonJumpAndFall(boss)
 
                         end
                     end
-                    if z>=400 then
-                        print("опускаем юнита "..GetUnitZ(boss))
+                    if z>=500 then
+                        --print("опускаем юнита "..GetUnitZ(boss))
                         SetUnitZ(boss,GetUnitZ(boss)-30)
 
                     end
                     z=z-30
                 end
-                if z<=350 then
-                    print("опустился")
+                if z<=495 then
+                   -- print("опустился")
+                    CameraSetEQNoiseForPlayer(Player(0), 3)
+                    local bx,by=MoveXY(GetUnitX(boss),GetUnitY(boss),400,GetUnitFacing(boss)-180)
+                    DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",bx,by))
+                    UnitDamageArea(boss,100,bx,by,500)
                     DestroyTimer(GetExpiredTimer())
                     DestroyEffect(mark)
                     BlzSetSpecialEffectPosition(mark,5000,5000,0)
 
-                    TimerStart(CreateTimer(), 1.8, false, function()
+
+
+                    TimerStart(CreateTimer(), 5, false, function()
+                        CameraClearNoiseForPlayer(Player(0))
                         SetUnitTimeScale(boss,1)
                         ResetUnitAnimation(boss)
                         SetUnitPosition(boss,sx,sy)
