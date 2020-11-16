@@ -62,26 +62,34 @@ function InitStunPerDie()
 
                 end
             end)
+            if IsUnitInRange(caster,target,200) then
+                if GetUnitTypeId(caster)==FourCC("Hpal") then
+                    --print("звук удара")
 
-            if GetUnitTypeId(caster)==FourCC("Hpal") and IsUnitInRange(caster,target,200) then
-                --print("звук удара")
+                    local tl = Location(GetUnitXY(target))
+                    local r=GetRandomInt(1,2)
+                    if r==1 then
+                        PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                    else
+                        PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
+                    end
+                    RemoveLocation(tl)
 
-                local tl = Location(GetUnitXY(target))
+                    if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
+                        AddSpecialEffect("Objects\\Spawnmodels\\Other\\BeastmasterBlood\\BeastmasterBlood.mdl",GetUnitXY(target))
+                        --print("Кровь обычная")
+
+                    else
+                        AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
+                        --print(" кровь нежити")
+                    end
+                end
+            else --Бьёт другое существо
                 local r=GetRandomInt(1,2)
                 if r==1 then
-                    PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                    PlaySoundNearUnit(target,SoundAttack7)
                 else
-                    PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
-                end
-                RemoveLocation(tl)
-
-                if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
-                    AddSpecialEffect("Objects\\Spawnmodels\\Other\\BeastmasterBlood\\BeastmasterBlood.mdl",GetUnitXY(target))
-                    --print("Кровь обычная")
-
-                else
-                    AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
-                    --print(" кровь нежити")
+                    PlaySoundNearUnit(target,SoundAttack8)
                 end
             end
         end

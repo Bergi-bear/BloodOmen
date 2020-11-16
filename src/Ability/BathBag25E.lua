@@ -26,7 +26,7 @@ function InitBB()
                 UnitMakeAbilityPermanent(caster,true,FourCC('A00G')) -- молния
                 local curMP=GetUnitState(caster,UNIT_STATE_MANA)
                 --print(curMP)
-                UnitAddItemById(mainHero,FourCC("I00A"))
+                UnitAddItemById(mainHero,FourCC("I00A")) --превращаемся в мышей
 
                 --local slot=RemoveAllItems(caster)
                 --local maxHP=BlzGetUnitMaxHP(caster)
@@ -43,7 +43,21 @@ function InitBB()
                     --AddAlItems(caster,slot,maxHP,curHP)
                     curMP=GetUnitState(caster,UNIT_STATE_MANA)
                     --print(curMP)
-                    UnitAddItemById(mainHero,FourCC("I00B"))
+                    if UnitAlive(mainHero) then
+                        UnitAddItemById(mainHero,FourCC("I00B")) -- превращаемся обратно
+                    else
+                        --print("умер в форме мышей ожидаем воскрешения")
+                        TimerStart(CreateTimer(), 0.02, true, function()
+                            if UnitAlive(mainHero) then
+                                DestroyTimer(GetExpiredTimer())
+                                curMP=GetUnitState(caster,UNIT_STATE_MANA)
+                                UnitAddItemById(mainHero,FourCC("I00B"))
+                                TimerStart(CreateTimer(), 0.02, false, function()
+                                    SetUnitState(caster,UNIT_STATE_MANA,curMP)
+                                end)
+                            end
+                        end)
+                    end
                     TimerStart(CreateTimer(), 0.02, false, function()
                         SetUnitState(caster,UNIT_STATE_MANA,curMP)
                     end)

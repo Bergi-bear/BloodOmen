@@ -23,7 +23,7 @@ gg_rct_Solve3 = nil
 gg_rct_Region_011 = nil
 gg_rct_KainStart = nil
 gg_rct_KotoBogSpawn2 = nil
-gg_rct_Region_014 = nil
+gg_rct_FirstDorWannaKey = nil
 gg_rct_EnterDark_2 = nil
 gg_rct_Region_016 = nil
 gg_rct_KotoBogPortal = nil
@@ -157,6 +157,7 @@ gg_rct_Light9 = nil
 gg_rct_PlayerSave1 = nil
 gg_rct_Fence1 = nil
 gg_rct_Fence2 = nil
+gg_rct_LightFight = nil
 gg_cam_Cinematic1 = nil
 gg_cam_Camera_003 = nil
 gg_cam_Cinematic2 = nil
@@ -502,6 +503,7 @@ gg_dest_YTfb_19805 = nil
 gg_dest_YTfb_19806 = nil
 gg_dest_YTfb_19807 = nil
 gg_dest_B004_20476 = nil
+gg_trg_FirstDorHelper = nil
 function InitGlobals()
     udg_IntLightCheck = 0
     udg_Cat = 0
@@ -1381,7 +1383,7 @@ function CreateNeutralPassive()
     gg_unit_hprt_0060 = BlzCreateUnitWithSkin(p, FourCC("hprt"), 1060.4, 9218.8, 271.060, FourCC("hprt"))
     gg_unit_n000_0061 = BlzCreateUnitWithSkin(p, FourCC("n000"), -1108.0, 3207.5, 234.620, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 7824.1, 5327.4, 352.472, FourCC("nvlw"))
-    gg_unit_u00D_0066 = BlzCreateUnitWithSkin(p, FourCC("u00D"), 9191.0, 5441.5, 177.765, FourCC("u00D"))
+    gg_unit_u00D_0066 = BlzCreateUnitWithSkin(p, FourCC("u00D"), 9174.4, 5554.4, 177.765, FourCC("u00D"))
     SetUnitColor(gg_unit_u00D_0066, ConvertPlayerColor(4))
     gg_unit_n008_0067 = BlzCreateUnitWithSkin(p, FourCC("n008"), 11633.0, 9469.9, 88.818, FourCC("n008"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 4070.4, 3372.8, 176.771, FourCC("nvlw"))
@@ -1519,9 +1521,9 @@ function CreateRegions()
     gg_rct_Button_2 = Rect(-2464.0, 2848.0, -2208.0, 3072.0)
     gg_rct_Solve3 = Rect(1952.0, 7104.0, 2080.0, 7488.0)
     gg_rct_Region_011 = Rect(-1760.0, 6272.0, -1632.0, 6880.0)
-    gg_rct_KainStart = Rect(13536.0, 3680.0, 13664.0, 3808.0)
+    gg_rct_KainStart = Rect(-128.0, 4160.0, 0.0, 4288.0)
     gg_rct_KotoBogSpawn2 = Rect(-1120.0, 3200.0, -1056.0, 3264.0)
-    gg_rct_Region_014 = Rect(-1664.0, 7744.0, -1280.0, 8224.0)
+    gg_rct_FirstDorWannaKey = Rect(-1664.0, 7744.0, -1280.0, 8224.0)
     gg_rct_EnterDark_2 = Rect(-1280.0, 7680.0, -1152.0, 8384.0)
     gg_rct_Region_016 = Rect(-1632.0, 2880.0, -992.0, 3424.0)
     gg_rct_KotoBogPortal = Rect(-1536.0, 3264.0, -1408.0, 3424.0)
@@ -1655,6 +1657,7 @@ function CreateRegions()
     gg_rct_PlayerSave1 = Rect(480.0, 3264.0, 1472.0, 3872.0)
     gg_rct_Fence1 = Rect(-3360.0, 3552.0, -3072.0, 3744.0)
     gg_rct_Fence2 = Rect(-2080.0, 2816.0, -1792.0, 3008.0)
+    gg_rct_LightFight = Rect(11232.0, 2528.0, 12032.0, 4096.0)
 end
 
 function CreateCameras()
@@ -2494,7 +2497,7 @@ function CreateWASDActions()
             --data.Shield=true
 
             if  UnitAlive(data.UnitHero)  then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
-                if GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then -- not data.isAttacking  and -- убрал атаку у щита
+                if GetUnitTypeId(data.UnitHero)==FourCC('Hpal') and StunSystem[GetHandleId(mainHero)].Time==0 then -- not data.isAttacking  and -- убрал атаку у щита
                     data.isShield=true
                     UnitAddAbility(data.UnitHero,FourCC("A003"))
                     UnitAddAbility(data.UnitHero,FourCC("A004"))
@@ -3069,6 +3072,16 @@ do
         SetSoundParamsFromLabel(HintSound, "MetalHeavySliceFlesh")
         SetSoundDuration(HintSound, 853)
         SetSoundVolume(HintSound, 250)
+        --Нейтральные удары
+        SoundAttack7 = CreateSound("Sound\\Units\\Combat\\MetalLightChopFlesh1.flac", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack7, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack7, 853)
+        SetSoundVolume(SoundAttack7, 250)
+        SoundAttack8 = CreateSound("Sound\\Units\\Combat\\MetalLightChopFlesh2.flac", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack8, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack8, 853)
+        SetSoundVolume(SoundAttack8, 250)
+
         --Звуки шагов
         SoundStep1 = CreateSound("Sound\\Units\\Footsteps\\HeroStep1", false, true, true, 0, 0, "MissilesEAX")
         SetSoundParamsFromLabel(SoundStep1, "MetalHeavySliceFlesh")
@@ -3334,7 +3347,7 @@ function InitBB()
                 UnitMakeAbilityPermanent(caster,true,FourCC('A00G')) -- молния
                 local curMP=GetUnitState(caster,UNIT_STATE_MANA)
                 --print(curMP)
-                UnitAddItemById(mainHero,FourCC("I00A"))
+                UnitAddItemById(mainHero,FourCC("I00A")) --превращаемся в мышей
 
                 --local slot=RemoveAllItems(caster)
                 --local maxHP=BlzGetUnitMaxHP(caster)
@@ -3351,7 +3364,21 @@ function InitBB()
                     --AddAlItems(caster,slot,maxHP,curHP)
                     curMP=GetUnitState(caster,UNIT_STATE_MANA)
                     --print(curMP)
-                    UnitAddItemById(mainHero,FourCC("I00B"))
+                    if UnitAlive(mainHero) then
+                        UnitAddItemById(mainHero,FourCC("I00B")) -- превращаемся обратно
+                    else
+                        --print("умер в форме мышей ожидаем воскрешения")
+                        TimerStart(CreateTimer(), 0.02, true, function()
+                            if UnitAlive(mainHero) then
+                                DestroyTimer(GetExpiredTimer())
+                                curMP=GetUnitState(caster,UNIT_STATE_MANA)
+                                UnitAddItemById(mainHero,FourCC("I00B"))
+                                TimerStart(CreateTimer(), 0.02, false, function()
+                                    SetUnitState(caster,UNIT_STATE_MANA,curMP)
+                                end)
+                            end
+                        end)
+                    end
                     TimerStart(CreateTimer(), 0.02, false, function()
                         SetUnitState(caster,UNIT_STATE_MANA,curMP)
                     end)
@@ -3803,26 +3830,34 @@ function InitStunPerDie()
 
                 end
             end)
+            if IsUnitInRange(caster,target,200) then
+                if GetUnitTypeId(caster)==FourCC("Hpal") then
+                    --print("звук удара")
 
-            if GetUnitTypeId(caster)==FourCC("Hpal") and IsUnitInRange(caster,target,200) then
-                --print("звук удара")
+                    local tl = Location(GetUnitXY(target))
+                    local r=GetRandomInt(1,2)
+                    if r==1 then
+                        PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                    else
+                        PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
+                    end
+                    RemoveLocation(tl)
 
-                local tl = Location(GetUnitXY(target))
+                    if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
+                        AddSpecialEffect("Objects\\Spawnmodels\\Other\\BeastmasterBlood\\BeastmasterBlood.mdl",GetUnitXY(target))
+                        --print("Кровь обычная")
+
+                    else
+                        AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
+                        --print(" кровь нежити")
+                    end
+                end
+            else --Бьёт другое существо
                 local r=GetRandomInt(1,2)
                 if r==1 then
-                    PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                    PlaySoundNearUnit(target,SoundAttack7)
                 else
-                    PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
-                end
-                RemoveLocation(tl)
-
-                if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
-                    AddSpecialEffect("Objects\\Spawnmodels\\Other\\BeastmasterBlood\\BeastmasterBlood.mdl",GetUnitXY(target))
-                    --print("Кровь обычная")
-
-                else
-                    AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
-                    --print(" кровь нежити")
+                    PlaySoundNearUnit(target,SoundAttack8)
                 end
             end
         end
@@ -4679,6 +4714,99 @@ function StartIceBoss(zone)
         end
     end)
 end
+
+---
+--- Generated by EmmyLua(https://github.com/EmmyLua)
+--- Created by Bergi.
+--- DateTime: 01.11.2020 20:48
+---
+
+do
+    TimerStart(CreateTimer(), 0.11, false, function()
+        InitLBoss()
+    end)
+end
+function InitLBoss()
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_LightFight)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if hero==mainHero then
+            StartBossL(gg_rct_LightFight)
+            DisableTrigger(this)
+        end
+    end)
+end
+
+
+function StartBossL(zone)
+    local boss=FindUnitOfType(FourCC("u00D"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
+    BOSS=boss
+    UnitAddType(boss,UNIT_TYPE_UNDEAD)
+    StunUnit(boss,0.2)
+    --print("Редбосс")
+    TimerStart(CreateTimer(), 5, true, function()
+        if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
+            if UnitAlive(boss) then
+                --print("хочет хильнуть")
+                CreateHealWMark(boss)
+            end
+        end
+        if not UnitAlive(boss) then
+            DestroyTimer(GetExpiredTimer())
+        end
+    end)
+end
+
+--Abilities\Spells\Human\HolyBolt\HolyBoltSpecialArt.mdl
+--Abilities\Spells\Human\Resurrect\ResurrectTarget.mdl
+
+function CreateHealWMark(boss)
+    local e=nil
+    local x,y=GetUnitXY(boss)
+    local hp={}
+    local units={}
+    GroupEnumUnitsInRange(perebor,x,y,1000,nil)
+    while true do
+        e = FirstOfGroup(perebor)
+
+        if e == nil then break end
+        if UnitAlive(e) and IsUnitAlly(e,GetOwningPlayer(boss)) then
+            table.insert(hp,GetUnitLifePercent(e))
+            table.insert(units,e)
+        end
+        GroupRemoveUnit(perebor,e)
+    end
+
+    local key,min = 1,hp[1]--, t[1]
+    for k, v in ipairs(hp) do
+        if hp[k] < min then
+            key, min = k, v
+        end
+    end
+
+    --print(key, min)
+    local mark=AddSpecialEffect("Alarm",GetUnitXY(units[key]))
+    BlzSetSpecialEffectScale(mark,1)
+    local sec=2
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        BlzSetSpecialEffectPosition(mark,GetUnitX(units[key]),GetUnitY(units[key]),BlzGetUnitZ(units[key])+30)
+        sec=sec-TIMER_PERIOD
+        if sec<=0 then
+            DestroyTimer(GetExpiredTimer())
+            if StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) and UnitAlive(units[key]) then
+                HealUnit(units[key],100,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+            end
+            BlzSetSpecialEffectPosition(mark,5000,5000,0)
+            local is,hero=UnitDamageArea(boss,100,GetUnitX(units[key]),GetUnitY(units[key]),150)
+            if is then
+                DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt",GetUnitXY(hero)))
+            end
+        end
+    end)
+
+end
+
 
 ---
 --- Generated by EmmyLua(https://github.com/EmmyLua)
@@ -6648,7 +6776,7 @@ end
 function InitTrig_LightOn()
     gg_trg_LightOn = CreateTrigger()
     TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_WallHide)
-    TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_Region_014)
+    TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_FirstDorWannaKey)
     TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_Light3)
     TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_Light4)
     TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_Light5)
@@ -6657,6 +6785,35 @@ function InitTrig_LightOn()
     TriggerRegisterEnterRectSimple(gg_trg_LightOn, gg_rct_Light9)
     TriggerAddCondition(gg_trg_LightOn, Condition(Trig_LightOn_Conditions))
     TriggerAddAction(gg_trg_LightOn, Trig_LightOn_Actions)
+end
+
+function Trig_FirstDorHelper_Func003C()
+    if (not (GetTriggerUnit() == gg_unit_Hpal_0002)) then
+        return false
+    end
+    if (not (udg_IntLightCheck == 0)) then
+        return false
+    end
+    return true
+end
+
+function Trig_FirstDorHelper_Conditions()
+    if (not Trig_FirstDorHelper_Func003C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_FirstDorHelper_Actions()
+        CQX,CQY=-2300,3000
+        CreateForUnitWayToPoint(mainHero,CQX,CQY)
+end
+
+function InitTrig_FirstDorHelper()
+    gg_trg_FirstDorHelper = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_FirstDorHelper, gg_rct_FirstDorWannaKey)
+    TriggerAddCondition(gg_trg_FirstDorHelper, Condition(Trig_FirstDorHelper_Conditions))
+    TriggerAddAction(gg_trg_FirstDorHelper, Trig_FirstDorHelper_Actions)
 end
 
 function Trig_LightOff_Func001C()
@@ -6773,7 +6930,7 @@ function Trig_Button_2_Actions()
     KillDestructable(gg_dest_YTfb_0976)
     KillDestructable(gg_dest_YTfb_0973)
     KillDestructable(gg_dest_YTfb_0972)
-    SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_Region_014)
+    SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_FirstDorWannaKey)
     DisableTrigger(gg_trg_LightDamage)
     AddWeatherEffectSaveLast(gg_rct_Graveyard, FourCC("RAhr"))
     udg_RainWeather = GetLastCreatedWeatherEffect()
@@ -9134,6 +9291,7 @@ function InitCustomTriggers()
     InitTrig_Key2()
     InitTrig_Key3()
     InitTrig_LightOn()
+    InitTrig_FirstDorHelper()
     InitTrig_LightOff()
     InitTrig_LightDamage()
     InitTrig_Button_1()

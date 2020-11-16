@@ -36,6 +36,16 @@ do
         SetSoundParamsFromLabel(HintSound, "MetalHeavySliceFlesh")
         SetSoundDuration(HintSound, 853)
         SetSoundVolume(HintSound, 250)
+        --Нейтральные удары
+        SoundAttack7 = CreateSound("Sound\\Units\\Combat\\MetalLightChopFlesh1.flac", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack7, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack7, 853)
+        SetSoundVolume(SoundAttack7, 250)
+        SoundAttack8 = CreateSound("Sound\\Units\\Combat\\MetalLightChopFlesh2.flac", false, true, true, 0, 0, "MissilesEAX")
+        SetSoundParamsFromLabel(SoundAttack8, "MetalHeavySliceFlesh")
+        SetSoundDuration(SoundAttack8, 853)
+        SetSoundVolume(SoundAttack8, 250)
+
         --Звуки шагов
         SoundStep1 = CreateSound("Sound\\Units\\Footsteps\\HeroStep1", false, true, true, 0, 0, "MissilesEAX")
         SetSoundParamsFromLabel(SoundStep1, "MetalHeavySliceFlesh")
