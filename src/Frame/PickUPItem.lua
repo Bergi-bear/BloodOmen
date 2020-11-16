@@ -27,7 +27,7 @@ function InitPUI()
             return
         end
 
-        if GetItemTypeId(item)~=FourCC("I004") then --Список исключений предметов
+        if GetItemTypeId(item)~=FourCC("I004") and GetItemTypeId(item)~=FourCC("I00A") and GetItemTypeId(item)~=FourCC("I00B")then --Список исключений предметов
             BlzFrameSetVisible(frame,true)
             BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
             BlzFrameSetAlpha(frame,255)

@@ -1328,11 +1328,6 @@ STRING 362
 |rThe graves gives shelter to these dead. But it looks like they were rotated recently.
 }
 
-STRING 363
-{
-You need |cffff0000Red key|r to open it.
-}
-
 STRING 364
 {
 You need |cff0000ffBlue key|r |rto open it.
@@ -2018,5 +2013,105 @@ STRING 547
 // Destructibles: B007 (Broken Lever), Name (Name)
 {
 Broken Lever
+}
+
+STRING 549
+{
+|cffffff00Hint:|r
+Come back at Death's door and then you will be greeted.
+}
+
+STRING 550
+// Units: h00E (Wolf), Name (Name)
+{
+Wolf
+}
+
+STRING 551
+// Units: h00E (Wolf), EditorSuffix (Name - Editor Suffix)
+{
+(middle)
+}
+
+STRING 552
+// Items: I009 (Lever detail), Name (Name)
+{
+Lever detail
+}
+
+STRING 553
+// Items: I009 (Lever detail), Tip (Tooltip - Basic)
+{
+Part of lever.
+}
+
+STRING 554
+// Items: I009 (Lever detail), Ubertip (Tooltip - Extended)
+{
+Part of lever.
+}
+
+STRING 555
+// Items: I009 (Lever detail), Description (Description)
+{
+Part of lever.
+}
+
+STRING 556
+// Doodads: D02P (DoorwaBlack), Name (Name)
+{
+DoorwaBlack
+}
+
+STRING 557
+{
+Lever seems to be broken
+}
+
+STRING 558
+{
+You need |cffff0000Red key|r to open it.
+}
+
+STRING 559
+// Destructibles: B008 (Fence), Name (Name)
+{
+Fence
+}
+
+STRING 560
+// Items: I00A (Руна морфа в мышей), Name (Name)
+{
+Руна морфа в мышей
+}
+
+STRING 561
+// Items: I00B (Руна морфа в каина), Name (Name)
+{
+Руна морфа в каина
+}
+
+STRING 562
+// Abilities: A00I (Морф в мышей для руны), Name (Name)
+{
+Морф в мышей для руны
+}
+
+STRING 563
+// Abilities: A00J (Морф в Каина), Name (Name)
+{
+Морф в Каина
+}
+
+STRING 564
+// Abilities: A00K (Форма мышей для руны), Name (Name)
+{
+Форма мышей для руны
+}
+
+STRING 565
+// Abilities: A00L (Форма Каина для руны), Name (Name)
+{
+Форма Каина для руны
 }
 

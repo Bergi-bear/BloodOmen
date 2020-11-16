@@ -38,6 +38,14 @@ function InitStunPerDie()
                         SetUnitAnimation(target,"death")
                         RemoveGuardPosition(target)
                         -- print("юнита можно съесть?")
+                        local t=CreateTimer()
+                        TimerStart(t, 0.1, true, function()
+                            if not UnitAlive(target) then
+                                AddHeroXP(caster,GetUnitLevel(target)*10,true)
+                                DestroyTimer(t)
+                            end
+                        end)
+
                         TimerStart(CreateTimer(), 3.5, false, function()
                             UnitRemoveType(target,UNIT_TYPE_UNDEAD)
                             if UnitAlive(target) then
@@ -45,8 +53,9 @@ function InitStunPerDie()
                             end
                             if UnitAlive(target) then
                                 SetUnitOwner(target,savedOwner,true)
+                                DestroyTimer(t)
                             else
-                                AddHeroXP(caster,50,true)
+                               --
                             end
                         end)
                     end

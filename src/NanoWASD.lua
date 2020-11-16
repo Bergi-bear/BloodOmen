@@ -76,50 +76,81 @@ function InitWASD(hero)
             --print(animWalk)
             animWalk=0
         end
-        if GetUnitTypeId(hero)==FourCC("H000") then -- начальный герой
+        if GetUnitTypeId(mainHero)==FourCC("H000") then -- начальный герой
             IndexAnimationWalk=1
             IndexAnimationAttack=5
             IndexAnimationCharge=6
-        elseif GetUnitTypeId(hero)==FourCC("Hpal") then   -- для вампира
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("Hpal") then   -- для вампира
             IndexAnimationWalk=0
             IndexAnimationAttack=GetRandomInt(12,13)
-            IndexAnimationCharge=16
-        elseif GetUnitTypeId(hero)==FourCC("n003") then   -- крыса квест
+            --IndexAnimationCharge=16
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("n003") then   -- крыса квест
             IndexAnimationWalk=1
             IndexAnimationAttack=2
-        elseif GetUnitTypeId(hero)==FourCC("nrat") then   -- крыса обычная
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("nrat") then   -- крыса обычная
             IndexAnimationWalk=1
             IndexAnimationAttack=2
-        elseif GetUnitTypeId(hero)==FourCC("h002") then   -- Расхититель гробниц
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("h002") then   -- Расхититель гробниц
             IndexAnimationWalk=2
-        elseif GetUnitTypeId(hero)==FourCC("hfoo") then   -- бандит
+            IndexAnimationAttack=5
+        end
+        if GetUnitTypeId(mainHero)==FourCC("hfoo") then   -- бандит
             IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
-        elseif GetUnitTypeId(hero)==FourCC("Edmm") then   -- Летучие мыши 2,5 dssd
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("Edmm") then   -- Летучие мыши 2,5 dssd
             IndexAnimationWalk=1
             --IndexAnimationAttack=GetRandomInt(3,4)
-        elseif GetUnitTypeId(hero)==FourCC("h006") then   -- бандит 6 уровня
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("h006") then   -- бандит 6 уровня
             IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
-        elseif GetUnitTypeId(hero)==FourCC("h007") then   -- бандит стрелок
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("h007") then   -- бандит стрелок
             IndexAnimationWalk=4
             IndexAnimationAttack=9
-        elseif GetUnitTypeId(hero)==FourCC("h00A") then   -- ассасин уровень 7
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("h00A") then   -- ассасин уровень 7
             IndexAnimationWalk=4
             IndexAnimationAttack=3
-        elseif GetUnitTypeId(hero)==FourCC("h00B") then   -- бандит уровень 8
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("h00B") then   -- бандит уровень 8
             IndexAnimationWalk=5
             IndexAnimationAttack=GetRandomInt(3,4)
-        elseif GetUnitTypeId(hero)==FourCC("n006") then   -- мужик
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("n006") then   -- мужик
             IndexAnimationWalk=6
             IndexAnimationAttack=GetRandomInt(4,5)
-        elseif GetUnitTypeId(hero)==FourCC("nvlw") then   -- девушка
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("nvlw") then   -- девушка
             IndexAnimationWalk=1
             IndexAnimationAttack=3
-        elseif GetUnitTypeId(hero)==FourCC("o004") then   -- девушка
+
+        end
+        if GetUnitTypeId(mainHero)==FourCC("o004") then   -- пеон
             IndexAnimationWalk=1
             IndexAnimationAttack=2
         end
+        if GetUnitTypeId(mainHero)==FourCC("n00E") then   -- волк
+            IndexAnimationWalk=2
+            IndexAnimationAttack=4
+        end
+
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
             local range=150
@@ -229,6 +260,8 @@ function InitWASD(hero)
             end
         else-- иначе юнит оглушен
             SetUnitAnimationByIndex(mainHero,5)
+            UnitRemoveAbility(mainHero,FourCC("A003"))
+            UnitRemoveAbility(mainHero,FourCC("A004"))
         end
 
 
@@ -414,7 +447,7 @@ function CreateWASDActions()
             --data.Shield=true
 
             if  UnitAlive(data.UnitHero)  then --and IsUnitType(data.UnitHero,UNIT_TYPE_HERO)
-                if GetUnitTypeId(data.UnitHero)==FourCC('Hpal') then -- not data.isAttacking  and -- убрал атаку у щита
+                if GetUnitTypeId(data.UnitHero)==FourCC('Hpal') and StunSystem[GetHandleId(mainHero)].Time==0 then -- not data.isAttacking  and -- убрал атаку у щита
                     data.isShield=true
                     UnitAddAbility(data.UnitHero,FourCC("A003"))
                     UnitAddAbility(data.UnitHero,FourCC("A004"))
@@ -764,6 +797,16 @@ function PlayUnitAnimationFromChat()
             CreateForUnitWayToPoint(mainHero,CQX,CQY)
             return
         end
+        if GetEventPlayerChatString()=="m" then
+            UnitAddItemById(mainHero,FourCC("I00A"))
+            --print("получена руна морфа, где форма мышей")
+            return
+        end
+        if GetEventPlayerChatString()=="n" then
+            UnitAddItemById(mainHero,FourCC("I00B"))
+            return
+        end
+
         SetUnitAnimationByIndex(mainHero,s)
         --print(GetUnitName(mainHero).." "..s)
     end)

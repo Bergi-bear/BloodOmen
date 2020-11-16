@@ -54,8 +54,8 @@ function StartPEONAI(boss)
             DestroyTimer(GetExpiredTimer())
             phase = 0
             BlzFrameSetVisible(bar,false)
-            print("Босс Берги повержен, победа")
-            TimerStart(CreateTimer(), 1, false, function()
+            print("Bergios's boss is defeated, victory in 10 seconds")
+            TimerStart(CreateTimer(), 10, false, function()
                 CustomVictoryBJ(Player(0),true,true)
             end)
 

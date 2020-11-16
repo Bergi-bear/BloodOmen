@@ -68,7 +68,11 @@ function SpireCast(caster,x,y)
         if PointContentDestructable (nx,ny,70,nil,nil,1) then
             DestroyEffect(eff)
             DestroyTimer(GetExpiredTimer())
-            UnitDamageArea(caster,10,nx,ny,70)
+            local damage=BlzGetUnitBaseDamage(caster,0)
+            if UnitHasItemOfTypeBJ(caster,FourCC('I005')) then
+                damage=damage+15
+            end
+            UnitDamageArea(caster,damage,nx,ny,70)
             StunArea(caster,100,2,nx,ny)
         end
     end)

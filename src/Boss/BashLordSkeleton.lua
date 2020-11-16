@@ -29,7 +29,7 @@ function StartBossAI2(zone)
     local boss = FindUnitOfType(FourCC('Giam'))--баш лорд
     BOSS=boss
     BossDamaged2(boss)
-    BlzSetUnitMaxHP(boss,600)
+    BlzSetUnitMaxHP(boss,450)
     local BossFight=true
     --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
@@ -54,7 +54,7 @@ function StartBossAI2(zone)
 
         else --Проверяем есть ли живые герои,
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
+                if not IsUnitInRange(mainHero, boss, 1000) or not UnitAlive(mainHero) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)

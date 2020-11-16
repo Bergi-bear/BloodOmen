@@ -24,21 +24,29 @@ function InitBB()
                 UnitMakeAbilityPermanent(caster,true,FourCC('A005')) -- контроль разума
                 UnitMakeAbilityPermanent(caster,true,FourCC('A007')) -- копьё
                 UnitMakeAbilityPermanent(caster,true,FourCC('A00G')) -- молния
-                local slot=RemoveAllItems(caster)
-                local maxHP=BlzGetUnitMaxHP(caster)
-                local curHP=GetUnitState(caster,UNIT_STATE_LIFE)
-                TimerStart(CreateTimer(), 1/128, false, function()
+                local curMP=GetUnitState(caster,UNIT_STATE_MANA)
+                --print(curMP)
+                UnitAddItemById(mainHero,FourCC("I00A"))
 
-                    UnitAddAbility(caster,FourCC("S000"))--момент превразения в мышь
-                    AddAlItems(caster,slot,maxHP,curHP)
+                --local slot=RemoveAllItems(caster)
+                --local maxHP=BlzGetUnitMaxHP(caster)
+                --local curHP=GetUnitState(caster,UNIT_STATE_LIFE)
+                TimerStart(CreateTimer(), 0.02, false, function()
+                    SetUnitState(caster,UNIT_STATE_MANA,curMP)
                 end)
                 -- UnitAddItemById(caster,FourCC("I004"))
                 TimerStart(CreateTimer(), 3, false, function()
-                    slot=RemoveAllItems(caster)
+                    --slot=RemoveAllItems(caster)
                     --maxHP=BlzGetUnitMaxHP(caster)
-                    curHP=GetUnitState(caster,UNIT_STATE_LIFE)
-                    UnitAddAbility(caster,FourCC("S001")) -- перелючение обратно
-                    AddAlItems(caster,slot,maxHP,curHP)
+                    --curHP=GetUnitState(caster,UNIT_STATE_LIFE)
+                    --UnitAddAbility(caster,FourCC("S001")) -- перелючение обратно
+                    --AddAlItems(caster,slot,maxHP,curHP)
+                    curMP=GetUnitState(caster,UNIT_STATE_MANA)
+                    --print(curMP)
+                    UnitAddItemById(mainHero,FourCC("I00B"))
+                    TimerStart(CreateTimer(), 0.02, false, function()
+                        SetUnitState(caster,UNIT_STATE_MANA,curMP)
+                    end)
                     if HERO[0].ReleaseA or HERO[0].ReleaseW or HERO[0].ReleaseS or HERO[0].ReleaseD then
                         TimerStart(CreateTimer(), 0.1, false, function()
                             --print("скольжение после мышей")
