@@ -12,6 +12,8 @@ udg_KeyGreen = nil
 udg_RainWeather = nil
 udg_Skulls = 0
 udg_xWizard = 0
+udg_FinalDialog = nil
+udg_Yes = nil
 gg_rct_Intro_Trap = nil
 gg_rct_Bandits1 = nil
 gg_rct_Bandits2 = nil
@@ -158,6 +160,15 @@ gg_rct_PlayerSave1 = nil
 gg_rct_Fence1 = nil
 gg_rct_Fence2 = nil
 gg_rct_LightFight = nil
+gg_rct_HintObstacle = nil
+gg_rct_HintObstacle2 = nil
+gg_rct_HintBloodGout = nil
+gg_rct_HintBatsEvasion = nil
+gg_rct_OpenGate11 = nil
+gg_rct_NoEnter2 = nil
+gg_rct_NoEnterHeart = nil
+gg_rct_OpenDoor3 = nil
+gg_rct_AbuserZone = nil
 gg_cam_Cinematic1 = nil
 gg_cam_Camera_003 = nil
 gg_cam_Cinematic2 = nil
@@ -226,6 +237,7 @@ gg_snd_OgreWhat1 = nil
 gg_snd_OgreWhat2 = nil
 gg_snd_PitlordYesAttack2 = nil
 gg_trg_GoAway = nil
+gg_trg_GoAway2 = nil
 gg_trg_Gain = nil
 gg_trg_Tips_1 = nil
 gg_trg_Tips_2 = nil
@@ -234,6 +246,9 @@ gg_trg_Tips_4 = nil
 gg_trg_Tips_5 = nil
 gg_trg_Tips_6 = nil
 gg_trg_Tips_7 = nil
+gg_trg_Tips_8 = nil
+gg_trg_Tips_9 = nil
+gg_trg_Tips_10 = nil
 gg_trg_Intro_1 = nil
 gg_trg_Intro_2 = nil
 gg_trg_Intro_3 = nil
@@ -255,6 +270,7 @@ gg_trg_Key1 = nil
 gg_trg_Key2 = nil
 gg_trg_Key3 = nil
 gg_trg_LightOn = nil
+gg_trg_FirstDorHelper = nil
 gg_trg_LightOff = nil
 gg_trg_LightDamage = nil
 gg_trg_Button_1 = nil
@@ -290,6 +306,7 @@ gg_trg_ChurchCloseTo = nil
 gg_trg_OpetToBoss = nil
 gg_trg_BrokenLever = nil
 gg_trg_CaveEnter = nil
+gg_trg_CheckpointCave2 = nil
 gg_trg_YellowKeyMaster = nil
 gg_trg_YellowKey = nil
 gg_trg_YellowKeyDoor = nil
@@ -309,6 +326,7 @@ gg_trg_Outro_2 = nil
 gg_trg_Outro_3 = nil
 gg_trg_Outro_4 = nil
 gg_trg_Outro_5 = nil
+gg_trg_Outro_5_Yes = nil
 gg_trg_Outro_6 = nil
 gg_trg_PreventFromLeaving = nil
 gg_trg_CheckForEveryoneDeaths = nil
@@ -503,7 +521,6 @@ gg_dest_YTfb_19805 = nil
 gg_dest_YTfb_19806 = nil
 gg_dest_YTfb_19807 = nil
 gg_dest_B004_20476 = nil
-gg_trg_FirstDorHelper = nil
 function InitGlobals()
     udg_IntLightCheck = 0
     udg_Cat = 0
@@ -511,6 +528,7 @@ function InitGlobals()
     udg_IsRatBlocked = false
     udg_Skulls = 0
     udg_xWizard = 0
+    udg_FinalDialog = DialogCreate()
 end
 
 function InitSounds()
@@ -795,7 +813,7 @@ function CreateAllDestructables()
     gg_dest_B003_10418 = BlzCreateDestructableZWithSkin(FourCC("B003"), 10135.5, -2957.0, 568.6, 0.000, 0.500, 0, FourCC("B003"))
     gg_dest_B004_4256 = BlzCreateDestructableZWithSkin(FourCC("B004"), 801.5, 6531.2, 701.6, 90.000, 2.300, 0, FourCC("B004"))
     gg_dest_B004_6078 = BlzCreateDestructableZWithSkin(FourCC("B004"), 2510.8, 1817.2, 928.0, 268.725, 5.000, 0, FourCC("B004"))
-    gg_dest_B004_10353 = BlzCreateDestructableZWithSkin(FourCC("B004"), 8971.7, -1414.9, 552.2, 270.000, 3.500, 0, FourCC("B004"))
+    gg_dest_B004_10353 = BlzCreateDestructableZWithSkin(FourCC("B004"), 7942.1, -1518.5, 552.2, 270.000, 3.500, 0, FourCC("B004"))
     gg_dest_B004_20476 = BlzCreateDestructableZWithSkin(FourCC("B004"), 1271.0, 6528.7, 695.3, 90.000, 2.300, 0, FourCC("B004"))
     gg_dest_B007_19692 = BlzCreateDestructableZWithSkin(FourCC("B007"), 13408.0, 3424.0, 507.6, 180.000, 1.500, 0, FourCC("B007"))
     gg_dest_B008_2929 = BlzCreateDestructableWithSkin(FourCC("B008"), -1952.0, 2912.0, 355.588, 1.000, 0, FourCC("B008"))
@@ -817,7 +835,7 @@ function CreateAllDestructables()
     gg_dest_DTlv_4275 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 2976.0, 6304.0, 0.613, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_15491 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 3232.0, 10784.0, 0.581, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_6072 = BlzCreateDestructableWithSkin(FourCC("DTlv"), 4448.0, 2656.0, 269.772, 1.500, 0, FourCC("DTlv"))
-    gg_dest_DTlv_14661 = BlzCreateDestructableZWithSkin(FourCC("DTlv"), 4576.0, -3232.0, 366.6, 90.000, 1.500, 0, FourCC("DTlv"))
+    gg_dest_DTlv_14661 = BlzCreateDestructableZWithSkin(FourCC("DTlv"), 4768.0, -3168.0, 366.6, 55.257, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_17404 = BlzCreateDestructableWithSkin(FourCC("DTlv"), -2592.0, 10400.0, 180.326, 1.500, 0, FourCC("DTlv"))
     gg_dest_DTlv_0696 = BlzCreateDestructableWithSkin(FourCC("DTlv"), -2336.0, 2976.0, 43.000, 1.500, 0, FourCC("DTlv"))
     gg_dest_LTrt_17524 = BlzCreateDestructableZWithSkin(FourCC("LTrt"), 6344.4, 7851.8, 778.4, 61.958, 4.000, 3, FourCC("LTrt"))
@@ -918,17 +936,17 @@ function CreateAllItems()
     gg_item_I000_0287 = BlzCreateItemWithSkin(FourCC("I000"), 3776.4, 2780.6, FourCC("I000"))
     BlzCreateItemWithSkin(FourCC("I005"), 457.1, 5047.5, FourCC("I005"))
     BlzCreateItemWithSkin(FourCC("I009"), 14258.4, 6786.8, FourCC("I009"))
-    gg_item_lmbr_0011 = BlzCreateItemWithSkin(FourCC("lmbr"), -907.0, 5024.4, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 1467.2, 9945.6, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 8419.4, 2372.8, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 8382.8, 5447.7, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 820.0, 3122.4, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 1288.9, 6717.0, FourCC("lmbr"))
-    BlzCreateItemWithSkin(FourCC("lmbr"), 8022.5, 8945.3, FourCC("lmbr"))
+    gg_item_lmbr_0011 = BlzCreateItemWithSkin(FourCC("lmbr"), -907.0, 5024.4, FourCC("lmbr"))
     BlzCreateItemWithSkin(FourCC("lmbr"), 7945.6, -1269.0, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 8419.4, 2372.8, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 1288.9, 6717.0, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 820.0, 3122.4, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 8382.8, 5447.7, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("lmbr"), 8022.5, 8945.3, FourCC("lmbr"))
+    BlzCreateItemWithSkin(FourCC("manh"), 8175.6, 451.6, FourCC("manh"))
     gg_item_manh_0008 = BlzCreateItemWithSkin(FourCC("manh"), -767.0, 8480.5, FourCC("manh"))
     BlzCreateItemWithSkin(FourCC("ratf"), 5253.3, 7330.2, FourCC("ratf"))
-    BlzCreateItemWithSkin(FourCC("rde3"), 8831.2, 416.7, FourCC("rde3"))
     BlzCreateItemWithSkin(FourCC("rwiz"), 10271.5, -1672.2, FourCC("rwiz"))
     gg_item_spsh_0071 = BlzCreateItemWithSkin(FourCC("spsh"), 3070.0, 1774.1, FourCC("spsh"))
 end
@@ -1219,6 +1237,7 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("hfoo"), 2060.7, 6230.8, 271.681, FourCC("hfoo"))
     gg_unit_u000_0088 = BlzCreateUnitWithSkin(p, FourCC("u000"), 2043.7, 6536.5, 114.646, FourCC("u000"))
     SetUnitColor(gg_unit_u000_0088, ConvertPlayerColor(0))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), 5785.4, -2218.3, 178.325, FourCC("u003"))
     u = BlzCreateUnitWithSkin(p, FourCC("h00A"), -5608.5, 8970.9, 347.231, FourCC("h00A"))
     gg_unit_u002_0163 = BlzCreateUnitWithSkin(p, FourCC("u002"), 11690.4, 13.5, 41.947, FourCC("u002"))
     SetUnitColor(gg_unit_u002_0163, ConvertPlayerColor(6))
@@ -1325,6 +1344,11 @@ function CreateNeutralHostile()
     u = BlzCreateUnitWithSkin(p, FourCC("h006"), 14464.6, 3852.8, 72.686, FourCC("h006"))
     u = BlzCreateUnitWithSkin(p, FourCC("u009"), 14526.8, 2755.9, 116.769, FourCC("u009"))
     u = BlzCreateUnitWithSkin(p, FourCC("u009"), 14295.2, 2566.4, 174.469, FourCC("u009"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), 4954.1, -2002.0, 50.837, FourCC("u003"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), 3907.4, -672.4, 241.024, FourCC("u003"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), 4175.4, -2305.0, 356.437, FourCC("u003"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u003"), 5287.3, -2846.1, 241.923, FourCC("u003"))
+    u = BlzCreateUnitWithSkin(p, FourCC("u009"), 8792.9, -435.6, 2.121, FourCC("u009"))
 end
 
 function CreateNeutralPassiveBuildings()
@@ -1390,7 +1414,6 @@ function CreateNeutralPassive()
     gg_unit_n002_0069 = BlzCreateUnitWithSkin(p, FourCC("n002"), 3296.7, 3774.7, 2.348, FourCC("n002"))
     gg_unit_opeo_0070 = BlzCreateUnitWithSkin(p, FourCC("opeo"), 962.5, 2153.7, 87.876, FourCC("opeo"))
     gg_unit_obot_0077 = BlzCreateUnitWithSkin(p, FourCC("obot"), 1032.5, 2381.5, 27.094, FourCC("obot"))
-    u = BlzCreateUnitWithSkin(p, FourCC("hrif"), 6845.9, 2026.3, 45.000, FourCC("hrif"))
     gg_unit_h00D_0132 = BlzCreateUnitWithSkin(p, FourCC("h00D"), 14247.5, 6712.6, 69.441, FourCC("h00D"))
     gg_unit_o003_0144 = BlzCreateUnitWithSkin(p, FourCC("o003"), -4793.5, 7489.3, 1.892, FourCC("o003"))
     u = BlzCreateUnitWithSkin(p, FourCC("ocat"), -6970.7, -2712.5, 160.636, FourCC("ocat"))
@@ -1463,6 +1486,7 @@ function CreateNeutralPassive()
     u = BlzCreateUnitWithSkin(p, FourCC("h008"), -2163.5, 8349.0, 276.838, FourCC("h008"))
     u = BlzCreateUnitWithSkin(p, FourCC("h008"), -2393.9, 8210.4, 313.156, FourCC("h008"))
     u = BlzCreateUnitWithSkin(p, FourCC("h008"), -1700.7, 8409.2, 222.848, FourCC("h008"))
+    u = BlzCreateUnitWithSkin(p, FourCC("n000"), -6135.1, -2893.8, 325.411, FourCC("n000"))
     u = BlzCreateUnitWithSkin(p, FourCC("h009"), 4881.3, 6783.4, 47.883, FourCC("h009"))
     u = BlzCreateUnitWithSkin(p, FourCC("h009"), 5612.7, 6878.7, 296.553, FourCC("h009"))
     u = BlzCreateUnitWithSkin(p, FourCC("nvlw"), 7158.6, 434.4, 264.141, FourCC("nvlw"))
@@ -1521,7 +1545,7 @@ function CreateRegions()
     gg_rct_Button_2 = Rect(-2464.0, 2848.0, -2208.0, 3072.0)
     gg_rct_Solve3 = Rect(1952.0, 7104.0, 2080.0, 7488.0)
     gg_rct_Region_011 = Rect(-1760.0, 6272.0, -1632.0, 6880.0)
-    gg_rct_KainStart = Rect(-128.0, 4160.0, 0.0, 4288.0)
+    gg_rct_KainStart = Rect(-160.0, 4160.0, -32.0, 4288.0)
     gg_rct_KotoBogSpawn2 = Rect(-1120.0, 3200.0, -1056.0, 3264.0)
     gg_rct_FirstDorWannaKey = Rect(-1664.0, 7744.0, -1280.0, 8224.0)
     gg_rct_EnterDark_2 = Rect(-1280.0, 7680.0, -1152.0, 8384.0)
@@ -1620,7 +1644,7 @@ function CreateRegions()
     gg_rct_Outro2 = Rect(3616.0, 10624.0, 4160.0, 11104.0)
     gg_rct_Outro3 = Rect(2432.0, 10176.0, 2656.0, 11392.0)
     gg_rct_Outro4 = Rect(-2560.0, 10592.0, -1440.0, 11008.0)
-    gg_rct_Outro5 = Rect(-6272.0, 10208.0, -5184.0, 11168.0)
+    gg_rct_Outro5 = Rect(-6272.0, 10208.0, -5216.0, 11168.0)
     gg_rct_FinalBanditsSpawn = Rect(-5440.0, 9664.0, -5120.0, 9952.0)
     gg_rct_Outro = Rect(-5344.0, 10272.0, -5248.0, 10400.0)
     gg_rct_BashZone = Rect(6112.0, 10528.0, 6816.0, 11296.0)
@@ -1643,7 +1667,7 @@ function CreateRegions()
     gg_rct_xWizard = Rect(11456.0, 8960.0, 11808.0, 9216.0)
     gg_rct_xWizardPatrol = Rect(11392.0, 9344.0, 11872.0, 9664.0)
     gg_rct_Region_131 = Rect(10848.0, 11968.0, 11360.0, 12256.0)
-    gg_rct_Dark9 = Rect(9440.0, 5728.0, 9984.0, 5824.0)
+    gg_rct_Dark9 = Rect(9440.0, 5760.0, 9984.0, 5856.0)
     gg_rct_YellowKeyMaster = Rect(11424.0, 2720.0, 11680.0, 2880.0)
     gg_rct_Light8 = Rect(9248.0, 5888.0, 10240.0, 5984.0)
     gg_rct_OgreMan = Rect(-4928.0, 7296.0, -4384.0, 7776.0)
@@ -1658,6 +1682,15 @@ function CreateRegions()
     gg_rct_Fence1 = Rect(-3360.0, 3552.0, -3072.0, 3744.0)
     gg_rct_Fence2 = Rect(-2080.0, 2816.0, -1792.0, 3008.0)
     gg_rct_LightFight = Rect(11232.0, 2528.0, 12032.0, 4096.0)
+    gg_rct_HintObstacle = Rect(3648.0, 1888.0, 3968.0, 2272.0)
+    gg_rct_HintObstacle2 = Rect(8256.0, 2656.0, 9024.0, 3040.0)
+    gg_rct_HintBloodGout = Rect(5792.0, -1024.0, 7328.0, 480.0)
+    gg_rct_HintBatsEvasion = Rect(5856.0, 864.0, 6304.0, 1600.0)
+    gg_rct_OpenGate11 = Rect(8896.0, -672.0, 9024.0, -352.0)
+    gg_rct_NoEnter2 = Rect(7712.0, 576.0, 9056.0, 992.0)
+    gg_rct_NoEnterHeart = Rect(8192.0, 256.0, 8320.0, 384.0)
+    gg_rct_OpenDoor3 = Rect(8384.0, -992.0, 8736.0, -800.0)
+    gg_rct_AbuserZone = Rect(-6208.0, 2432.0, -5600.0, 3808.0)
 end
 
 function CreateCameras()
@@ -2605,7 +2638,7 @@ function attack(data)
                 end
                 GroupRemoveUnit(perebor,e)
             end
-            if k>1 then
+            if k>1 and GetUnitTypeId(mainHero)==FourCC("Hpal") then
                 SetUnitAnimationByIndex(data.UnitHero,12)-- всегда сплешь
                 local eff=AddSpecialEffectTarget("Sweep_Attachments_FX\\Sweep_Blood_Large",mainHero,"hand left")
                 TimerStart(CreateTimer(), 5, false, function()
@@ -3932,6 +3965,7 @@ BossHPBar=nil
 notSplash=true
 function StartBossAI2(zone)
     local boss = FindUnitOfType(FourCC('Giam'))--баш лорд
+    local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
     BOSS=boss
     BossDamaged2(boss)
     BlzSetUnitMaxHP(boss,450)
@@ -3959,10 +3993,14 @@ function StartBossAI2(zone)
 
         else --Проверяем есть ли живые герои,
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 1000) or not UnitAlive(mainHero) then
+                if not IsUnitInRange(mainHero, boss, 1000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1500) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
+                    IssuePointOrder(boss,"move",bsx,bsy)
+                    DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    SetUnitPositionSmooth(boss,bsx,bsy)
+                    DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
                 end
@@ -4069,9 +4107,9 @@ function StartBossAI2(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
-                IssuePointOrder(boss,"boss",GetRectCenterX(zone),GetRectCenterY(zone))
+
                 BlzFrameSetVisible(bar,true)
-                HealUnit(boss,150)
+                HealUnit(boss,100)
                 BossFight=true
             end
         end--конец
@@ -4138,7 +4176,7 @@ function CreateGrave(boss,x,y)
     BlzSetSpecialEffectYaw(eff, math.rad(GetRandomInt(0,360)))
     --print(z.." стартовая")
     local skeleton=nil
-    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw"),FourCC("u009"),FourCC("u000")}
+    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw"),FourCC("u009"),FourCC("u000")} -- FourCC("u00D")
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         if sec>2 then
             BlzSetSpecialEffectPosition(eff,x,y,z-1)
@@ -4160,13 +4198,13 @@ function CreateGrave(boss,x,y)
             end
 
             if GetUnitTypeId(skeleton)==FourCC("u000") then --красный босс
-                StunUnit(boss,0.2)
+                StunUnit(skeleton,0.2)
                 --print("Редбосс")
                 TimerStart(CreateTimer(), 5, true, function()
-                    if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
-                        CreateMeteorMark(boss,GetUnitXY(mainHero))
+                    if IsUnitInRange(skeleton,mainHero,1000) and StunSystem[GetHandleId(skeleton)].Time==0 and UnitAlive(skeleton) then
+                        CreateMeteorMark(skeleton,GetUnitXY(mainHero))
                     end
-                    if not UnitAlive(boss) then
+                    if not UnitAlive(skeleton) then
                         DestroyTimer(GetExpiredTimer())
                     end
                 end)
@@ -4300,6 +4338,7 @@ BOSS=nil
 BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
+    local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
     BOSS=boss
     BossDamaged(boss)
     local BossFight=true
@@ -4326,9 +4365,11 @@ function StartBossAI(zone)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
+                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1000)  then
                     BossFight=false
                     phase=0
+                    IssuePointOrder(boss,"move",bsx,bsy)
+                    --SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyFogModifier(FW)
                     --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
@@ -4420,7 +4461,7 @@ function StartBossAI(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
-                IssuePointOrder(boss,"move",GetRectCenterX(zone),GetRectCenterY(zone))
+
                 BlzFrameSetVisible(bar,true)
                 HealUnit(boss,500)
                 BossFight=true
@@ -4745,7 +4786,7 @@ function StartBossL(zone)
     UnitAddType(boss,UNIT_TYPE_UNDEAD)
     StunUnit(boss,0.2)
     --print("Редбосс")
-    TimerStart(CreateTimer(), 5, true, function()
+    TimerStart(CreateTimer(), 6, true, function()
         if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
             if UnitAlive(boss) then
                 --print("хочет хильнуть")
@@ -4795,10 +4836,10 @@ function CreateHealWMark(boss)
         if sec<=0 then
             DestroyTimer(GetExpiredTimer())
             if StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) and UnitAlive(units[key]) then
-                HealUnit(units[key],100,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                HealUnit(units[key],80,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
             end
             BlzSetSpecialEffectPosition(mark,5000,5000,0)
-            local is,hero=UnitDamageArea(boss,100,GetUnitX(units[key]),GetUnitY(units[key]),150)
+            local is,hero=UnitDamageArea(boss,100,GetUnitX(units[key]),GetUnitY(units[key]),180)
             if is then
                 DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt",GetUnitXY(hero)))
             end
@@ -4868,6 +4909,7 @@ end
 function StartNecromantGui(zone)
 
     local boss=FindUnitOfType(FourCC("u00B"))
+    SetUnitOwner(boss,Player(9),true)
     BOSS=boss
     local bar=HealthBarAdd(boss)
     TimerStart(CreateTimer(), 2.5, true, function()
@@ -4880,6 +4922,27 @@ function StartNecromantGui(zone)
             --print(dmg)
             HealUnit(boss,-dmg)
             RemoveLocation(tl)
+            print(DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
+            if not IsUnitInRange(mainHero,boss,850) then
+                print("Too far")
+                local gold=CreateUnit(GetOwningPlayer(boss),FourCC("u00D"),x,y,GetRandomInt(0,360))
+                UnitApplyTimedLife(gold,FourCC('BTLF'),25)
+                UnitAddType(gold,UNIT_TYPE_UNDEAD)
+                StunUnit(gold,0.2)
+                --print("лайтбосс")
+                TimerStart(CreateTimer(), 6, true, function()
+                    if IsUnitInRange(gold,mainHero,500) and StunSystem[GetHandleId(gold)].Time==0 and UnitAlive(gold) then
+                        if UnitAlive(gold) then
+                           -- print("хочет хильнуть")
+                            CreateHealWMark(gold)
+                        end
+                    end
+                    if not UnitAlive(gold) then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
+            end
+
         else
             BlzFrameSetVisible(bar,false)
         end
@@ -4897,14 +4960,14 @@ end
 ---
 --"u00B
 do
-    TimerStart(CreateTimer(), 1, false, function()
+    TimerStart(CreateTimer(), 0.2, false, function()
         RegisterPeonBoss()
     end)
 end
 
 
 function RegisterPeonBoss()
-    local gg_trg_RANGE = CreateTrigger()
+    --[[local gg_trg_RANGE = CreateTrigger()
     local boss,k=FindUnitOfType(FourCC("o002"))
     BOSS=boss
     --print(k)
@@ -4915,16 +4978,32 @@ function RegisterPeonBoss()
         if hero==mainHero then
             --print(GetUnitName())
             DisableTrigger(GetTriggeringTrigger())
-            StartPEONAI(boss)
+            --StartPEONAI(boss)
         end
 
+    end)]]
+    --print("регистрация пеона")
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_PeonPlace)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartPEONAI()
+            DisableTrigger(this)
+        end
     end)
+
+
 end
 
 bsx,bsy=0,0
-function StartPEONAI(boss)
-    --local boss = FindUnitOfType(FourCC('u005'))
+function StartPEONAI()
+    local boss,err = FindUnitOfType(FourCC('o002'))
     BOSS=boss
+    --print("запускаем ИИ пеона")
+    if err==0 then
+        print('Пеон не найден, обратитесь к автору карты')
+    end
     bsx,bsy=GetUnitXY(boss)
     --BossDamaged(boss)
     local BossFight=true
@@ -5706,6 +5785,24 @@ function InitTrig_GoAway()
     TriggerAddAction(gg_trg_GoAway, Trig_GoAway_Actions)
 end
 
+function Trig_GoAway2_Conditions()
+    if (not (GetOwningPlayer(GetEnteringUnit()) == Player(0))) then
+        return false
+    end
+    return true
+end
+
+function Trig_GoAway2_Actions()
+    SetUnitPositionLoc(GetEnteringUnit(), GetRectCenter(gg_rct_NoEnterHeart))
+end
+
+function InitTrig_GoAway2()
+    gg_trg_GoAway2 = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_GoAway2, gg_rct_NoEnter2)
+    TriggerAddCondition(gg_trg_GoAway2, Condition(Trig_GoAway2_Conditions))
+    TriggerAddAction(gg_trg_GoAway2, Trig_GoAway2_Actions)
+end
+
 function Trig_Gain_Func001C()
     if (not (GetUnitLevel(gg_unit_Hpal_0002) == 2)) then
         return false
@@ -5945,6 +6042,94 @@ function InitTrig_Tips_7()
     gg_trg_Tips_7 = CreateTrigger()
     TriggerRegisterUnitEvent(gg_trg_Tips_7, gg_unit_hwt3_0119, EVENT_UNIT_DEATH)
     TriggerAddAction(gg_trg_Tips_7, Trig_Tips_7_Actions)
+end
+
+function Trig_Tips_8_Func001C()
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal")) then
+        return true
+    end
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Edmm")) then
+        return true
+    end
+    return false
+end
+
+function Trig_Tips_8_Conditions()
+    if (not Trig_Tips_8_Func001C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_Tips_8_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    QuestMessageBJ(GetPlayersAll(), bj_QUESTMESSAGE_ALWAYSHINT, "TRIGSTR_566")
+end
+
+function InitTrig_Tips_8()
+    gg_trg_Tips_8 = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Tips_8, gg_rct_HintObstacle2)
+    TriggerRegisterEnterRectSimple(gg_trg_Tips_8, gg_rct_HintObstacle)
+    TriggerAddCondition(gg_trg_Tips_8, Condition(Trig_Tips_8_Conditions))
+    TriggerAddAction(gg_trg_Tips_8, Trig_Tips_8_Actions)
+end
+
+function Trig_Tips_9_Func001C()
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal")) then
+        return true
+    end
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Edmm")) then
+        return true
+    end
+    return false
+end
+
+function Trig_Tips_9_Conditions()
+    if (not Trig_Tips_9_Func001C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_Tips_9_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    QuestMessageBJ(GetPlayersAll(), bj_QUESTMESSAGE_ALWAYSHINT, "TRIGSTR_567")
+end
+
+function InitTrig_Tips_9()
+    gg_trg_Tips_9 = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Tips_9, gg_rct_HintBloodGout)
+    TriggerAddCondition(gg_trg_Tips_9, Condition(Trig_Tips_9_Conditions))
+    TriggerAddAction(gg_trg_Tips_9, Trig_Tips_9_Actions)
+end
+
+function Trig_Tips_10_Func001C()
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal")) then
+        return true
+    end
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Edmm")) then
+        return true
+    end
+    return false
+end
+
+function Trig_Tips_10_Conditions()
+    if (not Trig_Tips_10_Func001C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_Tips_10_Actions()
+    DisableTrigger(GetTriggeringTrigger())
+    QuestMessageBJ(GetPlayersAll(), bj_QUESTMESSAGE_ALWAYSHINT, "TRIGSTR_570")
+end
+
+function InitTrig_Tips_10()
+    gg_trg_Tips_10 = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_Tips_10, gg_rct_HintBatsEvasion)
+    TriggerAddCondition(gg_trg_Tips_10, Condition(Trig_Tips_10_Conditions))
+    TriggerAddAction(gg_trg_Tips_10, Trig_Tips_10_Actions)
 end
 
 function Trig_Intro_1_Actions()
@@ -6732,7 +6917,7 @@ function InitTrig_Key3()
     TriggerAddAction(gg_trg_Key3, Trig_Key3_Actions)
 end
 
-function Trig_LightOn_Func001C()
+function Trig_LightOn_Func002C()
     if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal")) then
         return true
     end
@@ -6743,13 +6928,13 @@ function Trig_LightOn_Func001C()
 end
 
 function Trig_LightOn_Conditions()
-    if (not Trig_LightOn_Func001C()) then
+    if (not Trig_LightOn_Func002C()) then
         return false
     end
     return true
 end
 
-function Trig_LightOn_Func008C()
+function Trig_LightOn_Func009C()
     if (not (udg_IntLightCheck == 0)) then
         return false
     end
@@ -6757,13 +6942,14 @@ function Trig_LightOn_Func008C()
 end
 
 function Trig_LightOn_Actions()
+    DisableTrigger(GetTriggeringTrigger())
     SetTimeOfDay(12.00)
     SetTerrainFogExBJ(0, 500.00, 2500.00, 0, 25.00, 25.00, 20.00)
     TriggerSleepAction(0.10)
     EnableTrigger(gg_trg_LightDamage)
     ClearMapMusicBJ()
     PlayMusicBJ(gg_snd_102__Awakening)
-    if (Trig_LightOn_Func008C()) then
+    if (Trig_LightOn_Func009C()) then
         PlaySoundBJ(gg_snd_Kain5Light)
         TransmissionFromUnitWithNameBJ(GetPlayersAll(), nil, "TRIGSTR_201", nil, "TRIGSTR_202", bj_TIMETYPE_ADD, 0, true)
         udg_IntLightCheck = 1
@@ -6771,6 +6957,7 @@ function Trig_LightOn_Actions()
         QuestMessageBJ(GetPlayersAll(), bj_QUESTMESSAGE_ALWAYSHINT, "TRIGSTR_395")
     else
     end
+    EnableTrigger(GetTriggeringTrigger())
 end
 
 function InitTrig_LightOn()
@@ -7374,6 +7561,13 @@ function InitTrig_Trap1()
     TriggerAddAction(gg_trg_Trap1, Trig_Trap1_Actions)
 end
 
+function Trig_Trap1_Damage_Conditions()
+    if (not (GetEnteringUnit() ~= gg_unit_Hpal_0002)) then
+        return false
+    end
+    return true
+end
+
 function Trig_Trap1_Damage_Actions()
     ExplodeUnitBJ(GetEnteringUnit())
 end
@@ -7381,6 +7575,7 @@ end
 function InitTrig_Trap1_Damage()
     gg_trg_Trap1_Damage = CreateTrigger()
     TriggerRegisterEnterRectSimple(gg_trg_Trap1_Damage, gg_rct_Trap1)
+    TriggerAddCondition(gg_trg_Trap1_Damage, Condition(Trig_Trap1_Damage_Conditions))
     TriggerAddAction(gg_trg_Trap1_Damage, Trig_Trap1_Damage_Actions)
 end
 
@@ -7405,6 +7600,13 @@ function InitTrig_Trap2()
     TriggerAddAction(gg_trg_Trap2, Trig_Trap2_Actions)
 end
 
+function Trig_Trap2_Damage_Conditions()
+    if (not (GetEnteringUnit() ~= gg_unit_Hpal_0002)) then
+        return false
+    end
+    return true
+end
+
 function Trig_Trap2_Damage_Actions()
     ExplodeUnitBJ(GetEnteringUnit())
 end
@@ -7412,6 +7614,7 @@ end
 function InitTrig_Trap2_Damage()
     gg_trg_Trap2_Damage = CreateTrigger()
     TriggerRegisterEnterRectSimple(gg_trg_Trap2_Damage, gg_rct_Trap2)
+    TriggerAddCondition(gg_trg_Trap2_Damage, Condition(Trig_Trap2_Damage_Conditions))
     TriggerAddAction(gg_trg_Trap2_Damage, Trig_Trap2_Damage_Actions)
 end
 
@@ -7436,6 +7639,13 @@ function InitTrig_Trap3()
     TriggerAddAction(gg_trg_Trap3, Trig_Trap3_Actions)
 end
 
+function Trig_Trap3_Damage_Conditions()
+    if (not (GetEnteringUnit() ~= gg_unit_Hpal_0002)) then
+        return false
+    end
+    return true
+end
+
 function Trig_Trap3_Damage_Actions()
     ExplodeUnitBJ(GetEnteringUnit())
 end
@@ -7443,6 +7653,7 @@ end
 function InitTrig_Trap3_Damage()
     gg_trg_Trap3_Damage = CreateTrigger()
     TriggerRegisterEnterRectSimple(gg_trg_Trap3_Damage, gg_rct_Trap3)
+    TriggerAddCondition(gg_trg_Trap3_Damage, Condition(Trig_Trap3_Damage_Conditions))
     TriggerAddAction(gg_trg_Trap3_Damage, Trig_Trap3_Damage_Actions)
 end
 
@@ -7784,6 +7995,34 @@ function InitTrig_CaveEnter()
     TriggerRegisterEnterRectSimple(gg_trg_CaveEnter, gg_rct_EnterCave)
     TriggerAddCondition(gg_trg_CaveEnter, Condition(Trig_CaveEnter_Conditions))
     TriggerAddAction(gg_trg_CaveEnter, Trig_CaveEnter_Actions)
+end
+
+function Trig_CheckpointCave2_Func001C()
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal")) then
+        return true
+    end
+    if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Edmm")) then
+        return true
+    end
+    return false
+end
+
+function Trig_CheckpointCave2_Conditions()
+    if (not Trig_CheckpointCave2_Func001C()) then
+        return false
+    end
+    return true
+end
+
+function Trig_CheckpointCave2_Actions()
+    udg_RevivePoint = gg_rct_Dark9
+end
+
+function InitTrig_CheckpointCave2()
+    gg_trg_CheckpointCave2 = CreateTrigger()
+    TriggerRegisterEnterRectSimple(gg_trg_CheckpointCave2, gg_rct_Dark9)
+    TriggerAddCondition(gg_trg_CheckpointCave2, Condition(Trig_CheckpointCave2_Conditions))
+    TriggerAddAction(gg_trg_CheckpointCave2, Trig_CheckpointCave2_Actions)
 end
 
 function Trig_YellowKeyMaster_Func016C()
@@ -8364,7 +8603,7 @@ function InitTrig_Outro_4()
     TriggerAddAction(gg_trg_Outro_4, Trig_Outro_4_Actions)
 end
 
-function Trig_Outro_5_Func009C()
+function Trig_Outro_5_Func003C()
     if (GetUnitTypeId(GetEnteringUnit()) == FourCC("Hpal")) then
         return true
     end
@@ -8375,25 +8614,15 @@ function Trig_Outro_5_Func009C()
 end
 
 function Trig_Outro_5_Conditions()
-    if (not Trig_Outro_5_Func009C()) then
+    if (not Trig_Outro_5_Func003C()) then
         return false
     end
     return true
 end
 
-function Trig_Outro_5_Func008A()
-    IssueTargetOrderBJ(GetEnumUnit(), "attack", gg_unit_Hpal_0002)
-end
-
 function Trig_Outro_5_Actions()
     DisableTrigger(GetTriggeringTrigger())
-    EnableTrigger(gg_trg_PreventFromLeaving)
-    EnableTrigger(gg_trg_CheckForEveryoneDeaths)
-    udg_RevivePoint = gg_rct_Outro5
-    PlaySoundBJ(gg_snd_KainBrigand4)
-    TransmissionFromUnitWithNameBJ(GetPlayersAll(), nil, "TRIGSTR_430", nil, "TRIGSTR_431", bj_TIMETYPE_ADD, 0, true)
-    CreateNUnitsAtLoc(6, FourCC("h00B"), Player(PLAYER_NEUTRAL_AGGRESSIVE), GetRectCenter(gg_rct_FinalBanditsSpawn), bj_UNIT_FACING)
-    ForGroupBJ(GetUnitsInRectAll(gg_rct_FinalBanditsSpawn), Trig_Outro_5_Func008A)
+    DialogDisplayBJ(true, udg_FinalDialog, Player(0))
 end
 
 function InitTrig_Outro_5()
@@ -8401,6 +8630,44 @@ function InitTrig_Outro_5()
     TriggerRegisterEnterRectSimple(gg_trg_Outro_5, gg_rct_Outro5)
     TriggerAddCondition(gg_trg_Outro_5, Condition(Trig_Outro_5_Conditions))
     TriggerAddAction(gg_trg_Outro_5, Trig_Outro_5_Actions)
+end
+
+function Trig_Outro_5_Yes_Func001Func001A()
+    PauseUnitBJ(false, GetEnumUnit())
+end
+
+function Trig_Outro_5_Yes_Func001Func011A()
+    IssueTargetOrderBJ(GetEnumUnit(), "attack", gg_unit_Hpal_0002)
+end
+
+function Trig_Outro_5_Yes_Func001C()
+    if (not (GetClickedButtonBJ() == udg_Yes)) then
+        return false
+    end
+    return true
+end
+
+function Trig_Outro_5_Yes_Actions()
+    if (Trig_Outro_5_Yes_Func001C()) then
+        ForGroupBJ(GetUnitsInRectAll(gg_rct_FinalZone), Trig_Outro_5_Yes_Func001Func001A)
+        DisableTrigger(GetTriggeringTrigger())
+        EnableTrigger(gg_trg_PreventFromLeaving)
+        EnableTrigger(gg_trg_CheckForEveryoneDeaths)
+        udg_RevivePoint = gg_rct_Outro5
+        PlaySoundBJ(gg_snd_KainBrigand4)
+        TransmissionFromUnitWithNameBJ(GetPlayersAll(), nil, "TRIGSTR_578", nil, "TRIGSTR_579", bj_TIMETYPE_ADD, 0, true)
+        CreateNUnitsAtLoc(6, FourCC("h00B"), Player(PLAYER_NEUTRAL_AGGRESSIVE), GetRectCenter(gg_rct_FinalBanditsSpawn), bj_UNIT_FACING)
+        ForGroupBJ(GetUnitsInRectAll(gg_rct_FinalBanditsSpawn), Trig_Outro_5_Yes_Func001Func011A)
+    else
+        SetUnitPositionLoc(gg_unit_Hpal_0002, GetRectCenter(gg_rct_FinalBanditsSpawn))
+        EnableTrigger(gg_trg_Outro_5)
+    end
+end
+
+function InitTrig_Outro_5_Yes()
+    gg_trg_Outro_5_Yes = CreateTrigger()
+    TriggerRegisterDialogEventBJ(gg_trg_Outro_5_Yes, udg_FinalDialog)
+    TriggerAddAction(gg_trg_Outro_5_Yes, Trig_Outro_5_Yes_Actions)
 end
 
 function Trig_Outro_6_Actions()
@@ -9199,19 +9466,23 @@ function InitTrig_Kain_Dies()
     TriggerAddAction(gg_trg_Kain_Dies, Trig_Kain_Dies_Actions)
 end
 
-function Trig_Init_Func034Func002A()
+function Trig_Init_Func036Func002A()
     KillDestructable(GetEnumDestructable())
 end
 
-function Trig_Init_Func034Func005A()
+function Trig_Init_Func036Func005A()
     KillDestructable(GetEnumDestructable())
 end
 
-function Trig_Init_Func034C()
+function Trig_Init_Func036C()
     if (not (GetRandomInt(1, 2) == 1)) then
         return false
     end
     return true
+end
+
+function Trig_Init_Func037A()
+    PauseUnitBJ(true, GetEnumUnit())
 end
 
 function Trig_Init_Actions()
@@ -9221,6 +9492,8 @@ function Trig_Init_Actions()
     SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_DoorwayOpen2)
     SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_DoorwayOpen3)
     SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_DoorwayOpen4)
+    SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_OpenGate11)
+    SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_OpenDoor3)
     SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_SecretDoor1)
     SetDoodadAnimationRectBJ("death alternate", FourCC("D001"), gg_rct_DoorWayOpen5)
     SetDoodadAnimationRectBJ("death alternate", FourCC("D02O"), gg_rct_YellowDoor)
@@ -9245,14 +9518,19 @@ function Trig_Init_Actions()
     SetDoodadAnimationRectBJ("hide", FourCC("D02N"), gg_rct_Skull1)
     SetDoodadAnimationRectBJ("hide", FourCC("D02N"), gg_rct_Skull2)
     SetDoodadAnimationRectBJ("hide", FourCC("D02N"), gg_rct_Skull3)
-    if (Trig_Init_Func034C()) then
+    if (Trig_Init_Func036C()) then
         SetItemPositionLoc(gg_item_spsh_0071, GetRectCenter(gg_rct_BarrelAlternate))
         RemoveDestructable(gg_dest_B008_20585)
-        EnumDestructablesInRectAll(gg_rct_Fence1, Trig_Init_Func034Func005A)
+        EnumDestructablesInRectAll(gg_rct_Fence1, Trig_Init_Func036Func005A)
     else
         RemoveDestructable(gg_dest_B008_2929)
-        EnumDestructablesInRectAll(gg_rct_Fence2, Trig_Init_Func034Func002A)
+        EnumDestructablesInRectAll(gg_rct_Fence2, Trig_Init_Func036Func002A)
     end
+    ForGroupBJ(GetUnitsInRectAll(gg_rct_FinalZone), Trig_Init_Func037A)
+    DialogSetMessageBJ(udg_FinalDialog, "TRIGSTR_572")
+    DialogAddButtonBJ(udg_FinalDialog, "TRIGSTR_574")
+    udg_Yes = GetLastCreatedButtonBJ()
+    DialogAddButtonBJ(udg_FinalDialog, "TRIGSTR_575")
 end
 
 function InitTrig_Init()
@@ -9262,6 +9540,7 @@ end
 
 function InitCustomTriggers()
     InitTrig_GoAway()
+    InitTrig_GoAway2()
     InitTrig_Gain()
     InitTrig_Tips_1()
     InitTrig_Tips_2()
@@ -9270,6 +9549,9 @@ function InitCustomTriggers()
     InitTrig_Tips_5()
     InitTrig_Tips_6()
     InitTrig_Tips_7()
+    InitTrig_Tips_8()
+    InitTrig_Tips_9()
+    InitTrig_Tips_10()
     InitTrig_Intro_1()
     InitTrig_Intro_2()
     InitTrig_Intro_3()
@@ -9327,6 +9609,7 @@ function InitCustomTriggers()
     InitTrig_OpetToBoss()
     InitTrig_BrokenLever()
     InitTrig_CaveEnter()
+    InitTrig_CheckpointCave2()
     InitTrig_YellowKeyMaster()
     InitTrig_YellowKey()
     InitTrig_YellowKeyDoor()
@@ -9346,6 +9629,7 @@ function InitCustomTriggers()
     InitTrig_Outro_3()
     InitTrig_Outro_4()
     InitTrig_Outro_5()
+    InitTrig_Outro_5_Yes()
     InitTrig_Outro_6()
     InitTrig_PreventFromLeaving()
     InitTrig_CheckForEveryoneDeaths()

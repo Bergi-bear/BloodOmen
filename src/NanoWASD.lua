@@ -555,7 +555,7 @@ function attack(data)
                 end
                 GroupRemoveUnit(perebor,e)
             end
-            if k>1 then
+            if k>1 and GetUnitTypeId(mainHero)==FourCC("Hpal") then
                 SetUnitAnimationByIndex(data.UnitHero,12)-- всегда сплешь
                 local eff=AddSpecialEffectTarget("Sweep_Attachments_FX\\Sweep_Blood_Large",mainHero,"hand left")
                 TimerStart(CreateTimer(), 5, false, function()

@@ -5,14 +5,14 @@
 ---
 --"u00B
 do
-    TimerStart(CreateTimer(), 1, false, function()
+    TimerStart(CreateTimer(), 0.2, false, function()
         RegisterPeonBoss()
     end)
 end
 
 
 function RegisterPeonBoss()
-    local gg_trg_RANGE = CreateTrigger()
+    --[[local gg_trg_RANGE = CreateTrigger()
     local boss,k=FindUnitOfType(FourCC("o002"))
     BOSS=boss
     --print(k)
@@ -23,16 +23,32 @@ function RegisterPeonBoss()
         if hero==mainHero then
             --print(GetUnitName())
             DisableTrigger(GetTriggeringTrigger())
-            StartPEONAI(boss)
+            --StartPEONAI(boss)
         end
 
+    end)]]
+    --print("регистрация пеона")
+    local this = CreateTrigger()
+    TriggerRegisterEnterRectSimple(this, gg_rct_PeonPlace)
+    TriggerAddAction(this, function()
+        local hero=GetTriggerUnit()
+        if IsUnitType(hero,UNIT_TYPE_HERO) then
+            StartPEONAI()
+            DisableTrigger(this)
+        end
     end)
+
+
 end
 
 bsx,bsy=0,0
-function StartPEONAI(boss)
-    --local boss = FindUnitOfType(FourCC('u005'))
+function StartPEONAI()
+    local boss,err = FindUnitOfType(FourCC('o002'))
     BOSS=boss
+    --print("запускаем ИИ пеона")
+    if err==0 then
+        print('Пеон не найден, обратитесь к автору карты')
+    end
     bsx,bsy=GetUnitXY(boss)
     --BossDamaged(boss)
     local BossFight=true

@@ -27,6 +27,7 @@ BossHPBar=nil
 notSplash=true
 function StartBossAI2(zone)
     local boss = FindUnitOfType(FourCC('Giam'))--баш лорд
+    local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
     BOSS=boss
     BossDamaged2(boss)
     BlzSetUnitMaxHP(boss,450)
@@ -54,10 +55,14 @@ function StartBossAI2(zone)
 
         else --Проверяем есть ли живые герои,
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 1000) or not UnitAlive(mainHero) then
+                if not IsUnitInRange(mainHero, boss, 1000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1500) then
                     BossFight=false
                     phase=0
                     DestroyFogModifier(FW)
+                    IssuePointOrder(boss,"move",bsx,bsy)
+                    DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    SetUnitPositionSmooth(boss,bsx,bsy)
+                    DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
                 end
@@ -164,9 +169,9 @@ function StartBossAI2(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
-                IssuePointOrder(boss,"boss",GetRectCenterX(zone),GetRectCenterY(zone))
+
                 BlzFrameSetVisible(bar,true)
-                HealUnit(boss,150)
+                HealUnit(boss,100)
                 BossFight=true
             end
         end--конец
@@ -233,7 +238,7 @@ function CreateGrave(boss,x,y)
     BlzSetSpecialEffectYaw(eff, math.rad(GetRandomInt(0,360)))
     --print(z.." стартовая")
     local skeleton=nil
-    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw"),FourCC("u009"),FourCC("u000")}
+    local id={FourCC("uske"),FourCC("u004"),FourCC("u006"),FourCC("u007"),FourCC("nvlw"),FourCC("u009"),FourCC("u000")} -- FourCC("u00D")
     TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
         if sec>2 then
             BlzSetSpecialEffectPosition(eff,x,y,z-1)
@@ -255,13 +260,13 @@ function CreateGrave(boss,x,y)
             end
 
             if GetUnitTypeId(skeleton)==FourCC("u000") then --красный босс
-                StunUnit(boss,0.2)
+                StunUnit(skeleton,0.2)
                 --print("Редбосс")
                 TimerStart(CreateTimer(), 5, true, function()
-                    if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
-                        CreateMeteorMark(boss,GetUnitXY(mainHero))
+                    if IsUnitInRange(skeleton,mainHero,1000) and StunSystem[GetHandleId(skeleton)].Time==0 and UnitAlive(skeleton) then
+                        CreateMeteorMark(skeleton,GetUnitXY(mainHero))
                     end
-                    if not UnitAlive(boss) then
+                    if not UnitAlive(skeleton) then
                         DestroyTimer(GetExpiredTimer())
                     end
                 end)

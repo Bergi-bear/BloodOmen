@@ -28,7 +28,7 @@ function StartBossL(zone)
     UnitAddType(boss,UNIT_TYPE_UNDEAD)
     StunUnit(boss,0.2)
     --print("Редбосс")
-    TimerStart(CreateTimer(), 5, true, function()
+    TimerStart(CreateTimer(), 6, true, function()
         if IsUnitInRange(boss,mainHero,500) and StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) then
             if UnitAlive(boss) then
                 --print("хочет хильнуть")
@@ -78,10 +78,10 @@ function CreateHealWMark(boss)
         if sec<=0 then
             DestroyTimer(GetExpiredTimer())
             if StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) and UnitAlive(units[key]) then
-                HealUnit(units[key],100,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                HealUnit(units[key],80,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
             end
             BlzSetSpecialEffectPosition(mark,5000,5000,0)
-            local is,hero=UnitDamageArea(boss,100,GetUnitX(units[key]),GetUnitY(units[key]),150)
+            local is,hero=UnitDamageArea(boss,100,GetUnitX(units[key]),GetUnitY(units[key]),180)
             if is then
                 DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt",GetUnitXY(hero)))
             end

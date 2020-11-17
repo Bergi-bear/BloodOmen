@@ -58,6 +58,7 @@ end
 function StartNecromantGui(zone)
 
     local boss=FindUnitOfType(FourCC("u00B"))
+    SetUnitOwner(boss,Player(9),true)
     BOSS=boss
     local bar=HealthBarAdd(boss)
     TimerStart(CreateTimer(), 2.5, true, function()
@@ -70,6 +71,27 @@ function StartNecromantGui(zone)
             --print(dmg)
             HealUnit(boss,-dmg)
             RemoveLocation(tl)
+            print(DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
+            if not IsUnitInRange(mainHero,boss,850) then
+                print("Too far")
+                local gold=CreateUnit(GetOwningPlayer(boss),FourCC("u00D"),x,y,GetRandomInt(0,360))
+                UnitApplyTimedLife(gold,FourCC('BTLF'),25)
+                UnitAddType(gold,UNIT_TYPE_UNDEAD)
+                StunUnit(gold,0.2)
+                --print("лайтбосс")
+                TimerStart(CreateTimer(), 6, true, function()
+                    if IsUnitInRange(gold,mainHero,500) and StunSystem[GetHandleId(gold)].Time==0 and UnitAlive(gold) then
+                        if UnitAlive(gold) then
+                           -- print("хочет хильнуть")
+                            CreateHealWMark(gold)
+                        end
+                    end
+                    if not UnitAlive(gold) then
+                        DestroyTimer(GetExpiredTimer())
+                    end
+                end)
+            end
+
         else
             BlzFrameSetVisible(bar,false)
         end

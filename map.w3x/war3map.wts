@@ -1666,16 +1666,6 @@ STRING 429
 I thought we killed you, bastard!
 }
 
-STRING 430
-{
-Brigand
-}
-
-STRING 431
-{
-Have at ye, cur! If we put you down once, we can do it again!
-}
-
 STRING 432
 {
 Kain
@@ -2113,5 +2103,54 @@ STRING 565
 // Abilities: A00L (Форма Каина для руны), Name (Name)
 {
 Форма Каина для руны
+}
+
+STRING 566
+{
+|cffffff00Hint:
+|rSome doodads like barricades and trees can be killed by attacking.
+}
+
+STRING 567
+{
+|cffffff00Hint:|r
+To deal damage and stun with|cffffff00 Blood gout (R)|r, make sure that you push target into some obstacle. It can be wall, tree or even table.
+}
+
+STRING 570
+{
+|cffffff00Hint:|r
+In|cffffff00 Bat form (E)|r you move faster and also getting ability to avoid most of the enemy attacks.
+}
+
+STRING 571
+// Destructibles: B009 (DarknessAlt), Name (Name)
+{
+DarknessAlt
+}
+
+STRING 572
+{
+You will not be able to go back. Are you sure?
+}
+
+STRING 574
+{
+Yes
+}
+
+STRING 575
+{
+No
+}
+
+STRING 578
+{
+Brigand
+}
+
+STRING 579
+{
+Have at ye, cur! If we put you down once, we can do it again!
 }
 

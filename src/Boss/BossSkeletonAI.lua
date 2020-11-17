@@ -26,6 +26,7 @@ BOSS=nil
 BossHPBar=nil
 function StartBossAI(zone)
     local boss = FindUnitOfType(FourCC('u005'))
+    local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
     BOSS=boss
     BossDamaged(boss)
     local BossFight=true
@@ -52,9 +53,11 @@ function StartBossAI(zone)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
+                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1000)  then
                     BossFight=false
                     phase=0
+                    IssuePointOrder(boss,"move",bsx,bsy)
+                    --SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyFogModifier(FW)
                     --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
@@ -146,7 +149,7 @@ function StartBossAI(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
-                IssuePointOrder(boss,"move",GetRectCenterX(zone),GetRectCenterY(zone))
+
                 BlzFrameSetVisible(bar,true)
                 HealUnit(boss,500)
                 BossFight=true
