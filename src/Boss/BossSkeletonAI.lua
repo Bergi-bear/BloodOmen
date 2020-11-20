@@ -53,7 +53,7 @@ function StartBossAI(zone)
 
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
-                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1000)  then
+                if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1500)  then
                     BossFight=false
                     phase=0
                     IssuePointOrder(boss,"move",bsx,bsy)

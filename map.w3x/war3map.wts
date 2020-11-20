@@ -2144,13 +2144,85 @@ STRING 575
 No
 }
 
-STRING 578
+STRING 580
 {
 Brigand
 }
 
-STRING 579
+STRING 581
 {
 Have at ye, cur! If we put you down once, we can do it again!
+}
+
+STRING 582
+{
+|cffffff00Fun fact:|r
+There was rain effect, but we removed it cause of lags (like -10 fps at least). Blizzard fix it pls.
+}
+
+STRING 583
+// Units: h00F (City Guard), Name (Name)
+{
+City Guard
+}
+
+STRING 584
+// Units: h00G (Trader), Name (Name)
+{
+Trader
+}
+
+STRING 587
+{
+|cffffff00Hint:|r
+Seems like only merchants may go inside the village.
+}
+
+STRING 589
+{
+|cffffff00Hint:|r
+Some guards may find that something is wrong with the merchant. Be carefull.
+}
+
+STRING 591
+// Abilities: A00M (Death army), Hotkey (Hotkey - Normal)
+{
+T
+}
+
+STRING 598
+// Items: I00C (Death army), Name (Name)
+{
+Death army
+}
+
+STRING 599
+// Items: I00C (Death army), Tip (Tooltip - Basic)
+{
+Death army
+}
+
+STRING 600
+// Abilities: A00M (Death army), Name (Name)
+{
+Death army
+}
+
+STRING 601
+// Abilities: A00M (Death army), Tip (Tooltip - Normal)
+{
+Death army
+}
+
+STRING 602
+// Abilities: A00M (Death army), Ubertip (Tooltip - Normal - Extended)
+{
+Kain could use this spell to summon a living dead near every enemy he see. Oh, with what appetite they had eat flesh of their poor victims.
+}
+
+STRING 603
+// Units: o005 (Bergios (RED)), Name (Name)
+{
+Bergios (RED)
 }
 

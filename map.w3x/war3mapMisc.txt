@@ -1,9 +1,11 @@
 [Misc]
 CallForHelp=300.0
-CreepCallForHelp=300.0
+CreepCallForHelp=600.0
+GuardDistance=99999.0
 HeroFactorXP=70,80,100
 IntManaBonus=25.0
 IntRegenBonus=0.05
+MaxGuardDistance=99999.0
 MaxHeroLevel=25
 MaxUnitSpeed=999.0
 MinUnitSpeed=1.0

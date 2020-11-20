@@ -22,6 +22,7 @@ function InitLightingSpell()
             local target=GetSpellTargetUnit()
             local e=nil
             local k=1
+            local ss=0
             GroupEnumUnitsInRange(perebor,GetUnitX(target),GetUnitY(target),300,nil)
             while true do
                 e = FirstOfGroup(perebor)
@@ -32,7 +33,23 @@ function InitLightingSpell()
                 end
                 GroupRemoveUnit(perebor,e)
             end
+            PlaySoundNearUnit(caster,gg_snd_LightningBolt)
             local effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
+            HERO[0].isLighting=true
+            if k==1 then
+                HERO[0].isLighting=false
+            end
+            TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+                if not HERO[0].isLighting then
+                    DestroyTimer(GetExpiredTimer())
+                end
+                ss=ss+TIMER_PERIOD
+                if ss>=GetSoundDuration(gg_snd_LightningBolt)//1000 then
+                    ss=0
+                    normal_sound("Abilities/Spells/Orc/LightningBolt/LightningBolt.flac",GetUnitXY(target))
+                    --effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
+                end
+            end)
         end
     end)
 end
@@ -62,6 +79,7 @@ function InitDamageLighting()
             local xLast=GetUnitX(caster)
             if damagetype==DAMAGE_TYPE_UNIVERSAL then
                 local sec=0
+                local ss=0
                 local breakDamage=0
                 TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                     --print("Поражение болнией")
@@ -69,22 +87,29 @@ function InitDamageLighting()
                     if UnitDamageTarget( caster, target, 1, true, false, ATTACK_TYPE_NORMAL, DAMAGE_TYPE_NORMAL, WEAPON_TYPE_WHOKNOWS ) then
                         breakDamage=breakDamage+1
                         sec=sec+TIMER_PERIOD
+
                         if GetUnitLifePercent(target)<=5 then
                             SetUnitExploded(target, true)
                             --print("взрываем юнита")
                         end
                         if sec>=0.1 then
+
+                            --print("звук геде")
                             sec=0
                             SetUnitState(caster,UNIT_STATE_MANA,GetUnitState(caster,UNIT_STATE_MANA)-2)
                         end
+                       -- print(GetSoundDuration(gg_snd_LightningBolt)//1000)
                     end
+
                     StunUnit(target,1)
                     if not UnitAlive(target) then
                         DestroyTimer(GetExpiredTimer())
+                        HERO[0].isLighting=false
                     end
                     if xLast~=GetUnitX(caster) or GetUnitState(caster,UNIT_STATE_MANA)<=1  then
                         --print("сдвинулся или потерял ману")
                         DestroyTimer(GetExpiredTimer())
+                        HERO[0].isLighting=false
                     end
 
                     --Блок для боссов
@@ -96,6 +121,7 @@ function InitDamageLighting()
                             SpireCast(target,nx,ny)
                         end
                         DestroyTimer(GetExpiredTimer())
+                        HERO[0].isLighting=false
                     end
 
                     xLast=GetUnitX(caster)
@@ -107,12 +133,13 @@ function InitDamageLighting()
     end)
 end
 
-function CreateLighting2Unit(caster,target)
+function CreateLighting2Unit(caster,target,id)
+    if not id then id="CLPB" end
     local h=100
     local x,y=GetUnitXY(caster)
     local x1,y1=GetUnitXY(target)
     local z,z1=BlzGetUnitZ(caster)+h,BlzGetUnitZ(target)+h
-    local l=AddLightningEx("CLPB",true,x,y,z,x1,y1,z1) -- CLPB
+    local l=AddLightningEx(id,true,x,y,z,x1,y1,z1) -- CLPB -- AFOD
     TimerStart(CreateTimer(), 1, false, function()
         DestroyLightning(l)
     end)

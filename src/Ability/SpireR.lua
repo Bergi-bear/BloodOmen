@@ -19,15 +19,18 @@ function InitSpire()
         if GetSpellAbilityId() == FourCC('A007') then --Копьё
             local caster=GetTriggerUnit()
             local x,y=GetSpellTargetX(),GetSpellTargetY()
-            SpireCast(caster,x,y)
+            SpireCast(caster,x,y,"Valiant Charge")
         end
     end)
 end
 
-function SpireCast(caster,x,y)
+function SpireCast(caster,x,y,effModel)
+    if not effModel then
+        effModel="Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl"
+    end
     local xs,ys=GetUnitXY(caster)
     local angle=AngleBetweenXY(xs,ys,x,y)/bj_DEGTORAD
-    local eff=AddSpecialEffect("Abilities\\Spells\\Orc\\Shockwave\\ShockwaveMissile.mdl",xs,ys)
+    local eff=AddSpecialEffect(effModel,xs,ys)
     local dist=600
     local speed=15
     local curDist=0

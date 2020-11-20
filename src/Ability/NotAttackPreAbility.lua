@@ -13,6 +13,8 @@ function InitNotAttack()
     TriggerRegisterCommandEvent(ThisClick, FourCC("A002"), "darkritual")
     TriggerRegisterCommandEvent(ThisClick, FourCC("A005"), "acidbomb")
     TriggerRegisterCommandEvent(ThisClick, FourCC("A007"), "nagabuild")
+    TriggerRegisterCommandEvent(ThisClick, FourCC("A00G"), "chainlightning")
+
     --TriggerRegisterCommandEvent(ThisClick, 0, "cancel")
     --TriggerRegisterCommandEvent(ThisClick, 0, "stop")
     TriggerAddAction(ThisClick, function()
@@ -26,6 +28,7 @@ function InitNotAttack()
             --print("Способность отменена или подтверждена")
             TimerStart(CreateTimer(), 0.1, false, function()
                 HERO[0].ONTarget=false
+                ForceUICancelBJ(Player(0))
             end)
         end
     end)

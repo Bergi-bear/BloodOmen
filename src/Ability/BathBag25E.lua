@@ -24,6 +24,7 @@ function InitBB()
                 UnitMakeAbilityPermanent(caster,true,FourCC('A005')) -- контроль разума
                 UnitMakeAbilityPermanent(caster,true,FourCC('A007')) -- копьё
                 UnitMakeAbilityPermanent(caster,true,FourCC('A00G')) -- молния
+                UnitMakeAbilityPermanent(caster,true,FourCC('A00M')) -- армия тьмы
                 local curMP=GetUnitState(caster,UNIT_STATE_MANA)
                 --print(curMP)
                 UnitAddItemById(mainHero,FourCC("I00A")) --превращаемся в мышей

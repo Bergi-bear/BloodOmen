@@ -151,6 +151,16 @@ function InitWASD(hero)
             IndexAnimationAttack=4
         end
 
+        if GetUnitTypeId(mainHero)==FourCC("h00F") then   -- стражник
+            IndexAnimationWalk=6
+            IndexAnimationAttack=GetRandomInt(4,5)
+        end
+
+        if GetUnitTypeId(mainHero)==FourCC("h00G") then   -- торговец
+            IndexAnimationWalk=10
+            IndexAnimationAttack=9
+        end
+
         --Автоподбор предметов
         if data.DropInventory and IsUnitType(mainHero,UNIT_TYPE_HERO) then
             local range=150
@@ -806,7 +816,10 @@ function PlayUnitAnimationFromChat()
             UnitAddItemById(mainHero,FourCC("I00B"))
             return
         end
-
+        if GetEventPlayerChatString()=="l" then
+        PlaySoundNearUnit(mainHero,gg_snd_LightningBolt)
+            return
+        end
         SetUnitAnimationByIndex(mainHero,s)
         --print(GetUnitName(mainHero).." "..s)
     end)

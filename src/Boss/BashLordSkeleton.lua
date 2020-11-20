@@ -30,7 +30,7 @@ function StartBossAI2(zone)
     local bsx,bsy=GetUnitXY(boss) --стартовая позиция босса
     BOSS=boss
     BossDamaged2(boss)
-    BlzSetUnitMaxHP(boss,450)
+    BlzSetUnitMaxHP(boss,600)
     local BossFight=true
     --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
@@ -250,9 +250,13 @@ function CreateGrave(boss,x,y)
             DestroyTimer(GetExpiredTimer())
             DestroyEffect(eff)
             DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Undead\\RaiseSkeletonWarrior\\RaiseSkeleton.mdl",x,y))
-            if GetUnitTypeId(boss)==FourCC("u00B") then
+            if GetUnitTypeId(boss)==FourCC("u00B") then --призыв некроманта
                 skeleton=CreateUnit(GetOwningPlayer(boss),id[GetRandomInt(1,#id)],x,y,GetRandomInt(0,360))
-            else
+                CreateLighting2Unit(boss,skeleton,"AFOD")
+                local dmg=GetRandomInt(10,20)
+                HealUnit(boss,-dmg)
+                FlyTextTagMiss(boss,R2I(dmg),GetOwningPlayer(mainHero))
+            else -- призыв грейвкипера
                 skeleton=CreateUnit(GetOwningPlayer(boss),FourCC("uske"),x,y,GetRandomInt(0,360))
             end
             if GetUnitTypeId(skeleton)==FourCC("nvlw") then --девочка

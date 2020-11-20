@@ -17,7 +17,7 @@ function StartFearArea()
         while true do
             e = FirstOfGroup(perebor)
             if e == nil then break end
-            if UnitAlive(e) and (IsUnitEnemy(e,GetOwningPlayer(mainHero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE))and not IsUnitType(e,UNIT_TYPE_STRUCTURE) then
+            if UnitAlive(e) and GetUnitTypeId(mainHero)==FourCC("Hpal") and (IsUnitEnemy(e,GetOwningPlayer(mainHero)) or GetOwningPlayer(e)==Player(PLAYER_NEUTRAL_PASSIVE)) and not IsUnitType(e,UNIT_TYPE_STRUCTURE) then
                 if GetUnitTypeId(e)==FourCC("n006") then
                     if OrderId2String(GetUnitCurrentOrder(mainHero))~="move" then
                         --print("в страхе убегает")

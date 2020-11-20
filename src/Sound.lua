@@ -8,11 +8,11 @@ do
         --звуки попаданий
         SoundAttack1 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh3", false, true, true, 0, 0, "MissilesEAX")
         SetSoundParamsFromLabel(SoundAttack1, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack1, 853)
+        SetSoundDuration(SoundAttack1, 600)
         SetSoundVolume(SoundAttack1, 250)
         SoundAttack2 = CreateSound("Sound\\Units\\Combat\\MetalHeavySliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
         SetSoundParamsFromLabel(SoundAttack2, "MetalHeavySliceFlesh")
-        SetSoundDuration(SoundAttack2, 853)
+        SetSoundDuration(SoundAttack2, 600)
         SetSoundVolume(SoundAttack2, 250)
         --Звуки промахов
         SoundAttack3 = CreateSound("Sound\\Units\\Combat\\MetalLightSliceFlesh2", false, true, true, 0, 0, "MissilesEAX")
@@ -63,6 +63,13 @@ do
         SetSoundParamsFromLabel(SoundStep4, "HeroCinematicStep2")
         SetSoundDuration(SoundStep4, 853)
         SetSoundVolume(SoundStep4, 250)
+        --Эффекты
+        --молния
+        gg_snd_LightningBolt = CreateSound("Abilities/Spells/Orc/LightningBolt/LightningBolt.flac", false, true, true, 0, 0, "SpellsEAX")
+        SetSoundParamsFromLabel(gg_snd_LightningBolt, "LightningBolt")
+        SetSoundDuration(gg_snd_LightningBolt, 1999)
+        SetSoundVolume(gg_snd_LightningBolt, 127)
+
     end)
 end
 
@@ -70,5 +77,34 @@ function PlaySoundNearUnit(hero,sound)
     local tl = Location(GetUnitXY(hero))
     PlaySoundAtPointBJ(sound, 100, tl, 0)
     RemoveLocation(tl)
-    --print("звук хотьбы")
+   -- print("звук молнии")
+end
+
+function normal_sound (s,x,y)
+    local  snd = CreateSound(s, false, true, true, 10, 10, "CombatSoundsEAX")
+    SetSoundChannel(snd, 40)
+    SetSoundVolume(snd, 127)
+    SetSoundPitch(snd, 1)
+    SetSoundDistances(snd, 600, 10000)
+    SetSoundDistanceCutoff(snd, 2100)
+    SetSoundConeAngles(snd, 0.0, 0.0, 127)
+    SetSoundConeOrientation(snd, 0.0, 0.0, 0.0)
+    SetSoundPosition(snd, x, y, 50)
+    StartSound(snd)
+    KillSoundWhenDone(snd)
+end
+
+function PreloadSound3D_snd(s)
+local  snd = CreateSound(s,false,true,true,10,10,"CombatSoundsEAX")
+ SetSoundChannel(snd,5)
+ SetSoundVolume(snd,127)
+ SetSoundPitch(snd, 1)
+ SetSoundDistances(snd,999999,99999)
+ SetSoundDistanceCutoff(snd,99999)
+ SetSoundConeAngles(snd,0.0,0.0,127)
+ SetSoundConeOrientation(snd,0.0,0.0,0.0)
+ SetSoundPosition(snd,0.0,0.0,50.0)
+ StartSound(snd)
+ StopSound(snd, false, false)
+
 end

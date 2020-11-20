@@ -41,7 +41,7 @@ function InitStunPerDie()
                         local t=CreateTimer()
                         TimerStart(t, 0.1, true, function()
                             if not UnitAlive(target) then
-                                AddHeroXP(caster,GetUnitLevel(target)*10,true)
+                                AddHeroXP(caster,GetUnitLevel(target)*20,true)
                                 DestroyTimer(t)
                             end
                         end)
@@ -62,18 +62,19 @@ function InitStunPerDie()
 
                 end
             end)
-            if IsUnitInRange(caster,target,200) then
+            if IsUnitInRange(caster,target,200) and caster==mainHero and damage>1  then
                 if GetUnitTypeId(caster)==FourCC("Hpal") then
                     --print("звук удара")
 
-                    local tl = Location(GetUnitXY(target))
+
                     local r=GetRandomInt(1,2)
                     if r==1 then
-                        PlaySoundAtPointBJ(SoundAttack1, 100, tl, 0)
+                        normal_sound("Sound\\Units\\Combat\\MetalHeavySliceFlesh3",GetUnitXY(target))
+
                     else
-                        PlaySoundAtPointBJ(SoundAttack2, 100, tl, 0)
+                        normal_sound("Sound\\Units\\Combat\\MetalHeavySliceFlesh2",GetUnitXY(target))
                     end
-                    RemoveLocation(tl)
+
 
                     if not IsUnitType(target,UNIT_TYPE_UNDEAD) then
                         AddSpecialEffect("Objects\\Spawnmodels\\Other\\BeastmasterBlood\\BeastmasterBlood.mdl",GetUnitXY(target))
@@ -83,14 +84,22 @@ function InitStunPerDie()
                         AddSpecialEffect("Objects\\Spawnmodels\\NightElf\\NightElfBlood\\NightElfBloodChimaera.mdl",GetUnitXY(target))
                         --print(" кровь нежити")
                     end
+                else--Бьёт другое существо
+                    --print("Бьёт другое существо")
+                    if GetOwningPlayer(target)~=Player(PLAYER_NEUTRAL_PASSIVE) then
+                        SetPlayerAllianceStateBJ(GetOwningPlayer(target),Player(0), bj_ALLIANCE_UNALLIED)
+                    end
+                    local r=GetRandomInt(1,2)
+                    if r==1 then
+                        normal_sound("Sound\\Units\\Combat\\MetalLightChopFlesh1.flac",GetUnitXY(target))
+                        --PlaySoundNearUnit(target,SoundAttack7)
+                    else
+                        normal_sound("Sound\\Units\\Combat\\MetalLightChopFlesh2.flac",GetUnitXY(target))
+                        --PlaySoundNearUnit(target,SoundAttack8)
+                    end
                 end
-            else --Бьёт другое существо
-                local r=GetRandomInt(1,2)
-                if r==1 then
-                    PlaySoundNearUnit(target,SoundAttack7)
-                else
-                    PlaySoundNearUnit(target,SoundAttack8)
-                end
+            else
+
             end
         end
         if isEventDamaged  then -- после вычена брони для показа конкретного урона

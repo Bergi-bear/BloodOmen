@@ -23,12 +23,12 @@ end
 
 
 function StartIceBoss(zone)
-    local boss=FindUnitOfType(FourCC("u001"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
+    local boss=FindUnitOfType(FourCC("u001"),2000,GetRectCenterX(zone),GetRectCenterY(zone))
     StunUnit(boss,0.2)
     UnitAddAbility(boss,FourCC("A00C"))
     --print("Ледяной босс")
     TimerStart(CreateTimer(), 1, true, function()
-        if StunSystem[GetHandleId(boss)].Time>0 then
+        if StunSystem[GetHandleId(boss)].Time==0 then
             if  OrderId2String(GetUnitCurrentOrder(boss))~="blizzard" then
                 IssuePointOrder(boss,"blizzard",GetUnitXY(boss))
             end

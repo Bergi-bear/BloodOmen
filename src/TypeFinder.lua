@@ -48,5 +48,5 @@ function FindUnitOfType(id,flag,x,y)
 	if unit==nil then
 		--print("Не найдено живых юнитов данного типа")
 	end
-	return unit,k
+	return unit,k,rg
 end

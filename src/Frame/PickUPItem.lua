@@ -14,43 +14,12 @@ secToHideItem=0
 function InitPUI()
     local k=1
     local BDShowItems={}
-    local frame,text=CreateInfoItemBOX()
+    frameINFO,textINFO=CreateInfoItemBOX()
     local this = CreateTrigger()
     TriggerRegisterAnyUnitEventBJ(this, EVENT_PLAYER_UNIT_PICKUP_ITEM)
     TriggerAddAction(this, function()
         local item=GetManipulatedItem()
-        if not ItemInBD(BDShowItems,GetItemTypeId(item)) then
-            table.insert(BDShowItems,GetItemTypeId(item))
-            --print("пердмет показан первый раз")
-        else
-            --print("последующий")
-            return
-        end
-
-        if GetItemTypeId(item)~=FourCC("I004") and GetItemTypeId(item)~=FourCC("I00A") and GetItemTypeId(item)~=FourCC("I00B")then --Список исключений предметов
-            BlzFrameSetVisible(frame,true)
-            BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
-            BlzFrameSetAlpha(frame,255)
-            BlzFrameSetText(text, "You acquired new item:         |cffffcc00"..GetItemName(item).."|r")
-            --|cffffcc001-й уровень:|r
-
-            local tl = Location(GetUnitXY(target))
-            PlaySoundAtPointBJ(HintSound, 100, tl, 0)
-            RemoveLocation(tl)
-            local p=1/64
-            secToHideItem=secToHideItem+6
-            TimerStart(CreateTimer(), p, true, function()
-                secToHideItem=secToHideItem-p
-                if secToHideItem<=0 then
-                    DestroyTimer(GetExpiredTimer())
-                    BlzFrameSetVisible(frame,false)
-                end
-                if secToHideItem<=2.5 then
-                    BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
-                end
-            end)
-        end
-
+        ItemGlobalInfo(item)
     end)
 
 end
@@ -79,3 +48,39 @@ function ItemInBD(table,id)
     end
     return has
 end
+
+function ItemGlobalInfo(item,flag)
+    --[[
+    if not ItemInBD(BDShowItems,GetItemTypeId(item)) then
+        table.insert(BDShowItems,GetItemTypeId(item))
+        --print("пердмет показан первый раз")
+    else
+        --print("последующий")
+        --return
+    end]]
+    local frame,text=frameINFO,textINFO
+    if GetItemTypeId(item)~=FourCC("I004") and GetItemTypeId(item)~=FourCC("I00A") and GetItemTypeId(item)~=FourCC("I00B")then --Список исключений предметов
+        BlzFrameSetVisible(frame,true)
+        BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
+        BlzFrameSetAlpha(frame,255)
+        BlzFrameSetText(text, "You acquired new item:         |cffffcc00"..GetItemName(item).."|r")
+        if flag==1 then
+            BlzFrameSetText(text, "You used item: cffffcc00"..GetItemName(item).."|r")
+        end
+        --|cffffcc001-й уровень:|r
+        local p=1/64
+        secToHideItem=secToHideItem+6
+        TimerStart(CreateTimer(), p, true, function()
+            secToHideItem=secToHideItem-p
+            if secToHideItem<=0 then
+                DestroyTimer(GetExpiredTimer())
+                BlzFrameSetVisible(frame,false)
+            end
+            if secToHideItem<=2.5 then
+                BlzFrameSetAlpha(frame,R2I(secToHideItem*100))
+            end
+        end)
+    end
+end
+
+--ItemGlobalInfo(GetManipulatedItem(),1)

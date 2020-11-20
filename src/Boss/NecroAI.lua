@@ -62,18 +62,18 @@ function StartNecromantGui(zone)
     BOSS=boss
     local bar=HealthBarAdd(boss)
     TimerStart(CreateTimer(), 2.5, true, function()
-        if IsUnitInRange(mainHero,boss,1500) then
+        if IsUnitInRange(mainHero,boss,1200) and UnitAlive(mainHero) then
             BlzFrameSetVisible(bar,true)
             local tl=GetRandomLocInRect(gg_rct_FieldSkeletons)
             local x,y=GetLocationX(tl),GetLocationY(tl)
             local s=CreateGrave(boss,x,y)
             local dmg=GetRandomInt(10,20)
             --print(dmg)
-            HealUnit(boss,-dmg)
+            --HealUnit(boss,-GetRandomInt(10,20))
             RemoveLocation(tl)
-            print(DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
-            if not IsUnitInRange(mainHero,boss,850) then
-                print("Too far")
+            --print(DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
+            if not IsUnitInRange(mainHero,boss,850) and false then -- код отключен из за высокой сложности
+                --print("Too far")
                 local gold=CreateUnit(GetOwningPlayer(boss),FourCC("u00D"),x,y,GetRandomInt(0,360))
                 UnitApplyTimedLife(gold,FourCC('BTLF'),25)
                 UnitAddType(gold,UNIT_TYPE_UNDEAD)
@@ -94,6 +94,11 @@ function StartNecromantGui(zone)
 
         else
             BlzFrameSetVisible(bar,false)
+            HealUnit(boss,200)
+        end
+
+        if not UnitAlive(mainHero) then
+            ClearAfterDead(gg_rct_FieldSkeletons)
         end
 
         if not UnitAlive(boss) then
@@ -101,4 +106,18 @@ function StartNecromantGui(zone)
             BlzFrameSetVisible(bar,false)
         end
     end)
+end
+
+function ClearAfterDead(zone)
+    local e=nil
+    GroupEnumUnitsInRect(perebor,zone,nil)
+        while true do
+            e = FirstOfGroup(perebor)
+
+            if e == nil then break end
+            if UnitAlive(e) and e~=BOSS then
+                KillUnit(e)
+            end
+            GroupRemoveUnit(perebor,e)
+        end
 end

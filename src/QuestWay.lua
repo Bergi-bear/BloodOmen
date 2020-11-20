@@ -71,7 +71,10 @@ function AddQuest(hero, qx, qy, message)
 end
 
 --lastX=0
+ShowWay=true
 function CreateForUnitWayToPoint(hero, xEnd, yEnd)
+    if not ShowWay then return end
+    ShowWay=false
     local dummy = CreateUnit(GetOwningPlayer(hero), FourCC("ewsp"), GetUnitX(hero), GetUnitY(hero), AngleBetweenXY(GetUnitX(hero), GetUnitY(hero), xEnd, yEnd) / bj_DEGTORAD)
     if UnitAddAbility(dummy, FourCC("Aloc")) then
         --print("добавлено")
@@ -114,13 +117,14 @@ function CreateForUnitWayToPoint(hero, xEnd, yEnd)
 
         if lastX ~= GetUnitX(hero) then
             stay = true
-            TimerStart(CreateTimer(), 2, false, function()
+            TimerStart(CreateTimer(), 6, false, function() -- время через которое удаляется квест, после того как юнит сдвинулся
                 --print("Дамми дошёл до точки на скорости "..GetUnitMoveSpeed(dummy).." за "..sec.." секунд и за "..i.." шагов")
                 for k = 1, #eff do
                     DestroyEffect(eff[k])
                 end
                 eff = {}
                 i = 1
+                ShowWay=true
                 ShowUnit(dummy, false)
                 DestroyTimer(t)
             end)
