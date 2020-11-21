@@ -24,6 +24,7 @@ end
 
 function StartGreenRed(zone)
     local boss=FindUnitOfType(FourCC("u002"),1000,GetRectCenterX(zone),GetRectCenterY(zone))
+    BOSS=boss
     UnitAddAbility(boss,FourCC("A00B"))
     local spawn=true
     StunUnit(boss,0.2)

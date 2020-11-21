@@ -4,4 +4,218 @@
 --- DateTime: 20.11.2020 3:19
 ---
 
-Golem=gg_unit_u00A_0384
+--Golem=gg_unit_u00A_0384
+GolemIsFree=false
+
+do
+    TimerStart(CreateTimer(), 3, false, function()
+        --RegisterNecroBoss()
+        StartAndWaitGolemAI(gg_unit_u00A_0384)
+    end)
+end
+
+function StartAndWaitGolemAI(boss)
+    local bsx,bsy=GetUnitXY(boss)
+    BlzSetUnitMaxHP(boss,2000)
+    HealUnit(boss,2000)
+    local BossFight=true
+    --print("Запущен ИИ Босса")
+    local bar=HealthBarAdd(boss)
+    BlzFrameSetVisible(bar,false)
+    GolemDamaged(boss)
+    local phase = 1 --стартовая фаза
+    local sec = 0
+    local PhaseOn = true
+    local OnAttack=true
+    TimerStart(CreateTimer(), 1, true, function() --каждую секунду
+        local x, y = GetUnitXY(boss)
+        if not UnitAlive(boss) then-- Место где босс умер
+            StartSound(bj_questCompletedSound)
+            DestroyTimer(GetExpiredTimer())
+            phase = 0
+            BlzFrameSetVisible(bar,false)
+            CameraClearNoiseForPlayer(Player(0))
+            --print("Даём нарграду? ,босс повержен")
+
+        else --Проверяем есть ли живые герои,
+            if BossFight then
+                if not IsUnitInRange(mainHero, boss, 1000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,2000) then
+                    BossFight=false
+                    phase=0
+                    CameraClearNoiseForPlayer(Player(0))
+                    IssuePointOrder(boss,"move",bsx,bsy)
+                    DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    SetUnitPositionSmooth(boss,bsx,bsy)
+                    DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    --print("Герой мерт или далеко ушёл, остановка фаз")
+                    BlzFrameSetVisible(bar,false)
+                end
+            end
+        end
+        if BossFight then -- если идёт бой и каждую фазу
+            sec = sec + 1
+            if GetUnitLifePercent(boss)<=25 then
+
+            else
+
+            end
+            if sec >= 10 then
+                sec = 0
+                phase = phase + 1
+                PhaseOn = true
+                --print("phase " .. phase)
+                if phase >= 4 then
+                    phase = 0
+                end
+            end
+            --фазы
+            if phase == 1 and PhaseOn then
+                PhaseOn = false
+               -- print("камешки")
+                CreateEarthWall(boss)
+                CameraSetEQNoiseForPlayer(Player(0), 3)
+            end
+            if phase == 2 and PhaseOn then
+                CameraClearNoiseForPlayer(Player(0))
+                PhaseOn = false
+
+            end
+            if phase == 3 and PhaseOn  then
+                PhaseOn = false
+                --print("Разбег с отталкиавнием в сторону героя")
+
+            end
+
+            if phase == 4 and PhaseOn  then -- запуск волны
+                PhaseOn = false
+                --print("Фаза закапывания и выкапывания и тумана")
+
+
+                TimerStart(CreateTimer(), 2, true, function()
+                    --тут нужно какое-то действие
+
+                    if phase~=4 then
+                        -- print("фаза "..phase.." завершена")
+                        DestroyTimer(GetExpiredTimer())
+                        --BlzPauseUnitEx(boss,false)
+                    end
+                end)
+            end
+        else-- перезапуск боссфайта
+            if IsUnitInRange(mainHero, boss, 1000) and GolemIsFree then
+                --print("перезапуск боссфайта")
+                BOSS=boss
+                UnitRemoveAbility(boss,FourCC("Avul"))
+                BlzFrameSetVisible(bar,true)
+                HealUnit(boss,100)
+                BossFight=true
+            end
+        end--конец
+    end)
+end
+
+function GolemDamaged(boss)
+    local DamageTrigger = CreateTrigger()
+    for i = 0, bj_MAX_PLAYER_SLOTS - 1 do
+        --TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGING) -- До вычета брони
+        TriggerRegisterPlayerUnitEvent(DamageTrigger, Player(i), EVENT_PLAYER_UNIT_DAMAGED) -- После вычета брони
+    end
+    local bossTakenDamage=0
+    TriggerAddAction(DamageTrigger, function()
+        local damage     = GetEventDamage() -- число урона
+        if damage < 1 then return end
+        local eventId         = GetHandleId(GetTriggerEventId())
+        --local isEventDamaging = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGING)
+        local isEventDamaged = eventId == GetHandleId(EVENT_PLAYER_UNIT_DAMAGED)
+        local target          = GetTriggerUnit() -- тот кто получил урон
+        local caster          = GetEventDamageSource() -- тот кто нанёс урон
+
+
+        if isEventDamaged then
+            if target==boss then--  босс получает 100 урона
+                bossTakenDamage=bossTakenDamage+damage
+                if bossTakenDamage>=100 then
+                    bossTakenDamage=0
+                    local angle=AngleBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero))/bj_DEGTORAD
+
+                    --CreateFireLine(boss,angle,DistanceBetweenXY(GetUnitX(boss),GetUnitY(boss),GetUnitXY(mainHero)))
+                end
+            end
+            if caster==boss then
+                local r=GetRandomInt(1,5)
+                if r==1 and IsUnitInRange(boss,mainHero,300) then
+                    --SpireCast(boss,GetUnitXY(mainHero))
+                    StunUnit(mainHero,2)
+                end
+            end
+        end
+
+    end)
+
+end
+
+
+function CreateEarthWall(boss)
+    local sec=10
+    local k=1-GetUnitLifePercent(boss)/100
+    local p=1.2-k
+    --print(k)
+    local x,y=GetUnitXY(boss)
+    TimerStart(CreateTimer(),p,true, function()
+        local angle=AngleBetweenXY(x,y,GetUnitXY(mainHero))/bj_DEGTORAD
+        x,y=MoveXY(x,y,80,angle)
+        CreateWallElement(x,y,10,boss)
+        sec=sec-p
+        if sec<=0 then
+            DestroyTimer(GetExpiredTimer())
+
+        end
+    end)
+end
+
+function CreateWallElement(x,y,time,boss)
+    --print("создан жлемент")
+    local eff=AddSpecialEffect("Doodads\\Dungeon\\Rocks\\DungeonStalagmite\\DungeonStalagmite"..GetRandomInt(0,3),x,y)
+    DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
+    BlzSetSpecialEffectScale(eff,GetRandomReal(1,2))
+    BlzSetSpecialEffectYaw(eff, math.rad(GetRandomInt(1,360)))
+    local zNormal=BlzGetLocalSpecialEffectZ(eff)
+    local z=zNormal-500
+    BlzSetSpecialEffectZ(eff,z)
+    TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+        z=z+15
+        --print(z)
+        BlzSetSpecialEffectZ(eff,z)
+        if z>=zNormal then
+            DestroyTimer(GetExpiredTimer())
+            --print("вылез из земли")
+            local block=CreateDestructable(FourCC('YTpb'),x,y,0,1,0) --блокиратор пути земля
+            local is,hero=UnitDamageArea(boss,100,x,y,200)
+            local angle=AngleBetweenXY(x,y,GetUnitXY(hero))/bj_DEGTORAD
+            if hero then
+                UnitAddForceSimple(hero,angle,15,300,"dust")
+            end
+
+            TimerStart(CreateTimer(), time, false, function()
+                DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",x,y))
+                KillDestructable(block)
+                --print("элемент разрушен")
+                RemoveDestructable(block)
+                z=BlzGetLocalSpecialEffectZ(eff)
+                TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
+                    z=z-30
+                    BlzSetSpecialEffectZ(eff,z)
+                    if z<=zNormal-500 then
+
+                        DestroyTimer(GetExpiredTimer())
+                        DestroyEffect(eff)
+                        BlzSetSpecialEffectPosition(eff,5000,5000,0)
+                    end
+                end)
+            end)
+        end
+    end)
+
+end
+
+

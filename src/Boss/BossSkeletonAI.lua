@@ -34,7 +34,8 @@ function StartBossAI(zone)
     local bar=HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
-
+    ClearMapMusicBJ()
+    PlayMusicBJ(gg_snd_Blood_omen_2__Battle_theme) -- gg_snd_Blood_omen_2__Battle_theme
     local phase = 3 --стартовая фаза
     local sec = 0
     local PhaseOn = true
@@ -45,13 +46,16 @@ function StartBossAI(zone)
             StartSound(bj_questCompletedSound)
             DestroyTimer(GetExpiredTimer())
             phase = 0
+            GolemIsFree=true
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_All_Clear)
             BlzFrameSetVisible(bar,false)
             EnumDestructablesInRect(gg_rct_bossWin,nil,function()
                 KillDestructable(GetEnumDestructable())
             end)
             --print("Даём нарграду? ,босс повержен")
 
-        else --Проверяем есть ли живые герои, когда тиник жив
+        else --Проверяем есть ли живые герои, когда босс жив
             if BossFight then
                 if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) or not IsUnitInRangeXY( boss, bsx,bsy,1500)  then
                     BossFight=false
@@ -60,6 +64,8 @@ function StartBossAI(zone)
                     --SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyFogModifier(FW)
                     --print("Герой мерт или далеко ушёл, остановка фаз")
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
                     BlzFrameSetVisible(bar,false)
                 end
             end
@@ -149,7 +155,8 @@ function StartBossAI(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
-
+                ClearMapMusicBJ()
+                PlayMusicBJ(gg_snd_Blood_omen_2__Battle_theme)
                 BlzFrameSetVisible(bar,true)
                 HealUnit(boss,500)
                 BossFight=true

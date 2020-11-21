@@ -36,7 +36,8 @@ function StartBossAI2(zone)
     local bar=HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
-
+    ClearMapMusicBJ()
+    PlayMusicBJ(gg_snd_Varien___Born_Of_Blood__Risen_From_Ash)
     local phase = 4 --стартовая фаза
     local sec = 0
     local PhaseOn = true
@@ -51,6 +52,14 @@ function StartBossAI2(zone)
             EnumDestructablesInRect(gg_rct_bossWin,nil,function()
                 KillDestructable(GetEnumDestructable())
             end)
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_All_Clear)
+            TimerStart(CreateTimer(), 56, false, function()
+                if not UnitAlive(BOSS) then
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                end
+            end)
             --print("Даём нарграду? ,босс повержен")
 
         else --Проверяем есть ли живые герои,
@@ -64,6 +73,8 @@ function StartBossAI2(zone)
                     SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     --print("Герой мерт или далеко ушёл, остановка фаз")
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
                     BlzFrameSetVisible(bar,false)
                 end
             end
@@ -71,9 +82,9 @@ function StartBossAI2(zone)
         if BossFight then -- если идёт бой и каждую фазу
             sec = sec + 1
             if GetUnitLifePercent(boss)<=25 then
-
+                UnitAddAbility(boss,FourCC("A00N"))
             else
-
+                UnitRemoveAbility(boss,FourCC("A00N"))
             end
             if sec >= 10 then
                 sec = 0
@@ -169,7 +180,8 @@ function StartBossAI2(zone)
         else-- перезапуск боссфайта
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
-
+                ClearMapMusicBJ()
+                PlayMusicBJ(gg_snd_Varien___Born_Of_Blood__Risen_From_Ash)
                 BlzFrameSetVisible(bar,true)
                 HealUnit(boss,100)
                 BossFight=true

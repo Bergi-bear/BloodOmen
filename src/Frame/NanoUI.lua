@@ -68,7 +68,7 @@ function ShowInventory()
     BlzFrameClearAllPoints(infoPanel)
     BlzFrameSetVisible(infoPanel,true)
     BlzFrameSetAbsPoint(infoPanel, FRAMEPOINT_CENTER, 0,9) --0,9 чтобы полностью убрать
-
+    local bugFrames=BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_WORLD_FRAME, 0), '', 0)
     for i = 0, 5 do
         local item = BlzGetOriginFrame(ORIGIN_FRAME_ITEM_BUTTON, i)
         BlzFrameSetVisible(item, true)
@@ -76,13 +76,22 @@ function ShowInventory()
         BlzFrameSetSize(item, next, next)
         BlzFrameSetAbsPoint(item,FRAMEPOINT_BOTTOM,0.31+next/2+(next*i),0.04)
 
-        local bag = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', BlzGetOriginFrame(ORIGIN_FRAME_WORLD_FRAME, 0), '', 0)
+        local bag = BlzCreateFrameByType('BACKDROP', 'FaceButtonIcon', bugFrames, '', 0)
         BlzFrameSetParent(bag, BlzGetFrameByName("ConsoleUIBackdrop", 0))
         BlzFrameSetTexture(bag, bagT, 0, true)
         BlzFrameSetSize(bag, next*1.1, next*1.1)
         BlzFrameSetAbsPoint(bag,FRAMEPOINT_BOTTOM,0.31+next/2+(next*i),0.04)
-
     end
+    TimerStart(CreateTimer(), .1, true, function()
+        if mainHero then
+            if IsUnitType(mainHero,UNIT_TYPE_HERO) then
+                BlzFrameSetVisible(bugFrames,true)
+            else
+                BlzFrameSetVisible(bugFrames,false)
+            end
+        end
+    end)
+
 end
 
 function MenuFrame()
@@ -218,6 +227,7 @@ function InitSelectionRegister()
                     --print("Определён первый герой для игрока")
                     StunUnit(hero,0.2)
                     mainHero=hero
+                    InitCry()
                     InitWASD(mainHero)
                     --print("initwasd")
                     ShowInventory()

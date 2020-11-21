@@ -64,8 +64,9 @@ function ItemGlobalInfo(item,flag)
         BlzFrameSetTexture(frame,BlzGetItemIconPath(item),0,true)
         BlzFrameSetAlpha(frame,255)
         BlzFrameSetText(text, "You acquired new item:         |cffffcc00"..GetItemName(item).."|r")
+        StartSound(bj_questHintSound)
         if flag==1 then
-            BlzFrameSetText(text, "You used item: cffffcc00"..GetItemName(item).."|r")
+            BlzFrameSetText(text, "You used item: |cffffcc00"..GetItemName(item).."|r")
         end
         --|cffffcc001-й уровень:|r
         local p=1/64

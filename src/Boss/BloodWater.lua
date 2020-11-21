@@ -52,6 +52,29 @@ function StartBossAIWE(zone)
         end
         if not UnitAlive(boss) then
             DestroyTimer(GetExpiredTimer())
+            --print("dead")
+            CreateArrowMark(GetUnitXY(boss))
+        end
+    end)
+end
+
+function CreateArrowMark(x,y)
+    TimerStart(CreateTimer(), 20, false, function()
+        local _,k,units=FindUnitOfType(FourCC("hrif"))
+        --print(k)
+        if k==0 then
+           -- print("могилки не найдены")
+        end
+        for i=1,#units do
+            --print(i)
+            local eff = AddSpecialEffect("AneuCaster", GetUnitXY(units[i]))  --"Abilities\\Spells\\Items\\AIco\\CrownOfCmndTarget.mdl"
+            BlzSetSpecialEffectPitch(eff, math.rad(-90))
+            BlzSetSpecialEffectZ(eff, BlzGetLocalUnitZ(units[i]) + 350)
+            TimerStart(CreateTimer(), 0.1, true, function()
+                local angle=GetUnitFacing(units[i])
+                --print("поворот "..angle)
+                BlzSetSpecialEffectYaw(eff, math.rad(angle))
+            end)
         end
     end)
 end

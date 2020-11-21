@@ -42,9 +42,11 @@ function RegisterPeonBoss()
 end
 
 bsx,bsy=0,0
+PeonIsRed=false
 function StartPEONAI()
     local boss,err = FindUnitOfType(FourCC('o002'))
     BOSS=boss
+    UnitRemoveAbility(boss,FourCC("Avul"))
     --print("запускаем ИИ пеона")
     if err==0 then
         print('Пеон не найден, обратитесь к автору карты')
@@ -60,7 +62,7 @@ function StartPEONAI()
     --local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     --FogModifierStart(FW)
 
-    local phase = 0 --стартовая фаза
+    local phase = 5 --стартовая фаза
     local sec = 0
     local PhaseOn = true
     local OnAttack=true
@@ -88,13 +90,22 @@ function StartPEONAI()
         end
         if BossFight then -- если идёт бой и каждую фазу
             sec = sec + 1
+            if GetUnitLifePercent(boss)<=50 and not PeonIsRed then
+                boss=ReplaceUnitBJ(boss,FourCC("o005"),1) --0 3
+                UnitAddAbility(boss,FourCC("A008"))
+                UnitAddType(boss,UNIT_TYPE_UNDEAD)
+                BlzFrameSetVisible(bar,false)
+                bar=HealthBarAdd(boss)
+                PeonIsRed=true
+                --print("peon is red")
 
+            end
             if sec >= 10 then
                 sec = 0
                 phase = phase + 1
                 PhaseOn = true
                 --print("phase " .. phase)
-                if phase >= 4 then --число фаз +1
+                if phase >= 5 then --число фаз +1
                     phase = 0
                 end
             end
@@ -197,7 +208,9 @@ function StartPEONAI()
 
             if phase == 5 and PhaseOn  then -- запуск волны
                 PhaseOn = false
-                --print("Призыв мелких пеонов для отхила")
+                --print("раскалывающий удар")
+                --PeonAttackCenter(boss)
+                Wall2Line(boss)
 
             end
         else-- перезапуск боссфайта
@@ -307,6 +320,10 @@ function AttackWMark(e)
     end)
     BlzSetSpecialEffectScale(mark,1)
     TimerStart(CreateTimer(), 2.5, false, function()
+        if PeonIsRed then
+            local eff=AddSpecialEffect("Abilities\\Spells\\Human\\FlameStrike\\FlameStrike1.mdl",nx,ny)
+            UnitDamageArea(e,99,nx,ny,150)
+        end
         DestroyEffect(mark)
         BlzSetSpecialEffectPosition(mark,5000,5000,0)
     end)
@@ -335,6 +352,7 @@ function PeonJumpAndFall(boss)
         SetUnitTimeScale(boss,0)
         local mark=AddSpecialEffect("Alarm",0,0)
         local zMark=550
+        local dx,dy=0,0
         BlzSetSpecialEffectScale(mark,4)
         TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
            -- BlzSetSpecialEffectPosition(mark,GetUnitX(mainHero),GetUnitY(mainHero),zMark)
@@ -356,6 +374,7 @@ function PeonJumpAndFall(boss)
                         local bx,by=MoveXY(GetUnitX(mainHero),GetUnitY(mainHero),400,GetUnitFacing(boss)-180)
                         SetUnitPosition(boss,bx,by)
                         BlzSetSpecialEffectPosition(mark,GetUnitX(mainHero),GetUnitY(mainHero),zMark)
+                        dx,dy=bx,by
                     else
                         if mark then
 
@@ -373,7 +392,7 @@ function PeonJumpAndFall(boss)
                     CameraSetEQNoiseForPlayer(Player(0), 3)
                     local bx,by=MoveXY(GetUnitX(boss),GetUnitY(boss),400,GetUnitFacing(boss)-180)
                     DestroyEffect(AddSpecialEffect("ThunderclapCasterClassic",bx,by))
-                    UnitDamageArea(boss,100,bx,by,500)
+                    UnitDamageArea(boss,100,dx,dy,500)
                     DestroyTimer(GetExpiredTimer())
                     DestroyEffect(mark)
                     BlzSetSpecialEffectPosition(mark,5000,5000,0)
@@ -390,5 +409,26 @@ function PeonJumpAndFall(boss)
             end
 
         end)
+    end)
+end
+
+function Wall2Line(boss)
+    local sec=10
+    local k=1-GetUnitLifePercent(boss)/100
+    local p=0.1
+    --print(k)
+    local x,y=GetUnitXY(boss)
+    local angle=AngleBetweenXY(x,y,GetUnitXY(mainHero))/bj_DEGTORAD
+    TimerStart(CreateTimer(),p,true, function()
+
+        --angle=GetUnitFacing(boss)
+
+        x,y=MoveXY(x,y,80,angle)
+        CreateWallElement(x,y,10,boss)
+        sec=sec-p
+        if sec<=0 then
+            DestroyTimer(GetExpiredTimer())
+
+        end
     end)
 end

@@ -582,7 +582,7 @@ function attack(data)
                     damage=damage+15
                 end
                 local nx,ny=MoveXY(GetUnitX(data.UnitHero),GetUnitY(data.UnitHero),100,GetUnitFacing(data.UnitHero))
-                if GetUnitTypeId(mainHero)~=FourCC("Edmm") and not data.isShield then
+                if GetUnitTypeId(mainHero)~=FourCC("Edmm") and not data.isShield and StunSystem[GetHandleId(mainHero)].Time==0 then
                     local is,_,k=UnitDamageArea(data.UnitHero,damage,nx,ny,100)
                     if not is then
                         local tl = Location(GetUnitXY(mainHero))
@@ -663,7 +663,9 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
             if flag==5 then
-                UnitDamageArea(hero,5,newX, newY,100)
+                if UnitDamageArea(hero,15,newX, newY,100) then
+                    HealUnit(hero,5)
+                end
                 m=m+1
                 if m>=6 then
                     local eff=AddSpecialEffect("Blood Massacre",newX, newY)
@@ -688,7 +690,11 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
                 end
             end
 
-            if currentdistance >= distance then
+            if flag=="dust" then
+                DestroyEffect(AddSpecialEffect( "Objects\\Spawnmodels\\Undead\\ImpaleTargetDust\\ImpaleTargetDust.mdl",newX, newY))
+            end
+
+            if currentdistance >= distance then --закончил движение
                 --or (data.OnWater and data.OnTorrent==false)
                 --data.IsDisabled=false
                 --data.OnWater=false

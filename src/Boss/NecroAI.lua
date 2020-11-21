@@ -61,6 +61,9 @@ function StartNecromantGui(zone)
     SetUnitOwner(boss,Player(9),true)
     BOSS=boss
     local bar=HealthBarAdd(boss)
+    ClearMapMusicBJ()
+    PlayMusicBJ(gg_snd_Blood_omen_2__Battle_theme)
+
     TimerStart(CreateTimer(), 2.5, true, function()
         if IsUnitInRange(mainHero,boss,1200) and UnitAlive(mainHero) then
             BlzFrameSetVisible(bar,true)
@@ -95,15 +98,27 @@ function StartNecromantGui(zone)
         else
             BlzFrameSetVisible(bar,false)
             HealUnit(boss,200)
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Blood_omen_2__Battle_theme)
         end
 
         if not UnitAlive(mainHero) then
             ClearAfterDead(gg_rct_FieldSkeletons)
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
         end
 
         if not UnitAlive(boss) then
             DestroyTimer(GetExpiredTimer())
             BlzFrameSetVisible(bar,false)
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_All_Clear)
+            TimerStart(CreateTimer(), 20, false, function()
+                if not UnitAlive(BOSS) then
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                end
+            end)
         end
     end)
 end
