@@ -663,9 +663,11 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
             if flag==5 then
-                if UnitDamageArea(hero,15,newX, newY,100) then
+                local _,enemy=UnitDamageArea(hero,15,newX, newY,100)
+                if enemy then
                     HealUnit(hero,5)
                 end
+
                 m=m+1
                 if m>=6 then
                     local eff=AddSpecialEffect("Blood Massacre",newX, newY)
@@ -824,6 +826,10 @@ function PlayUnitAnimationFromChat()
         end
         if GetEventPlayerChatString()=="l" then
         PlaySoundNearUnit(mainHero,gg_snd_LightningBolt)
+            return
+        end
+        if GetEventPlayerChatString()=="peon" then
+            SetUnitPositionSmooth(mainHero,-5500,-3000)
             return
         end
         SetUnitAnimationByIndex(mainHero,s)

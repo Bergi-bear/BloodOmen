@@ -186,7 +186,7 @@ function SetUnitPositionSmooth(source, x, y)
 		---
 		local dx=math.abs(x-last_x)
 		if dx>=100 then
-			print("Телепорт бак в функции Smooth"..dx )
+			--print("Телепорт бак в функции Smooth"..dx )
 		end
 		---
 		if bx then

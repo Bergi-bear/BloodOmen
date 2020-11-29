@@ -36,6 +36,7 @@ function StartBossAI2(zone)
     local bar=HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
+
     ClearMapMusicBJ()
     PlayMusicBJ(gg_snd_Varien___Born_Of_Blood__Risen_From_Ash)
     local phase = 4 --стартовая фаза
@@ -52,9 +53,10 @@ function StartBossAI2(zone)
             EnumDestructablesInRect(gg_rct_bossWin,nil,function()
                 KillDestructable(GetEnumDestructable())
             end)
+
             ClearMapMusicBJ()
             PlayMusicBJ(gg_snd_All_Clear)
-            TimerStart(CreateTimer(), 56, false, function()
+            TimerStart(CreateTimer(), 50, false, function()
                 if not UnitAlive(BOSS) then
                     ClearMapMusicBJ()
                     PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
@@ -73,8 +75,11 @@ function StartBossAI2(zone)
                     SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     --print("Герой мерт или далеко ушёл, остановка фаз")
-                    ClearMapMusicBJ()
-                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                    CameraClearNoiseForPlayer(Player(0))
+
+                        ClearMapMusicBJ()
+                        PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+
                     BlzFrameSetVisible(bar,false)
                 end
             end

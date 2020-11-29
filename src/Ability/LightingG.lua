@@ -35,6 +35,9 @@ function InitLightingSpell()
             end
             PlaySoundNearUnit(caster,gg_snd_LightningBolt)
             local effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
+            if UnitAlive(target) then
+               -- DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\Bolt\\BoltImpact.mdl",GetUnitXY(target)))
+            end
             HERO[0].isLighting=true
             if k==1 then
                 HERO[0].isLighting=false
@@ -42,11 +45,17 @@ function InitLightingSpell()
             TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                 if not HERO[0].isLighting then
                     DestroyTimer(GetExpiredTimer())
+                    --print("звука нет")
                 end
                 ss=ss+TIMER_PERIOD
-                if ss>=GetSoundDuration(gg_snd_LightningBolt)//1000 then
+                --print(GetSoundDuration(gg_snd_LightningBolt)//1000 )
+                if ss>=GetSoundDuration(gg_snd_LightningBolt)//2000 then -- 2 секунды
                     ss=0
                     normal_sound("Abilities/Spells/Orc/LightningBolt/LightningBolt.flac",GetUnitXY(target))
+                    if UnitAlive(target) then
+                       -- DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\Bolt\\BoltImpact.mdl",GetUnitXY(target)))
+                    end
+                    --print("sound light")
                     --effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
                 end
             end)
@@ -93,6 +102,7 @@ function InitDamageLighting()
                             --print("взрываем юнита")
                         end
                         if sec>=0.1 then
+                            --Abilities\Weapons\Bolt\BoltImpact.mdl
 
                             --print("звук геде")
                             sec=0

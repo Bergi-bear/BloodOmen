@@ -62,6 +62,9 @@ function StartPEONAI()
     --local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     --FogModifierStart(FW)
 
+    ClearMapMusicBJ()
+    PlayMusicBJ(gg_snd_Rayman_Origins_Soundtrack___Ocean_World__Moray_Boss)
+
     local phase = 5 --стартовая фаза
     local sec = 0
     local PhaseOn = true
@@ -77,6 +80,15 @@ function StartPEONAI()
                 CustomVictoryBJ(Player(0),true,true)
             end)
 
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_All_Clear)
+            TimerStart(CreateTimer(), 50, false, function()
+                if not UnitAlive(BOSS) then
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                end
+            end)
+
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
                 if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
@@ -84,6 +96,9 @@ function StartPEONAI()
                     phase=0
                     --DestroyFogModifier(FW)
                     --print("Герой мерт или далеко ушёл, остановка фаз")
+                    CameraClearNoiseForPlayer(Player(0))
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
                     BlzFrameSetVisible(bar,false)
                 end
             end
@@ -217,6 +232,8 @@ function StartPEONAI()
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
                 --IssuePointOrder(boss,"move",GetRectCenterX(zone),GetRectCenterY(zone))
+                ClearMapMusicBJ()
+                PlayMusicBJ(gg_snd_Rayman_Origins_Soundtrack___Ocean_World__Moray_Boss)
                 BlzFrameSetVisible(bar,true)
                 --HealUnit(boss,500)
                 BossFight=true

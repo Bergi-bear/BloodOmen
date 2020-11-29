@@ -580,6 +580,8 @@ gg_dest_DTlv_16350 = nil
 gg_dest_YTfb_16554 = nil
 gg_dest_YTfb_17362 = nil
 gg_dest_YTfb_17364 = nil
+gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u = ""
+gg_snd_Rayman_Origins_Soundtrack___Ocean_World__Moray_Boss = ""
 function InitGlobals()
     udg_IntLightCheck = 0
     udg_Cat = 0
@@ -876,6 +878,8 @@ function InitSounds()
     gg_snd_Blood_omen_2__Battle_theme = "war3mapImported/Blood omen 2_ Battle theme.mp3"
     gg_snd_Varien___Born_Of_Blood__Risen_From_Ash = "war3mapImported/Varien - Born Of Blood, Risen From Ash.mp3"
     gg_snd_All_Clear = "war3mapImported/All Clear.mp3"
+    gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u = "war3mapImported/Hollow Knight OST - Nosk (Boss Theme).mp3"
+    gg_snd_Rayman_Origins_Soundtrack___Ocean_World__Moray_Boss = "war3mapImported/Rayman Origins Soundtrack - Ocean World_ Moray Boss.mp3"
 end
 
 function CreateAllDestructables()
@@ -1702,7 +1706,7 @@ function CreateRegions()
     gg_rct_Rat_Barrel_Zone = Rect(3264.0, 3584.0, 3456.0, 3712.0)
     gg_rct_Bergi_Run_Away = Rect(672.0, 1792.0, 1216.0, 2208.0)
     gg_rct_BergiFinish = Rect(1664.0, 3904.0, 1888.0, 4416.0)
-    gg_rct_Cinematic_1 = Rect(-5632.0, -2912.0, -5536.0, -2816.0)
+    gg_rct_Cinematic_1 = Rect(-5600.0, -3360.0, -5504.0, -3264.0)
     gg_rct_Cinematic2 = Rect(-4960.0, -1952.0, -4832.0, -1888.0)
     gg_rct_Cry1 = Rect(4128.0, -2560.0, 4640.0, -896.0)
     gg_rct_Cry2 = Rect(-1376.0, 7008.0, -832.0, 7552.0)
@@ -2205,7 +2209,7 @@ function SetUnitPositionSmooth(source, x, y)
 		---
 		local dx=math.abs(x-last_x)
 		if dx>=100 then
-			print("Телепорт бак в функции Smooth"..dx )
+			--print("Телепорт бак в функции Smooth"..dx )
 		end
 		---
 		if bx then
@@ -2960,7 +2964,11 @@ function UnitAddForceSimple(hero, angle, speed, distance,flag)
             local newX, newY = MoveX(x, speed, angle), MoveY(y, speed, angle)
             SetUnitPositionSmooth(hero, newX, newY)
             if flag==5 then
-                UnitDamageArea(hero,12,newX, newY,100)
+                local _,enemy=UnitDamageArea(hero,15,newX, newY,100)
+                if enemy then
+                    HealUnit(hero,5)
+                end
+
                 m=m+1
                 if m>=6 then
                     local eff=AddSpecialEffect("Blood Massacre",newX, newY)
@@ -3119,6 +3127,10 @@ function PlayUnitAnimationFromChat()
         end
         if GetEventPlayerChatString()=="l" then
         PlaySoundNearUnit(mainHero,gg_snd_LightningBolt)
+            return
+        end
+        if GetEventPlayerChatString()=="peon" then
+            SetUnitPositionSmooth(mainHero,-5500,-3000)
             return
         end
         SetUnitAnimationByIndex(mainHero,s)
@@ -3768,7 +3780,7 @@ end
 ---
 ---
 do
-    TimerStart(CreateTimer(), 5, false, function()
+    TimerStart(CreateTimer(), 240, false, function()
         InitCry()
     end)
 end
@@ -3924,6 +3936,9 @@ function InitLightingSpell()
             end
             PlaySoundNearUnit(caster,gg_snd_LightningBolt)
             local effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
+            if UnitAlive(target) then
+               -- DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\Bolt\\BoltImpact.mdl",GetUnitXY(target)))
+            end
             HERO[0].isLighting=true
             if k==1 then
                 HERO[0].isLighting=false
@@ -3931,11 +3946,17 @@ function InitLightingSpell()
             TimerStart(CreateTimer(), TIMER_PERIOD, true, function()
                 if not HERO[0].isLighting then
                     DestroyTimer(GetExpiredTimer())
+                    --print("звука нет")
                 end
                 ss=ss+TIMER_PERIOD
-                if ss>=GetSoundDuration(gg_snd_LightningBolt)//1000 then
+                --print(GetSoundDuration(gg_snd_LightningBolt)//1000 )
+                if ss>=GetSoundDuration(gg_snd_LightningBolt)//2000 then -- 2 секунды
                     ss=0
                     normal_sound("Abilities/Spells/Orc/LightningBolt/LightningBolt.flac",GetUnitXY(target))
+                    if UnitAlive(target) then
+                       -- DestroyEffect(AddSpecialEffect("Abilities\\Weapons\\Bolt\\BoltImpact.mdl",GetUnitXY(target)))
+                    end
+                    --print("sound light")
                     --effect=AddSpecialEffect("Abilities\\Spells\\Other\\Monsoon\\MonsoonBoltTarget.mdl",GetUnitXY(caster))
                 end
             end)
@@ -3982,6 +4003,7 @@ function InitDamageLighting()
                             --print("взрываем юнита")
                         end
                         if sec>=0.1 then
+                            --Abilities\Weapons\Bolt\BoltImpact.mdl
 
                             --print("звук геде")
                             sec=0
@@ -4400,6 +4422,7 @@ function StartBossAI2(zone)
     local bar=HealthBarAdd(boss)
     local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     FogModifierStart(FW)
+
     ClearMapMusicBJ()
     PlayMusicBJ(gg_snd_Varien___Born_Of_Blood__Risen_From_Ash)
     local phase = 4 --стартовая фаза
@@ -4416,8 +4439,15 @@ function StartBossAI2(zone)
             EnumDestructablesInRect(gg_rct_bossWin,nil,function()
                 KillDestructable(GetEnumDestructable())
             end)
+
             ClearMapMusicBJ()
             PlayMusicBJ(gg_snd_All_Clear)
+            TimerStart(CreateTimer(), 50, false, function()
+                if not UnitAlive(BOSS) then
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                end
+            end)
             --print("Даём нарграду? ,босс повержен")
 
         else --Проверяем есть ли живые герои,
@@ -4431,8 +4461,11 @@ function StartBossAI2(zone)
                     SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     --print("Герой мерт или далеко ушёл, остановка фаз")
-                    ClearMapMusicBJ()
-                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                    CameraClearNoiseForPlayer(Player(0))
+
+                        ClearMapMusicBJ()
+                        PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+
                     BlzFrameSetVisible(bar,false)
                 end
             end
@@ -4705,7 +4738,10 @@ function InitBossZoneWE()
         local hero=GetTriggerUnit()
         if IsUnitType(hero,UNIT_TYPE_HERO) then
             StartBossAIWE(gg_rct_WEbolldBoss)
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u)
             DisableTrigger(this)
+            udg_RevivePoint = gg_rct_RedKeyDoor
         end
     end)
 end
@@ -4742,13 +4778,15 @@ function StartBossAIWE(zone)
         if not UnitAlive(boss) then
             DestroyTimer(GetExpiredTimer())
             --print("dead")
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
             CreateArrowMark(GetUnitXY(boss))
         end
     end)
 end
 
 function CreateArrowMark(x,y)
-    TimerStart(CreateTimer(), 60, false, function()
+    TimerStart(CreateTimer(), 20, false, function()
         local _,k,units=FindUnitOfType(FourCC("hrif"))
         --print(k)
         if k==0 then
@@ -5149,6 +5187,8 @@ function StartAndWaitGolemAI(boss)
     --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
     BlzFrameSetVisible(bar,false)
+    --ClearMapMusicBJ()
+    --PlayMusicBJ(gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u)
     GolemDamaged(boss)
     local phase = 1 --стартовая фаза
     local sec = 0
@@ -5162,6 +5202,8 @@ function StartAndWaitGolemAI(boss)
             phase = 0
             BlzFrameSetVisible(bar,false)
             CameraClearNoiseForPlayer(Player(0))
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
             --print("Даём нарграду? ,босс повержен")
 
         else --Проверяем есть ли живые герои,
@@ -5174,6 +5216,10 @@ function StartAndWaitGolemAI(boss)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    if GetUnitTypeId(mainHero)==FourCC("Hpal") then
+                        ClearMapMusicBJ()
+                        PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                    end
                     --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
                 end
@@ -5199,8 +5245,10 @@ function StartAndWaitGolemAI(boss)
             if phase == 1 and PhaseOn then
                 PhaseOn = false
                -- print("камешки")
-                CreateEarthWall(boss)
-                CameraSetEQNoiseForPlayer(Player(0), 3)
+                if UnitAlive(boss) then
+                    CreateEarthWall(boss)
+                    CameraSetEQNoiseForPlayer(Player(0), 3)
+                end
             end
             if phase == 2 and PhaseOn then
                 CameraClearNoiseForPlayer(Player(0))
@@ -5236,6 +5284,8 @@ function StartAndWaitGolemAI(boss)
                 BlzFrameSetVisible(bar,true)
                 HealUnit(boss,100)
                 BossFight=true
+                ClearMapMusicBJ()
+                PlayMusicBJ(gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u)
             end
         end--конец
     end)
@@ -5525,10 +5575,10 @@ function CreateHealWMark(boss)
         if sec<=0 then
             DestroyTimer(GetExpiredTimer())
             if StunSystem[GetHandleId(boss)].Time==0 and UnitAlive(boss) and UnitAlive(units[key]) then
-                HealUnit(units[key],80,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
+                HealUnit(units[key],150,nil,"Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt")
             end
             BlzSetSpecialEffectPosition(mark,5000,5000,0)
-            local is,hero=UnitDamageArea(boss,100,GetUnitX(units[key]),GetUnitY(units[key]),180)
+            local is,hero=UnitDamageArea(boss,150,GetUnitX(units[key]),GetUnitY(units[key]),180)
             if is then
                 DestroyEffect(AddSpecialEffect("Abilities\\Spells\\Human\\HolyBolt\\HolyBoltSpecialArt",GetUnitXY(hero)))
             end
@@ -5653,6 +5703,12 @@ function StartNecromantGui(zone)
             BlzFrameSetVisible(bar,false)
             ClearMapMusicBJ()
             PlayMusicBJ(gg_snd_All_Clear)
+            TimerStart(CreateTimer(), 20, false, function()
+                if not UnitAlive(BOSS) then
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                end
+            end)
         end
     end)
 end
@@ -5735,6 +5791,9 @@ function StartPEONAI()
     --local FW = CreateFogModifierRectBJ(false, Player(0), FOG_OF_WAR_VISIBLE, zone) --Рект босс
     --FogModifierStart(FW)
 
+    ClearMapMusicBJ()
+    PlayMusicBJ(gg_snd_Rayman_Origins_Soundtrack___Ocean_World__Moray_Boss)
+
     local phase = 5 --стартовая фаза
     local sec = 0
     local PhaseOn = true
@@ -5750,6 +5809,15 @@ function StartPEONAI()
                 CustomVictoryBJ(Player(0),true,true)
             end)
 
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_All_Clear)
+            TimerStart(CreateTimer(), 50, false, function()
+                if not UnitAlive(BOSS) then
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                end
+            end)
+
         else --Проверяем есть ли живые герои, когда тиник жив
             if BossFight then
                 if not IsUnitInRange(mainHero, boss, 2000) or not UnitAlive(mainHero) then
@@ -5757,6 +5825,9 @@ function StartPEONAI()
                     phase=0
                     --DestroyFogModifier(FW)
                     --print("Герой мерт или далеко ушёл, остановка фаз")
+                    CameraClearNoiseForPlayer(Player(0))
+                    ClearMapMusicBJ()
+                    PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
                     BlzFrameSetVisible(bar,false)
                 end
             end
@@ -5890,6 +5961,8 @@ function StartPEONAI()
             if IsUnitInRange(mainHero, boss, 1000) then
                 --print("перезапуск боссфайта")
                 --IssuePointOrder(boss,"move",GetRectCenterX(zone),GetRectCenterY(zone))
+                ClearMapMusicBJ()
+                PlayMusicBJ(gg_snd_Rayman_Origins_Soundtrack___Ocean_World__Moray_Boss)
                 BlzFrameSetVisible(bar,true)
                 --HealUnit(boss,500)
                 BossFight=true
@@ -6388,6 +6461,7 @@ function InitSelectionRegister()
                     --print("Определён первый герой для игрока")
                     StunUnit(hero,0.2)
                     mainHero=hero
+                    InitCry()
                     InitWASD(mainHero)
                     --print("initwasd")
                     ShowInventory()
@@ -6598,7 +6672,7 @@ function Trig_Gain_Func003C()
 end
 
 function Trig_Gain_Func004C()
-    if (not (GetUnitLevel(gg_unit_Hpal_0002) == 10)) then
+    if (not (GetUnitLevel(gg_unit_Hpal_0002) == 11)) then
         return false
     end
     return true

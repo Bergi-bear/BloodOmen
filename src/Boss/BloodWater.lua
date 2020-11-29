@@ -16,7 +16,10 @@ function InitBossZoneWE()
         local hero=GetTriggerUnit()
         if IsUnitType(hero,UNIT_TYPE_HERO) then
             StartBossAIWE(gg_rct_WEbolldBoss)
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u)
             DisableTrigger(this)
+            udg_RevivePoint = gg_rct_RedKeyDoor
         end
     end)
 end
@@ -53,6 +56,8 @@ function StartBossAIWE(zone)
         if not UnitAlive(boss) then
             DestroyTimer(GetExpiredTimer())
             --print("dead")
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
             CreateArrowMark(GetUnitXY(boss))
         end
     end)

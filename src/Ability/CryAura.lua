@@ -6,8 +6,8 @@
 ---
 ---
 do
-    TimerStart(CreateTimer(), 5, false, function()
-       -- InitCry()
+    TimerStart(CreateTimer(), 240, false, function()
+        InitCry()
     end)
 end
 function InitCry()

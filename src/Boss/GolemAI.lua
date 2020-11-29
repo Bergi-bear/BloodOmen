@@ -22,6 +22,8 @@ function StartAndWaitGolemAI(boss)
     --print("Запущен ИИ Босса")
     local bar=HealthBarAdd(boss)
     BlzFrameSetVisible(bar,false)
+    --ClearMapMusicBJ()
+    --PlayMusicBJ(gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u)
     GolemDamaged(boss)
     local phase = 1 --стартовая фаза
     local sec = 0
@@ -35,6 +37,8 @@ function StartAndWaitGolemAI(boss)
             phase = 0
             BlzFrameSetVisible(bar,false)
             CameraClearNoiseForPlayer(Player(0))
+            ClearMapMusicBJ()
+            PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
             --print("Даём нарграду? ,босс повержен")
 
         else --Проверяем есть ли живые герои,
@@ -47,6 +51,10 @@ function StartAndWaitGolemAI(boss)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
                     SetUnitPositionSmooth(boss,bsx,bsy)
                     DestroyEffect(AddSpecialEffect( "Abilities\\Spells\\NightElf\\Blink\\BlinkCaster.mdl", GetUnitXY(boss)))
+                    if GetUnitTypeId(mainHero)==FourCC("Hpal") then
+                        ClearMapMusicBJ()
+                        PlayMusicBJ(gg_snd_Blood_Omen__Legacy_of_Kain___Kain_s_Mausoleum)
+                    end
                     --print("Герой мерт или далеко ушёл, остановка фаз")
                     BlzFrameSetVisible(bar,false)
                 end
@@ -72,8 +80,10 @@ function StartAndWaitGolemAI(boss)
             if phase == 1 and PhaseOn then
                 PhaseOn = false
                -- print("камешки")
-                CreateEarthWall(boss)
-                CameraSetEQNoiseForPlayer(Player(0), 3)
+                if UnitAlive(boss) then
+                    CreateEarthWall(boss)
+                    CameraSetEQNoiseForPlayer(Player(0), 3)
+                end
             end
             if phase == 2 and PhaseOn then
                 CameraClearNoiseForPlayer(Player(0))
@@ -109,6 +119,8 @@ function StartAndWaitGolemAI(boss)
                 BlzFrameSetVisible(bar,true)
                 HealUnit(boss,100)
                 BossFight=true
+                ClearMapMusicBJ()
+                PlayMusicBJ(gg_snd_Hollow_Knight_OST___Nosk__Boss_Theme_u)
             end
         end--конец
     end)
